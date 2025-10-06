@@ -1,0 +1,55 @@
+@import "./../../../../style/index.scss";
+
+.headingBox {
+  box-sizing: border-box;
+  position: relative;
+  .heading {
+    background: transparent;
+    .headingText1,
+    .headingText2 {
+      font-size: 1.6em;
+      @include respond-to(desktop-lg) {
+        font-size: 1.5em;
+      }
+      @include respond-to(desktop) {
+        font-size: 1.4em;
+      }
+      @include respond-to(mobile) {
+        font-size: 1.2em;
+      }
+      @include respond-to(small-mobile) {
+        font-size: 0.8em;
+      }
+    }
+    .headingText1 {
+      color: $primaryColor;
+    }
+    .headingText2 {
+      color: $secondaryColor;
+    }
+  }
+
+  .shadowHeading {
+    position: absolute;
+    top: -120%;
+    color: #d9d9d9;
+    font-size: 5em;
+    z-index: -1;
+    @include respond-to(desktop-lg) {
+      top: -110%;
+      font-size: 4.5em;
+    }
+    @include respond-to(desktop) {
+      top: -100%;
+      font-size: 4em;
+    }
+    @include respond-to(mobile) {
+      top: -80%;
+      font-size: 3em;
+    }
+    @include respond-to(small-mobile) {
+      top: -60%;
+      font-size: 2.2em;
+    }
+  }
+}

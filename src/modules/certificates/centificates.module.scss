@@ -1,0 +1,37 @@
+@import "./../../style/index.scss";
+
+.certificatesContainer {
+  @include pageCommonCss;
+  .certificates {
+    @include display-flex(row, flex-start, center);
+    flex-wrap: wrap;
+    column-gap: 10rem;
+    margin-top: 2em;
+    .certificateDiv {
+      width: 25%;
+      @include respond-to(mobile) {
+        width: 100%;
+      }
+      @include respond-to(tablet) {
+        width: 100%;
+      }
+      @include respond-to(desktop) {
+        width: 40%;
+      }
+      @include respond-to(desktop-lg) {
+        width: 22%;
+      }
+      .certificate {
+        object-fit: contain;
+        max-width: 100%;
+        transition: all ease-in-out 0.3s;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+      .pTag {
+        color: $fontColor;
+      }
+    }
+  }
+}

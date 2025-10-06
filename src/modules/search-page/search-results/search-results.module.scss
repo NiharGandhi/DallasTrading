@@ -1,0 +1,58 @@
+@import "./../../../style/index.scss";
+
+.searchResultsContainer {
+  margin-top: 4rem;
+  transition: 0.3s;
+  .resultItem {
+    @include display-flex(row, flex-start, center);
+    margin: 2rem 0;
+    cursor: pointer;
+    width: 40rem;
+    padding: 1rem 0;
+    transition: all ease-in-out 0.2s;
+    @include respond-to(mobile) {
+      width: 100%;
+    }
+    .itemImage {
+      margin: 0;
+      margin-right: 2rem;
+      width: 30%;
+      aspect-ratio: 3/2;
+      object-fit: contain;
+      mix-blend-mode: color-burn;
+      @include respond-to(mobile) {
+        width: 25%;
+      }
+    }
+    .itemText {
+      color: $greyText;
+      font-weight: 500;
+      font-size: 1.2rem;
+      margin: 0.5em 0;
+      @include respond-to(mobile) {
+        font-size: 1rem;
+      }
+    }
+    .itemCat {
+      color: $greyText;
+      font-weight: 500;
+      font-size: 1.1rem;
+      margin: 0;
+      span {
+        text-decoration: underline;
+        font-size: 1.25rem;
+        color: $fontColor;
+        @include respond-to(mobile) {
+          font-size: 1.1rem;
+        }
+      }
+      @include respond-to(mobile) {
+        font-size: 1rem;
+      }
+    }
+    &:hover {
+      // box-shadow: 0px 0px 23px rgba(0, 0, 0, 0.13);
+      transform: scale(1.1);
+    }
+  }
+}

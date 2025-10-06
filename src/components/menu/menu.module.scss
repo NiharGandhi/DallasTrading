@@ -1,0 +1,43 @@
+@import "./../../style/index.scss";
+
+.drawerContainer {
+  position: relative;
+  box-sizing: border-box;
+  width: $windowWidth;
+  opacity: 0.95;
+  .drawerBox {
+    background-color: rgba(0, 0, 0, 0.95);
+    box-sizing: border-box;
+    color: white;
+    @include display-flex(column, center, center);
+    @include viewportHeight(100);
+    .menuImg {
+      object-fit: scale-down;
+      margin-bottom: 2.5%;
+      width: 8rem;
+      @include respond-to(mobile) {
+        width: 6rem;
+      }
+    }
+    .item {
+      @include display-flex(row, center, center);
+      font-size: 1.5rem;
+      transition: all ease 0.3s;
+      &:hover {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      @include respond-to(mobile) {
+        font-size: 1.2rem;
+      }
+    }
+  }
+  .closeIcon {
+    position: absolute;
+    cursor: pointer;
+    top: 5%;
+    right: 5%;
+    color: $white;
+    font-size: 2.5rem;
+    transition: all ease 0.3s;
+  }
+}

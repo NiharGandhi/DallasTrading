@@ -1,0 +1,30 @@
+@import "./../../../style/index.scss";
+
+.container {
+  background-color: $backGroundColor;
+  box-sizing: border-box;
+  width: $windowWidth;
+  @include display-flex(row, space-between, center);
+  padding: $xxxxl $commonPaddingForSides;
+  @media (max-width: 414px) {
+    padding: $xxl $commonPaddingForSides;
+  }
+  .text {
+    font-size: 1.8em;
+    @media (max-width: 414px) {
+      font-size: 1.2em;
+    }
+  }
+  .input {
+    border: none;
+    outline: none;
+    font-size: 1em;
+    @include viewportWidth(40);
+    padding: $lg;
+    @media (max-width: 414px) {
+      font-size: 1em;
+      padding: $xs;
+      @include viewportWidth(52);
+    }
+  }
+}

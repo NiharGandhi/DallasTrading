@@ -1,0 +1,12 @@
+@import "./../../style/index.scss";
+
+.productsPage {
+  @include pageCommonCss;
+  .loaderDiv {
+    height: 20rem;
+    width: 100%;
+    @include respond-to(mobile) {
+      width: 80%;
+    }
+  }
+}

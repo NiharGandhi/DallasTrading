@@ -1,0 +1,50 @@
+@import "./../../../style/index.scss";
+
+.ourProducts {
+  @include pageCommonCss;
+  padding-bottom: $lg !important;
+  .heading {
+    @include display-flex(row, space-between, center);
+    width: 100%;
+    .headingText {
+      width: 90%;
+    }
+    .viewAllBtn {
+      border: none;
+      outline: none;
+      background-color: $secondaryColor;
+      color: $white;
+      width: 8rem;
+      height: 3rem;
+      box-sizing: border-box;
+      padding: 0.5em 1em;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all ease-in-out 0.2s;
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+    @include respond-to(mobile) {
+      @include display-flex(column, flex-start, flex-start);
+      .headingText {
+        width: 100%;
+      }
+      .viewAllBtn {
+        width: 6rem;
+        height: 2.6rem;
+        padding: 0.2em 0.8em;
+        // margin-left: auto;
+      }
+    }
+  }
+  .products {
+    @include display-flex(row, space-evenly, center);
+    flex-wrap: wrap;
+    margin: 3em 0;
+    @include respond-to(desktop) {
+      justify-content: space-between;
+      padding: 0 1.5rem;
+    }
+  }
+}

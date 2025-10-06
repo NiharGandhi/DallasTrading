@@ -1,0 +1,70 @@
+@import "./../../style/index.scss";
+
+.footer {
+  background-color: $black;
+  width: $windowWidth;
+  padding: 0 $commonPaddingForSides;
+  box-sizing: border-box;
+  color: $white;
+  margin: 0;
+  @include display-flex(column, space-between);
+  .infoList {
+    @include display-flex(row, space-between, flex-start);
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    @media (max-width: 992px) {
+      @include display-flex(column, space-between, flex-start);
+      flex-wrap: nowrap;
+    }
+    .heading {
+      font-weight: 400;
+      font-size: $xxxxl;
+      line-height: $xl;
+      @include respond-to(mobile) {
+        line-height: $md;
+      }
+    }
+    .table {
+      .row {
+        @include display-flex(row, flex-start, center);
+        margin-bottom: 0.5em;
+        .icon {
+          margin-right: $lg;
+        }
+        .text {
+          margin-bottom: 0.4em;
+          .link {
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: $white;
+          }
+        }
+      }
+    }
+    .locate {
+      @include respond-to(small-mobile) {
+        position: relative;
+      }
+      .gMap {
+        height: 200;
+        width: 450;
+        border: 0;
+        @include respond-to(small-mobile) {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  .rights {
+    a {
+      color: $white;
+    }
+    margin-bottom: $xxxxxl;
+    @include respond-to(mobile) {
+      text-align: center;
+      font-size: 0.9em;
+    }
+  }
+}

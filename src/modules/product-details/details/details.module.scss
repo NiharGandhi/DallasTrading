@@ -1,0 +1,103 @@
+@import "./../../../style/index.scss";
+
+.detailsContainer {
+  @include display-flex(row, space-between, flex-start);
+  @include respond-to(mobile) {
+    @include display-flex(column, flex-start, center);
+  }
+  .leftContainer {
+    box-sizing: border-box;
+    .productImg {
+      object-fit: scale-down;
+      @include viewportHeight(50);
+      @include respond-to(mobile) {
+        @include viewportHeight(35);
+      }
+    }
+  }
+  .rightContainer {
+    box-sizing: border-box;
+    width: 60%;
+    @include respond-to(mobile) {
+      width: 100%;
+    }
+    .productName {
+      color: $secondaryColor;
+    }
+    .specificationCont {
+      margin-bottom: 3em;
+      .specification {
+        font-size: 1.1em;
+        line-height: 0.1em;
+        color: $greyText;
+        @include respond-to(mobile) {
+          line-height: 1em;
+        }
+      }
+      .spec {
+        color: $fontColor;
+        line-height: 0;
+        @include respond-to(mobile) {
+          line-height: 1em;
+          margin-top: -1em;
+        }
+      }
+      @include respond-to(mobile) {
+        margin-bottom: -1em;
+      }
+    }
+    .details {
+      color: $greyText;
+      font-size: 1.1em;
+    }
+    .categoryName {
+      color: $fontColor;
+      text-decoration: underline;
+      font-size: 1.1em;
+      line-height: 0;
+    }
+    .companyImage {
+      transform: scale(0.9);
+      object-fit: contain;
+      max-width: 7rem;
+      margin-bottom: 1em;
+    }
+    .description {
+      color: $greyText;
+      font-size: 1.2em;
+      margin-top: -0.1em;
+    }
+    .onlyTitle {
+      color: $greyText;
+      font-size: 1.4em;
+      font-weight: 500;
+      margin-left: -1.4em;
+    }
+    .listImage {
+      object-fit: contain;
+      margin-left: -1.4em;
+      max-width: 100%;
+    }
+    .descriptionData {
+      color: $greyText;
+      line-height: 1.7em;
+      font-size: 1.02em;
+    }
+    .downloadDatasheet {
+      margin-top: 1.5em;
+      .downloadBtn {
+        cursor: pointer;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: $secondaryColor;
+        font-size: 1.2rem;
+        transition: 0.2s;
+        text-decoration: underline;
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+}

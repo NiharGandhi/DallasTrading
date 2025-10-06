@@ -1,0 +1,42 @@
+[
+  {
+    "id": 0,
+    "image": "prakash_ahuja_img",
+    "altTextForImg": "prakash_ahuja_img",
+    "name": "Prakash Ahuja",
+    "position": "Chairman and Founder",
+    "bio": "Prakash Ahuja is one of the pioneers in the electrical field with over three decades of experience as an entrepreneur. He has a reputation for being a visionary and business is a passion for him."
+  },
+  {
+    "id": 1,
+    "image": "ibrahim_somji_img",
+    "altTextForImg": "ibrahim_somji_img",
+    "name": "Ibrahim Somji",
+    "position": "Director",
+    "bio": "Ibrahim Somji has been a first generation entrepreneur in the field of electrical products and a leading builder, having built certain very prestigious towers. He is known among the business community as an astute and straight forward man."
+  },
+  {
+    "id": 2,
+    "image": "amjad_ali_img",
+    "altTextForImg": "amjad_ali_img",
+    "name": "Amjad Ali",
+    "position": "General Manager – UAE",
+    "bio": "Amjad Ali is a qualified Electrical engineer, and has been with Dallas since last 28 years. Dallas customers call him a articulate engineer, as the technical suggestions imparted by him has benefited cost savings, and provided efficient and effective solutions."
+  },
+  {
+    "id": 3,
+    "image": "vijay_ahuja_img",
+    "altTextForImg": "vijay_ahuja_img",
+    "name": "Vijay Ahuja",
+    "position": "General Manager – Oman",
+    "bio": "Vijay Ahuja has Masters in Finance from United States. After undergoing rigorous training he is given charge of Oman operations."
+  },
+  {
+    "id": 4,
+    "image": "jay_ahuja_img",
+    "altTextForImg": "jay_ahuja_img",
+    "name": "Jay Ahuja",
+    "position": "Executive Director",
+    "bio": "Jay Ahuja is the Executive Director in Dallas. With over 2 decades of experience in multiple domains in the company - Jay is responsible for managing the entire operations and IT infrastructure across all branches of Dallas in the Middle East"
+  }
+]

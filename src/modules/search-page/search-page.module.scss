@@ -1,0 +1,47 @@
+@import "./../../style/index.scss";
+
+.searchPageContainer {
+  @include pageCommonCss;
+  .headDiv {
+    @include display-flex(row, space-between, flex-start);
+    flex-wrap: wrap;
+    .leftText {
+      .showingRes {
+        color: $fontColor;
+      }
+    }
+    .selectBox {
+      border: 0;
+      outline: none;
+      background-color: $white;
+      width: 16%;
+      height: 3em;
+      margin-top: 2rem;
+      @include respond-to(desktop-lg) {
+        width: 30%;
+      }
+      @include respond-to(desktop) {
+        width: 40%;
+        margin-top: 0.5rem;
+      }
+      @include respond-to(tablet) {
+        height: 3em;
+        width: 40%;
+        margin-top: 0.5rem;
+      }
+      @include respond-to(mobile) {
+        height: 2.5em;
+        width: 50%;
+        font-size: 0.9em;
+        margin-top: 0.5rem;
+      }
+    }
+  }
+  .loaderDiv {
+    height: 20rem;
+    width: 100%;
+    @include respond-to(mobile) {
+      width: 80%;
+    }
+  }
+}

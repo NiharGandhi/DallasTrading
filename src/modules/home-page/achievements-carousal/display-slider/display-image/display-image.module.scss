@@ -1,0 +1,27 @@
+@import "./../../../../../style/index.scss";
+
+.displayImg {
+  width: 65%;
+  @include viewportHeight(55);
+  object-fit: cover;
+  box-sizing: border-box;
+  @include respond-to(desktop-lg) {
+    width: 60%;
+    @include viewportHeight(50);
+  }
+  @include respond-to(desktop) {
+    width: 55%;
+    @include viewportHeight(50);
+  }
+  @include respond-to(tablet) {
+    width: 60%;
+    @include viewportHeight(25);
+  }
+  @include respond-to(mobile) {
+    position: absolute;
+    @include viewportHeight(35);
+    width: 100%;
+    right: 0;
+    z-index: -1;
+  }
+}

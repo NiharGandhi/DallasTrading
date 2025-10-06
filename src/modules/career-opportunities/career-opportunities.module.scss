@@ -1,0 +1,41 @@
+@import "./../../style/index.scss";
+
+.careerOpportunitiesContainer {
+  @include pageCommonCss;
+  .infoSection {
+    @include display-flex(row, space-between, flex-start);
+    flex-wrap: wrap;
+    margin-top: $windowHeight * 0.06;
+    @media (max-width: 680px) {
+      margin-bottom: $windowHeight * 0.05;
+    }
+    .img {
+      object-fit: contain;
+      margin-top: 1.4em;
+      width: 18rem;
+      @media (max-width: 840px) {
+        width: 100%;
+        margin-top: 0;
+        margin-bottom: 1.4em;
+      }
+    }
+    .textCont {
+      width: 80%;
+      @media (max-width: 840px) {
+        width: 100%;
+      }
+      .text {
+        color: $greyText;
+        font-size: 1.3rem;
+        line-height: 200%;
+        margin: 0.5em 0;
+        .highlight {
+          text-decoration: underline;
+        }
+        @media (max-width: 540px) {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+}

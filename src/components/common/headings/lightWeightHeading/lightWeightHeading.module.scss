@@ -1,0 +1,23 @@
+@import "./../../../../style/index.scss";
+
+.headingBox {
+  box-sizing: border-box;
+  .heading {
+    background: transparent;
+
+    .headingText1,
+    .headingText2 {
+      font-size: 3.5rem;
+      font-weight: 100;
+      @media only screen and (max-width: 418px) {
+        font-size: 1.1em;
+      }
+    }
+    .headingText1 {
+      color: $secondaryColor;
+    }
+    .headingText2 {
+      color: $primaryColor;
+    }
+  }
+}

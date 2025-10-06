@@ -1,0 +1,12 @@
+@import "./../../../style/index.scss";
+
+.headingReviews {
+  color: $secondaryColor;
+  font-weight: 300;
+  font-size: 3rem;
+  margin: 1em 0;
+}
+.reviewsContainer {
+  @include display-flex(row, space-between, flex-start);
+  flex-wrap: wrap;
+}

@@ -1,0 +1,15 @@
+@import "./../../style/index.scss";
+
+.ourProjectsContainer {
+  @include pageCommonCss;
+  .projects {
+    margin-top: $windowHeight * 0.06;
+    @include display-flex(row, flex-start, center);
+    .imageList {
+      width: 50%;
+      @include respond-to(mobile){
+        width: 100%;
+      }
+    }
+  }
+}

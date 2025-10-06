@@ -1,0 +1,16 @@
+@import "./typography";
+
+@mixin display-flex($direction: row, $justify: none, $align: none) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  box-sizing: border-box;
+}
+
+@mixin pageCommonCss() {
+  width: $windowWidth;
+  box-sizing: border-box;
+  padding: $commonPaddingForSides;
+  padding-top: $windowWidth * 0.05;
+}

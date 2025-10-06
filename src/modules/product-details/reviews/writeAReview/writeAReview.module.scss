@@ -1,0 +1,44 @@
+@import "./../../../../style/index.scss";
+
+.writeAReviewContainer {
+  box-sizing: border-box;
+  .heading2 {
+    color: $primaryColor;
+    font-weight: 500;
+    margin-bottom: 1.5em;
+  }
+  .heading3 {
+    font-weight: 500;
+  }
+  .info {
+    color: $fontColor;
+    margin-top: -0.2em;
+    margin-bottom: 2em;
+  }
+  .reviewForm {
+    @include display-flex(column, flex-start, flex-start);
+    .textField {
+      margin-bottom: 1.5em;
+      &:focus {
+        background-color: transparent;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+    .submitBtn {
+      cursor: pointer;
+      margin-top: 1.5em;
+      margin-left: auto;
+      outline: none;
+      border: none;
+      background-color: $black;
+      color: $white;
+      padding: 0.5em 1.5em;
+      font-size: 1.2rem;
+      transition: all ease 0.3s;
+      &:hover {
+        background-color: $greyText;
+      }
+    }
+  }
+}

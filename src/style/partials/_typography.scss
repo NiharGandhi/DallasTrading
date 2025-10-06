@@ -1,0 +1,43 @@
+// Font sizes
+
+$xxxxxl: 2.5em; // 40px
+$xxxxl: 2em; // 32px
+$xxxl: 1.5em; // 24px
+$xxl: 1.25em; // 20px
+$xl: 1.125em; // 18px
+$lg: 1em; // 16px
+$md: 0.9375em; // 15px
+$sm: 0.875em; // 14px
+$xs: 0.813em; // 13px
+$xxs: 0.75em; // 12px
+$xxxs: 0.688em; // 11px
+
+// Colors
+
+$black: #000000; //Black
+$grey: #ccc; //Dark Grey
+$white: #ffffff; //White
+$orange: #ffa500; //Orange
+$green: #20bc56; //Green
+
+// Border
+
+$round: 50%; //Circlular
+
+// Background
+
+$windowHeight: 100vh;
+$windowWidth: 100vw;
+$fullScreen: 100%;
+
+// padding common for each section
+$commonPaddingForSides: $windowWidth * 0.06;
+
+// dynamic length and width
+
+@mixin viewportWidth($percent) {
+  width: $windowWidth * ($percent/100);
+}
+@mixin viewportHeight($percent) {
+  height: $windowHeight * ($percent/100);
+}

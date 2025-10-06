@@ -1,0 +1,419 @@
+[
+    {
+      "id": "armoured_cables",
+      "productCategoryId": "cables",
+      "productCategory": "Cables",
+      "title": "Armoured Cables",
+      "image": "Armoured_Cables",
+      "company": "Mesc"
+    },
+    {
+      "id": "control_cables",
+      "productCategoryId": "cables",
+      "productCategory": "Cables",
+      "title": "Control Cables",
+      "image": "Control_Cables",
+      "company": "Mesc"
+    },
+    {
+      "id": "multi_conductor",
+      "productCategoryId": "cables",
+      "productCategory": "Cables",
+      "title": "Multi Conductor, XLPE, Unshielded",
+      "image": "Multi_Conductor",
+      "company": "Mesc"
+    },
+    {
+      "id": "rubber_cable",
+      "productCategoryId": "cables",
+      "productCategory": "Cables",
+      "title": "Rubber Cable Ho7RNF",
+      "image": "Rubber_Cable",
+      "company": "Oxford Cavi"
+    },
+    {
+      "id": "A1A2_Cable_Gland",
+      "productCategoryId": "industrial_cable_glands",
+      "productCategory": "Industrial Cable Glands",
+      "title": "A1/A2 Cable Gland",
+      "image": "A1A2_Cable_Gland",
+      "company": "Elite"
+    },
+    {
+      "id": "A1A2_Cable_Glands",
+      "productCategoryId": "industrial_cable_glands",
+      "productCategory": "Industrial Cable Glands",
+      "title": "A1/A2 Cable Glands",
+      "image": "A1A2_Cable_Glands",
+      "company": "Hex"
+    },
+    {
+      "id": "BW_Cable_Gland",
+      "productCategoryId": "industrial_cable_glands",
+      "productCategory": "Industrial Cable Glands",
+      "title": "BW Cable Gland",
+      "image": "BW_Cable_Gland",
+      "company": "Elite"
+    },
+    {
+      "id": "BW_Cable_Glands",
+      "productCategoryId": "industrial_cable_glands",
+      "productCategory": "Industrial Cable Glands",
+      "title": "BW Cable Gland",
+      "image": "BW_Cable_Glands",
+      "company": "Hex"
+    },
+    {
+      "id": "CW_Cable_Gland",
+      "productCategoryId": "industrial_cable_glands",
+      "productCategory": "Industrial Cable Glands",
+      "title": "CW Cable Gland",
+      "image": "CW_Cable_Gland",
+      "company": "Elite"
+    },
+    {
+      "id": "CW_Cable_Glands",
+      "productCategoryId": "industrial_cable_glands",
+      "productCategory": "Industrial Cable Glands",
+      "title": "CW Cable Gland",
+      "image": "CW_Cable_Glands",
+      "company": "Hex"
+    },
+    {
+      "id": "E1W_Cable_Gland",
+      "productCategoryId": "industrial_cable_glands",
+      "productCategory": "Industrial Cable Glands",
+      "title": "E1W Cable Gland",
+      "image": "E1W_Cable_Gland",
+      "company": "Elite"
+    },
+    {
+      "id": "E1W_Cable_Glands",
+      "productCategoryId": "industrial_cable_glands",
+      "productCategory": "Industrial Cable Glands",
+      "title": "E1W Cable Gland",
+      "image": "E1W_Cable_Glands",
+      "company": "Hex"
+    },
+    {
+      "id": "Panel_Wire",
+      "productCategoryId": "wires",
+      "productCategory": "Wires",
+      "title": "Panel Wire",
+      "image": "Panel_Wire",
+      "company": "Mesc"
+    },
+    {
+      "id": "PVC_Flexible_Wire",
+      "productCategoryId": "wires",
+      "productCategory": "Wires",
+      "title": "PVC Flexible Wire",
+      "image": "PVC_Flexible_Wire",
+      "company": "Mesc"
+    },
+    {
+      "id": "Building_Wire",
+      "productCategoryId": "wires",
+      "productCategory": "Wires",
+      "title": "Single Core Wire/Building Wire",
+      "image": "Building_Wire",
+      "company": "Mesc"
+    },
+    {
+      "id": "3M_LV_Resin_Joint_Kit",
+      "productCategoryId": "cable_jointing_kit",
+      "productCategory": "Cable Jointing Kit / Termination",
+      "title": "3M LV Resin Joint Kit",
+      "image": "M_LV_Resin_Joint_Kit",
+      "company": "3M"
+    },
+    {
+      "id": "3M_Wire_Pulling_Lubricant",
+      "productCategoryId": "cable_jointing_kit",
+      "productCategory": "Cable Jointing Kit / Termination",
+      "title": "3M Wire Pulling Lubricant",
+      "image": "M_Wire_Pulling_Lubricant",
+      "company": "3M"
+    },
+    {
+      "id": "Cold_Shrink_Termination",
+      "productCategoryId": "cable_jointing_kit",
+      "productCategory": "Cable Jointing Kit / Termination",
+      "title": "Cold Shrink Termination",
+      "image": "Cold_Shrink_Termination",
+      "company": "3M"
+    },
+    {
+      "id": "Heat_Shrink_Accessories",
+      "productCategoryId": "cable_jointing_kit",
+      "productCategory": "Cable Jointing Kit / Termination",
+      "title": "Heat Shrink Accessories",
+      "image": "Heat_Shrink_Accessories",
+      "company": "3M"
+    },
+    {
+      "id": "Heat_Shrink_Termination",
+      "productCategoryId": "cable_jointing_kit",
+      "productCategory": "Cable Jointing Kit / Termination",
+      "title": "Heat Shrink Termination",
+      "image": "Heat_Shrink_Termination",
+      "company": "3M"
+    },
+    {
+      "id": "LV_3M_Cold_Shrink_Straight_Cable_Joint",
+      "productCategoryId": "cable_jointing_kit",
+      "productCategory": "Cable Jointing Kit / Termination",
+      "title": "LV 3M Cold Shrink Straight Cable Joint",
+      "image": "LV_3M_Cold_Shrink_Straight_Cable_Joint",
+      "company": "3M"
+    },
+    {
+      "id": "Nylon_Cable_Tie",
+      "productCategoryId": "cable_ties",
+      "productCategory": "Cable Ties",
+      "title": "Nylon Cable Tie",
+      "image": "Nylon_Cable_Tie",
+      "company": "3M"
+    },
+    {
+      "id": "Industrial_Plug_And_Socket",
+      "productCategoryId": "industrial_plugs_and_sockets",
+      "productCategory": "Industrial Plugs & Sockets",
+      "title": "Industrial Plug & Socket",
+      "image": "Industrial_Plug_And_Socket",
+      "company": "PCE"
+    },
+    {
+      "id": "DS4_High_Current_Connectors",
+      "productCategoryId": "high_voltage_connectors",
+      "productCategory": "High Voltage Connectors",
+      "title": "DS4 High Current Connectors",
+      "image": "DS4_High_Current_Connectors",
+      "company": "Marechal"
+    },
+    {
+      "id": "DX_Metal_Decontactor",
+      "productCategoryId": "high_voltage_connectors",
+      "productCategory": "High Voltage Connectors",
+      "title": "DX Metal Decontactor",
+      "image": "DX_Metal_Decontactor",
+      "company": "Marechal"
+    },
+    {
+      "id": "PF_High_Current_Plugs_and_Socket_Outlets",
+      "productCategoryId": "high_voltage_connectors",
+      "productCategory": "High Voltage Connectors",
+      "title": "PF High Current Plugs and Socket Outlets",
+      "image": "PF_High_Current_Plugs_and_Socket_Outlets",
+      "company": "Marechal"
+    },
+    {
+      "id": "Single_Pole_Power_Connectors",
+      "productCategoryId": "high_voltage_connectors",
+      "productCategory": "High Voltage Connectors",
+      "title": "Single Pole Power Connectors",
+      "image": "Single_Pole_Power_Connectors",
+      "company": "Marechal"
+    },
+    {
+      "id": "Cable_Ladder",
+      "productCategoryId": "cable_management_system",
+      "productCategory": "Cable Management System",
+      "title": "Cable Ladder",
+      "image": "Cable_Ladder",
+      "company": "Legrand Swift"
+    },
+    {
+      "id": "Cable_Tray",
+      "productCategoryId": "cable_management_system",
+      "productCategory": "Cable Management System",
+      "title": "Cable Tray",
+      "image": "Cable_Tray",
+      "company": "Legrand Swift"
+    },
+    {
+      "id": "Flexible_Conduit_And_Accessories",
+      "productCategoryId": "flexiblerigid_conduit_and_accessories",
+      "productCategory": "Flexible/Rigid Conduit & Accessories",
+      "title": "Flexible Conduit & Accessories",
+      "image": "Flexible_Conduit_And_Accessories",
+      "company": "Barton"
+    },
+    {
+      "id": "Rigid_Conduit_And_Accessories",
+      "productCategoryId": "flexiblerigid_conduit_and_accessories",
+      "productCategory": "Flexible/Rigid Conduit & Accessories",
+      "title": "Rigid Conduit & Accessories",
+      "image": "Rigid_Conduit_And_Accessories",
+      "company": "Barton"
+    },
+    {
+      "id": "PVC_Conduits",
+      "productCategoryId": "pvc_conduits",
+      "productCategory": "PVC Conduits",
+      "title": "PVC Conduits",
+      "image": "PVC_Conduits",
+      "company": "Decoduct"
+    },
+    {
+      "id": "Switchgear_Accessories",
+      "productCategoryId": "switchgear_accessories",
+      "productCategory": "Switchgear Accessories",
+      "title": "Switchgear Accessories",
+      "image": "Switchgear_Accessories",
+      "company": "ABB"
+    },
+    {
+      "id": "Switchgear_Accessories1",
+      "productCategoryId": "switchgear_accessories",
+      "productCategory": "Switchgear Accessories",
+      "title": "Switchgear Accessories",
+      "image": "Switchgear_Accessories1",
+      "company": "Hager"
+    },
+    {
+      "id": "Switchgear_Assembly",
+      "productCategoryId": "switchgear_assembly",
+      "productCategory": "Switchgear Assembly",
+      "title": "Switchgear Assembly",
+      "image": "Switchgear_Assembly",
+      "company": "ABB, Eaton (Moeller), Hager, Legrand, Schneider, Seimens"
+    },
+    {
+      "id": "Industrial_Fans",
+      "productCategoryId": "industrial_fans",
+      "productCategory": "Industrial Fans",
+      "title": "Industrial Fans",
+      "image": "Industrial_Fans",
+      "company": "Breeze"
+    },
+    {
+      "id": "Laser_Marking_Machine",
+      "productCategoryId": "laser_marking_machine",
+      "productCategory": "Laser Marking Machine",
+      "title": "Laser Marking Machine",
+      "image": "Laser_Marking_Machine",
+      "company": "Rayon"
+    },
+    {
+      "id": "Arteor",
+      "productCategoryId": "wiring_devices",
+      "productCategory": "Wiring Devices",
+      "title": "Arteor",
+      "image": "Arteor",
+      "company": "Legrand"
+    },
+    {
+      "id": "Belanko",
+      "productCategoryId": "wiring_devices",
+      "productCategory": "Wiring Devices",
+      "title": "Belanko",
+      "image": "Belanko",
+      "company": "Legrand"
+    },
+    {
+      "id": "Ceiling_Rose",
+      "productCategoryId": "wiring_devices",
+      "productCategory": "Wiring Devices",
+      "title": "Ceiling Rose",
+      "image": "Ceiling_Rose",
+      "company": "MK Logic Plus"
+    },
+    {
+      "id": "Mallia",
+      "productCategoryId": "wiring_devices",
+      "productCategory": "Wiring Devices",
+      "title": "Mallia",
+      "image": "Mallia",
+      "company": "Legrand"
+    },
+    {
+      "id": "Plexo",
+      "productCategoryId": "wiring_devices",
+      "productCategory": "Wiring Devices",
+      "title": "Plexo",
+      "image": "Plexo",
+      "company": "Legrand"
+    },
+    {
+      "id": "Synergy",
+      "productCategoryId": "wiring_devices",
+      "productCategory": "Wiring Devices",
+      "title": "Synergy",
+      "image": "Synergy",
+      "company": "Legrand"
+    },
+    {
+      "id": "Wiring_Devices",
+      "productCategoryId": "wiring_devices",
+      "productCategory": "Wiring Devices",
+      "title": "Wiring Devices",
+      "image": "Wiring_Devices",
+      "company": "MK Logic Plus"
+    },
+    {
+      "id": "PCS_Phase_Identification_Tape",
+      "productCategoryId": "scotch_tapes_and_mastics",
+      "productCategory": "Scotch Tapes & Mastics",
+      "title": "PCS Phase Identification Tape",
+      "image": "PCS_Phase_Identification_Tape",
+      "company": "3M"
+    },
+    {
+      "id": "Scotch_22_Heavy_Duty_Tape",
+      "productCategoryId": "scotch_tapes_and_mastics",
+      "productCategory": "Scotch Tapes & Mastics",
+      "title": "Scotch 22 Heavy Duty Tape",
+      "image": "Scotch_22_Heavy_Duty_Tape",
+      "company": "3M"
+    },
+    {
+      "id": "Scotch_33_Tape",
+      "productCategoryId": "scotch_tapes_and_mastics",
+      "productCategory": "Scotch Tapes & Mastics",
+      "title": "Scotch 33 Tape",
+      "image": "Scotch_33_Tape",
+      "company": "3M"
+    },
+    {
+      "id": "Scotch_35_Tape",
+      "productCategoryId": "scotch_tapes_and_mastics",
+      "productCategory": "Scotch Tapes & Mastics",
+      "title": "Scotch 35 Tape",
+      "image": "Scotch_35_Tape",
+      "company": "3M"
+    },
+    {
+      "id": "Scotch_Super_88_All_Weather_Tape",
+      "productCategoryId": "scotch_tapes_and_mastics",
+      "productCategory": "Scotch Tapes & Mastics",
+      "title": "Scotch Super 88 All Weather Tape",
+      "image": "Scotch_Super_88_All_Weather_Tape",
+      "company": "3M"
+    },
+    {
+      "id": "Scotch_T2228_Rubber_Mastic_Tape",
+      "productCategoryId": "scotch_tapes_and_mastics",
+      "productCategory": "Scotch Tapes & Mastics",
+      "title": "Scotch T2228 Rubber Mastic Tape",
+      "image": "Scotch_T2228_Rubber_Mastic_Tape",
+      "company": "3M"
+    },
+    {
+      "id": "Scotch_Vinyl_Mastic_Tape",
+      "productCategoryId": "scotch_tapes_and_mastics",
+      "productCategory": "Scotch Tapes & Mastics",
+      "title": "Scotch Vinyl Mastic Tape",
+      "image": "Scotch_Vinyl_Mastic_Tape",
+      "company": "3M"
+    },
+    {
+      "id": "Scotchfil_Insulation_Putty",
+      "productCategoryId": "scotch_tapes_and_mastics",
+      "productCategory": "Scotch Tapes & Mastics",
+      "title": "Scotchfil Insulation Putty",
+      "image": "Scotchfil_Insulation_Putty",
+      "company": "3M"
+    }
+  ]
+  

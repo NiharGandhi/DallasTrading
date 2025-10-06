@@ -1,0 +1,40 @@
+@import "./../../../../style/index.scss";
+
+.customerReviewsContainer {
+  box-sizing: border-box;
+  .heading2 {
+    color: $secondaryColor;
+    font-weight: 500;
+    line-height: 0;
+    margin-bottom: 3em;
+  }
+  .review {
+    box-sizing: border-box;
+    margin-top: 3em;
+    .reviewer {
+      font-weight: 500;
+      line-height: 0;
+    }
+    .rating {
+      @include display-flex(row, space-between, center);
+      width: 35%;
+      line-height: 0;
+      margin-top: -0.5em;
+      .email {
+        color: $fontColor;
+      }
+      .stars {
+        @include display-flex(row, center);
+        .starIcon {
+          color: #ff9529;
+          font-size: 1.2em;
+        }
+      }
+    }
+    .comment {
+      color: $greyText;
+      margin-left: 1em;
+      width: 80%;
+    }
+  }
+}

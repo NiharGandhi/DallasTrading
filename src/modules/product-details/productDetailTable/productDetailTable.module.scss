@@ -1,0 +1,40 @@
+@import "./../../../style/index.scss";
+
+@mixin fontFamily {
+  font-family: "Lato";
+  font-style: normal;
+  font-size: 1.01em;
+}
+
+.productDetailTable {
+  box-sizing: border-box;
+  margin-top: 2.5rem;
+
+  .thead {
+    background-color: #eeeeee;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.1em;
+    border: none;
+    border: 1px solid rgba(174, 169, 186, 0.2);
+    .trow {
+      border: none;
+      .tcell {
+        @include fontFamily;
+        border: none;
+      }
+    }
+  }
+  .tbody {
+    .trowd {
+      border: none;
+      border-right: 1px solid rgba(174, 169, 186, 0.2);
+      border-left: 1px solid rgba(174, 169, 186, 0.2);
+      .tcelld {
+        @include fontFamily;
+        color: $fontColor;
+        border-bottom: 1px solid rgba(174, 169, 186, 0.2);
+      }
+    }
+  }
+}

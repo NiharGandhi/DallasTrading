@@ -1,0 +1,160 @@
+@import "./../../../../style/index.scss";
+
+.display {
+  width: 100%;
+  box-sizing: border-box;
+  .slider {
+    @include display-flex(row, space-between, center);
+    width: 100%;
+    scroll-snap-align: start;
+    padding-left: $commonPaddingForSides;
+    @include respond-to(desktop-lg) {
+      padding-left: 2rem;
+    }
+    @include respond-to(desktop) {
+      padding-left: 0;
+    }
+    @include respond-to(mobile) {
+      position: relative;
+      overflow-y: hidden;
+      padding-top: 1em;
+      @include viewportHeight(30);
+    }
+    .displayHeading {
+      color: $greyText;
+      box-sizing: border-box;
+      text-align: right;
+      .rank {
+        font-size: 4.5rem;
+        line-height: 0;
+        font-weight: 600;
+      }
+      .company {
+        font-size: 1.5rem;
+        line-height: 1em;
+        font-weight: 600;
+      }
+      .info {
+        font-size: 1.2em;
+        line-height: 1em;
+        font-weight: 500;
+        color: #aea9ba;
+      }
+      .extraText {
+        font-size: 1.1em;
+        line-height: 5em;
+        font-weight: 400;
+      }
+      @include respond-to(desktop-lg) {
+        .rank {
+          font-size: 4rem;
+        }
+        .company {
+          font-size: 1.4rem;
+        }
+        .info {
+          font-size: 1.1em;
+          line-height: 1em;
+        }
+        .extraText {
+          font-size: 1em;
+          line-height: 3em;
+        }
+      }
+      @include respond-to(desktop) {
+        width: 40%;
+        .rank {
+          font-size: 3rem;
+        }
+        .company {
+          font-size: 1.2rem;
+        }
+        .info {
+          font-size: 1em;
+          line-height: 1em;
+        }
+        .extraText {
+          font-size: 0.9em;
+          line-height: 3em;
+        }
+      }
+      @include respond-to(tablet) {
+        width: 36%;
+        text-align: left;
+        .rank {
+          font-size: 2.7rem;
+        }
+        .company {
+          font-size: 1.1rem;
+        }
+        .info {
+          font-size: 0.8em;
+          line-height: 1em;
+          margin-bottom: 2em;
+        }
+        .extraText {
+          font-size: 0.8em;
+          line-height: 1em;
+        }
+      }
+      @include respond-to(mobile) {
+        @include viewportWidth(100);
+        color: $white;
+        text-align: left;
+        .rank {
+          font-size: 3rem;
+          line-height: 0.2em;
+          font-weight: 600;
+        }
+        .company {
+          font-size: 1.8rem;
+          line-height: 1em;
+          font-weight: 600;
+        }
+        .info {
+          font-size: 1em;
+          line-height: 1.1em;
+          font-weight: 600;
+          color: $white;
+        }
+        .extraText {
+          font-size: 0.9em;
+          line-height: 1.1em;
+          font-weight: 400;
+        }
+      }
+      @include respond-to(small-mobile) {
+        .rank {
+          font-size: 2.5rem;
+        }
+        .company {
+          font-size: 1.2rem;
+        }
+        .info {
+          font-size: 0.8em;
+        }
+        .extraText {
+          font-size: 0.6em;
+        }
+      }
+    }
+    .displayImg {
+      // width: 60%;
+      @include viewportHeight(55);
+      object-fit: cover;
+      box-sizing: border-box;
+      @include respond-to(desktop) {
+        width: 45%;
+      }
+      @include respond-to(tablet) {
+        @include viewportHeight(26);
+      }
+      @include respond-to(mobile) {
+        position: absolute;
+        @include viewportHeight(30);
+        right: 0;
+        z-index: -1;
+      }
+    }
+  }
+}

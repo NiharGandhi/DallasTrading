@@ -1,0 +1,28 @@
+@import "./../../style/index.scss";
+
+.aboutPageContainer {
+  @include pageCommonCss;
+  .heading {
+    @include display-flex(row, space-between, center);
+    padding-top: 0;
+    padding-bottom: $windowHeight * 0.06;
+    @media (max-width: 680px) {
+      padding-bottom: $windowHeight * 0.05;
+    }
+    .logo {
+      max-height: 6rem;
+      @media (max-width: 540px) {
+        max-height: 4rem;
+      }
+    }
+  }
+  .aboutText {
+    color: $greyText;
+    font-size: 1.3rem;
+    line-height: 200%;
+    margin: 0.5em 0;
+    @media (max-width: 540px) {
+      font-size: 1.2rem;
+    }
+  }
+}

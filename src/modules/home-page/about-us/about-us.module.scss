@@ -1,0 +1,109 @@
+@import "./../../../style/index.scss";
+
+.aboutUsContainer {
+  @include pageCommonCss();
+  background-color: $primaryColor;
+  padding-bottom: $lg;
+  padding-top: 1em;
+  .aboutData {
+    @include display-flex(row, center);
+    color: $white;
+    margin-top: -2em;
+    @include respond-to(tablet) {
+      @include display-flex(column, flex-start, flex-start);
+      margin-top: 0;
+    }
+    @include respond-to(mobile) {
+      @include display-flex(column, flex-start, flex-start);
+      margin-top: 0em;
+    }
+    .col1,
+    .col2 {
+      width: 40%;
+      box-sizing: border-box;
+      @include respond-to(desktop-lg) {
+        width: 45%;
+      }
+      @include respond-to(desktop) {
+        width: 50%;
+      }
+      @include respond-to(tablet) {
+        width: 100%;
+      }
+      @include respond-to(mobile) {
+        width: 100%;
+      }
+      .data {
+        @include display-flex(row, space-evenly, center);
+        @include respond-to(tablet) {
+          justify-content: flex-start;
+          margin: 0.5em 0;
+        }
+        @include respond-to(mobile) {
+          justify-content: flex-start;
+          margin: 0.5em 0;
+        }
+        .numbers {
+          font-size: 6rem;
+          font-weight: 500;
+          @include respond-to(desktop-lg) {
+            font-size: 4.5rem;
+          }
+          @include respond-to(desktop) {
+            font-size: 4rem;
+          }
+          @include respond-to(tablet) {
+            margin: 0;
+            font-size: 4.5rem;
+            line-height: 0.5em;
+            font-weight: 400;
+          }
+          @include respond-to(mobile) {
+            margin: 0;
+            font-size: 3.2rem;
+            line-height: 1em;
+            font-weight: 400;
+          }
+          @include respond-to(small-mobile) {
+            margin: 0;
+            font-size: 2.5rem;
+            line-height: 1em;
+            font-weight: 400;
+          }
+        }
+        .info {
+          font-size: 2rem;
+          font-weight: 400;
+          @include respond-to(desktop-lg) {
+            font-size: 1.6rem;
+          }
+          @include respond-to(desktop) {
+            font-size: 1.5rem;
+          }
+          @include respond-to(tablet) {
+            font-size: 1.8rem;
+            margin-left: 1.5em;
+          }
+          @include respond-to(mobile) {
+            font-size: 1.2rem;
+            margin-left: 1em;
+          }
+          @include respond-to(small-mobile) {
+            font-size: 0.8rem;
+            margin-left: 1em;
+          }
+        }
+      }
+    }
+    .col2 {
+      margin-top: 5rem;
+      margin-left: -$xxxxl;
+      @include respond-to(tablet) {
+        margin: 0 0 $xxxxl 0;
+      }
+      @include respond-to(mobile) {
+        margin: 0 0 $lg 0;
+      }
+    }
+  }
+}

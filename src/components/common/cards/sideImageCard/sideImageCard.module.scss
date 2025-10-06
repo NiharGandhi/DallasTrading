@@ -1,0 +1,87 @@
+@import "./../../../../style/index.scss";
+
+.sideImageCardContainer {
+  @include display-flex(row, flex-start, flex-start);
+  flex-wrap: wrap;
+  margin: 4rem 0;
+  @include respond-to(small-mobile) {
+    margin: 1.8rem 0;
+  }
+  @include respond-to(mobile) {
+    margin: 2.5rem 0;
+  }
+  .img {
+    object-fit: contain;
+    width: 15rem;
+    margin-right: 6rem;
+    box-sizing: border-box;
+    @include respond-to(small-mobile) {
+      margin-right: 0;
+      width: 100%;
+    }
+    @include respond-to(mobile) {
+      margin-right: 0;
+      width: 100%;
+      margin-bottom: 0.8rem;
+    }
+    @include respond-to(tablet) {
+      width: 100%;
+    }
+    @include respond-to(desktop) {
+      margin-right: 4rem;
+    }
+  }
+  .details {
+    @include display-flex(column);
+    width: $windowWidth * 0.6;
+    @include respond-to(small-mobile) {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    @include respond-to(mobile) {
+      width: 100%;
+    }
+    @include respond-to(tablet) {
+      width: $windowWidth * 0.7;
+    }
+    @include respond-to(desktop) {
+      width: $windowWidth * 0.5;
+    }
+    @include respond-to(desktop-lg) {
+      width: $windowWidth * 0.6;
+    }
+    .name {
+      font-weight: 300;
+      font-size: 2.2em;
+      color: $black;
+      line-height: 0;
+      @include respond-to(small-mobile) {
+        font-size: 1.5em;
+      }
+    }
+    .position {
+      color: $fontColor;
+      font-weight: 400;
+      font-size: 1em;
+      margin: 0;
+      margin-bottom: 1em;
+      @include respond-to(small-mobile) {
+        margin-bottom: 0.4em;
+      }
+      @include respond-to(mobile) {
+        margin-bottom: 0.5em;
+      }
+    }
+    .bio {
+      color: $greyText;
+      font-weight: 400;
+      font-size: 1.15em;
+      @include respond-to(small-mobile) {
+        font-size: 1em;
+      }
+      @include respond-to(mobile) {
+        font-size: 1.05em;
+      }
+    }
+  }
+}

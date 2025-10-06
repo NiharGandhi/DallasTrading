@@ -1,0 +1,37 @@
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == small-mobile {
+    @media (max-width: 320px) {
+      @content;
+    }
+  } @else if $breakpoint == mobile {
+    @media (max-width: 576px) {
+      @content;
+    }
+  } @else if $breakpoint == tablet {
+    @media (min-width: 577px) and (max-width: 992px) {
+      @content;
+    }
+  } @else if $breakpoint == desktop {
+    @media (min-width: 993px) and (max-width: 1200px) {
+      @content;
+    }
+  } @else if $breakpoint == desktop-lg {
+    @media (min-width: 1201px) and (max-width: 1440px) {
+      @content;
+    }
+  } @else if $breakpoint == desktop-xxlg {
+    @media (min-width: 2000px) {
+      @content;
+    }
+  } @else {
+    @error "Invalid breakpoint: #{$breakpoint}.";
+  }
+}
+
+// example
+// @include respond-to(tablet) {
+//     color: blue;
+//  }
+// @include respond-to(desktop) {
+//     color: green;
+//  }

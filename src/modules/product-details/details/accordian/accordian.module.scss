@@ -1,0 +1,36 @@
+@import "./../../../../style/index.scss";
+
+.accordianCont {
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  .Typography {
+    color: $greyText;
+    font-size: 1.2em;
+  }
+  .text {
+    color: $greyText;
+  }
+  .table {
+    max-width: 100%;
+    box-sizing: border-box;
+    border: 1px solid $fontColor;
+    .trow {
+      .th,
+      .td {
+        padding: 1em;
+        color: $greyText;
+        font-weight: bold;
+        border: 1px solid $fontColor;
+      }
+      .td {
+        font-weight: normal;
+      }
+    }
+  }
+  .charImg {
+    object-fit: contain;
+    margin-top: 1em;
+    max-width: 100%;
+  }
+}

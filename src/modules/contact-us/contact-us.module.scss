@@ -1,0 +1,133 @@
+@import "./../../style/index.scss";
+
+.contactUsContainer {
+  @include pageCommonCss;
+  padding-bottom: 3rem;
+  .contactDetailsCont {
+    @include display-flex(row, space-between, flex-start);
+    flex-wrap: wrap;
+    margin-top: 4rem;
+    @media (max-width: 680px) {
+      margin-top: 3rem;
+    }
+    .contactInfo {
+      position: relative;
+      background-color: $primaryColor;
+      color: $white;
+      padding: 1rem 2rem 2rem 2rem;
+      margin-bottom: 4rem;
+      @include viewportWidth(35);
+      @media (max-width: 1400px) {
+        @include viewportWidth(40);
+      }
+      @media (max-width: 1000px) {
+        @include viewportWidth(100);
+      }
+      .selectBox {
+        border: 0;
+        outline: none;
+        background-color: $white;
+        @media (max-width: 800px) {
+          height: 3em;
+        }
+        @media (max-width: 500px) {
+          height: 2.5em;
+        }
+      }
+      .emptyBox {
+        height: 30rem;
+      }
+      .table {
+        padding: 2rem 0;
+        @media (max-width: 800px) {
+          padding: 1.5rem 0;
+        }
+        .trow {
+          @include display-flex(row, $align: center);
+          .tdIcon {
+            margin-right: 1em;
+            @media (max-width: 800px) {
+              margin-right: 0.5em;
+            }
+          }
+          .tdText {
+            font-size: 1.1em;
+            @media (max-width: 800px) {
+              font-size: 1em;
+            }
+            @media (max-width: 500px) {
+              font-size: 0.9em;
+            }
+          }
+        }
+      }
+      .gMap {
+        width: 100%;
+        height: 20em;
+        border: 0;
+        @media (max-width: 800px) {
+          height: 15em;
+        }
+        @media (max-width: 500px) {
+          height: 10em;
+        }
+      }
+    }
+    .sendAMessage {
+      @include viewportWidth(45);
+      @media (max-width: 1400px) {
+        @include viewportWidth(40);
+      }
+      @media (max-width: 1000px) {
+        @include viewportWidth(100);
+      }
+      .heading {
+        margin: 0;
+        color: $secondaryColor;
+      }
+      .reviewForm {
+        @include display-flex(column, flex-start, flex-start);
+        .text1 {
+          color: $fontColor;
+          font-weight: 400;
+          font-size: 1.1em;
+          @media (max-width: 800px) {
+            font-size: 1em;
+          }
+          @media (max-width: 500px) {
+            font-size: 0.85em;
+          }
+        }
+        .textField {
+          margin-bottom: 1.5em;
+          @media (max-width: 500px) {
+            margin-bottom: 1.1em;
+          }
+          &:focus {
+            background-color: transparent;
+            border-radius: 0;
+            box-shadow: none;
+          }
+        }
+        .submitBtn {
+          cursor: pointer;
+          margin-top: 1em;
+          margin-left: auto;
+          outline: none;
+          border: none;
+          background-color: $black;
+          color: $white;
+          padding: 0.5em 1.5em;
+          font-size: 1.2rem;
+          transition: all ease 0.3s;
+          &:hover {
+            background-color: $greyText;
+          }
+          @media (max-width: 500px) {
+            margin-top: 0.6em;
+          }
+        }
+      }
+    }
+  }
+}

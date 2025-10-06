@@ -1,0 +1,12 @@
+@import "./../../style/index.scss";
+
+.ourTeamPageContainer {
+  @include pageCommonCss;
+  .loaderDiv {
+    position: relative;
+    height: $windowHeight * 0.4;
+  }
+  .teamDetails {
+    margin-top: $windowHeight * 0.06;
+  }
+}

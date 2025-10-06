@@ -1,0 +1,15 @@
+@import "./../../../style/index.scss";
+
+.displayContainer {
+  box-sizing: border-box;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  .displayRow {
+    @include display-flex(row, flex-start, center);
+    flex-wrap: wrap;
+    column-gap: 5%;
+    @include respond-to(mobile) {
+      column-gap: 0%;
+    }
+  }
+}

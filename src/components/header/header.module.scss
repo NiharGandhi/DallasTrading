@@ -1,0 +1,169 @@
+@import "./../../style/index.scss";
+
+.header {
+  position: fixed;
+  margin: 0px auto;
+  z-index: 5;
+  width: $windowWidth;
+  // 10 % height of the viewport
+  height: 6rem;
+  background: #ffffff;
+  box-shadow: 0px -14px 52px rgba(0, 0, 0, 0.25);
+  @include display-flex(row, space-between, center);
+  padding: 0 $commonPaddingForSides;
+  @include respond-to(tablet) {
+    height: 5.5em;
+  }
+  @include respond-to(mobile) {
+    height: 5rem;
+  }
+  @include respond-to(small-mobile) {
+    height: 4.5rem;
+  }
+  .logo {
+    cursor: pointer;
+    height: 4.5em;
+    width: 4.5em;
+    object-fit: scale-down;
+    @include respond-to(tablet) {
+      height: 4em;
+      width: 4em;
+    }
+    @include respond-to(mobile) {
+      height: 3em;
+      width: 3em;
+    }
+    @include respond-to(small-mobile) {
+      height: 2em;
+      width: 2em;
+    }
+  }
+  .rightSection {
+    @include display-flex(row, space-between, center);
+    @include viewportWidth(45);
+    @include respond-to(mobile) {
+      @include viewportWidth(70);
+    }
+    @include respond-to(small-mobile) {
+      @include viewportWidth(75);
+    }
+    @include respond-to(tablet) {
+      @include viewportWidth(65);
+    }
+    @include respond-to(desktop) {
+      @include viewportWidth(60);
+    }
+    @include respond-to(desktop-lg) {
+      @include viewportWidth(50);
+    }
+    .searchBar {
+      position: relative;
+      width: 65%;
+      height: 1.8em;
+      @include display-flex(row, center, center);
+      @include respond-to(tablet) {
+        width: 50%;
+        height: 1.6em;
+      }
+      .inputSearch {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #d9d9d9;
+        outline: none;
+        padding: 0.4em 1.5em;
+        background: #ffffff;
+        font-size: 1em;
+      }
+      .searchIcon {
+        position: absolute;
+        right: 1rem;
+        color: $greyText;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+    }
+    .searchBarMobile {
+      position: relative;
+      width: 60%;
+      height: 1.8em;
+      @include display-flex(row, center, center);
+      @include respond-to(small-mobile) {
+        height: 1.4em;
+        width: 50%;
+      }
+      .inputSearchMobile {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #d9d9d9;
+        outline: none;
+        padding: 0.2em 1em;
+        background: #ffffff;
+        font-size: 0.9em;
+      }
+      .searchIconMobile {
+        position: absolute;
+        right: 4%;
+        color: $greyText;
+        cursor: pointer;
+        transition: all 0.3s;
+        @include respond-to(small-mobile) {
+          font-size: 1.2em;
+        }
+      }
+    }
+    .callUsBtn {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: $white;
+      background-color: $black;
+      font-size: 1.2rem;
+      font-weight: 500;
+      padding: 0.4em $xxxl;
+      @include respond-to(mobile) {
+        @include display-flex(row, center, center);
+        padding: 0.3em 0.6em 0.4em 0.6em;
+      }
+      @include respond-to(small-mobile) {
+        @include display-flex(row, center, center);
+        padding: 0.3em 0.6em 0.4em 0.6em;
+        transform: scale(0.88);
+      }
+      @include respond-to(tablet) {
+        font-size: 1.2rem;
+        padding: 0.45em $xxl;
+      }
+      @include respond-to(desktop-lg) {
+        padding: 0.53em $xxl;
+      }
+    }
+    .menuButton {
+      cursor: pointer;
+      transition: opacity ease 0.3s;
+      background-color: $secondaryColor;
+      padding: 0.5em $xl;
+      box-sizing: border-box;
+      .menuIcon {
+        font-size: $xxxl;
+        color: $white;
+      }
+      &:hover {
+        opacity: 1.2;
+      }
+      @include respond-to(tablet) {
+        padding: 0.5em $lg;
+        .menuIcon {
+          font-size: $xxl;
+        }
+      }
+    }
+    .menuIconMobile {
+      font-size: $xxxxl;
+      color: $primaryColor;
+      @include respond-to(small-mobile) {
+        transform: scale(0.8);
+      }
+    }
+  }
+}

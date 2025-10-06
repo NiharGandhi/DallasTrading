@@ -1,0 +1,29 @@
+@import "./../../../../style/index.scss";
+
+.headingBox {
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  @include respond-to(mobile) {
+    margin-left: 1em;
+  }
+  .heading {
+    font-size: 3rem;
+    z-index: 1;
+    @include respond-to(mobile) {
+      font-size: 2.4rem;
+    }
+  }
+  .underline {
+    position: absolute;
+    background-color: $white;
+    height: $xs;
+    top: 2em;
+    left: -1em;
+    width: 4em;
+    z-index: -1;
+    @include respond-to(mobile) {
+      top: 1.5em;
+    }
+  }
+}
