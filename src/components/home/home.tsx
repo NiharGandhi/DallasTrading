@@ -5,10 +5,7 @@ import AppRoutes from "./app-routes";
 import styles from "./home.module.scss";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import { connect } from "react-redux";
-import { IStore } from "../../utils/models/store.model";
-import { getSearchValue } from "../../store/searchResults/searchResultsActions";
-import SearchPage from "../../modules/search-page/search-page";
+import Chatbot from "../common/chatbot/chatbot";
 
 class Home extends Component<IHomeProps, IHomeStates> {
   handleDownload() {
@@ -36,10 +33,12 @@ class Home extends Component<IHomeProps, IHomeStates> {
                 Download Brochure
               </button>
               {/* All your modules goes here this section is dynamic (it change when path changes) */}
-              {this.props.searchVal ? <SearchPage /> : <AppRoutes />}
+              <AppRoutes />
             </div>
             {/* Footer remains same for entire web page */}
             <Footer />
+            {/* Chatbot */}
+            <Chatbot />
           </BrowserRouter>
         </div>
       </Fragment>
@@ -47,6 +46,4 @@ class Home extends Component<IHomeProps, IHomeStates> {
   }
 }
 
-export default connect((state: IStore) => ({
-  searchVal: getSearchValue(state),
-}))(Home);
+export default Home;

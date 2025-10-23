@@ -31,7 +31,7 @@ class OurProducts extends Component<IOurProductsProps, IOurProductsStates> {
             className={styles.viewAllBtn}
             onClick={() => this.props.router.navigate("/our-products")}
           >
-            View All
+            View All Products
           </button>
         </div>
         <div className={styles.products}>

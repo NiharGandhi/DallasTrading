@@ -19,11 +19,36 @@ class ProducCard extends React.Component<
       <CardActionArea
         className={styles.cardContainer}
         sx={{
-          width: "25em",
-          height: "35em",
+          width: "100%",
+          maxWidth: "380px",
+          height: "480px",
           boxSizing: "border-box",
-          boxShadow: "0px 0px 23px rgba(0, 0, 0, 0.13)",
-          marginTop: "4rem",
+          background: "linear-gradient(135deg, #ffffff 0%, #fafbfc 100%)",
+          border: "1px solid rgba(0, 60, 117, 0.08)",
+          borderRadius: "16px",
+          overflow: "hidden",
+          transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+          position: "relative",
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04)",
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "4px",
+            background: "linear-gradient(90deg, #003C75 0%, #EE3342 100%)",
+            opacity: 0,
+            transition: "opacity 0.4s ease",
+          },
+          "&:hover": {
+            boxShadow: "0 12px 40px rgba(0, 60, 117, 0.15), 0 4px 16px rgba(0, 0, 0, 0.08)",
+            transform: "translateY(-8px) scale(1.02)",
+            border: "1px solid rgba(0, 60, 117, 0.15)",
+          },
+          "&:hover::before": {
+            opacity: 1,
+          },
         }}
         onClick={this.props.handleClick}
       >

@@ -13,6 +13,7 @@ import DisplaySlider from "./display-slider/display-slider";
 
 interface CustomDivElement extends HTMLDivElement {
   startX?: number;
+  startY?: number;
 }
 
 class AchievementCarousal extends Component<
@@ -21,31 +22,35 @@ class AchievementCarousal extends Component<
 > {
   displaySliders = [
     {
-      rank: "1st",
-      comapny: "Electrical Trading Company",
-      info: "in U.A.E to get ISO 9001:2008 Certification.",
+      rank: "",
+      comapny: "Electrical Products & Industrial Solutions",
+      info: "for Commercial Projects — Powering UAE's Infrastructure Since 1995",
       extraText: "28 Years of Excellence in Electrical Industrial Solutions",
       image: img1,
       img_info: "display_img1",
     },
     {
       rank: "23",
-      comapny: "High caliber",
-      info: "techno-commercial professionals.",
-      extraText: "28 Years of Excellence in Electrical Industrial Solutions",
+      comapny: "High Caliber Professionals",
+      info: "delivering techno-commercial excellence across the region.",
+      extraText: "Trusted by 1,000+ Customers Across 10+ Countries",
       image: img2,
       img_info: "display_img2",
     },
     {
       rank: "1st",
-      comapny: "Electrical Trading Company",
-      info: "in U.A.E to get ISO 9001:2008 Certification.",
-      extraText: "28 Years of Excellence in Electrical Industrial Solutions",
+      comapny: "ISO 9001:2008 Certified",
+      info: "Electrical Trading Company in U.A.E",
+      extraText: "Quality Assured Products from 150+ Global Suppliers",
       image: img3,
       img_info: "display_img3",
     },
   ];
   private containerRef?: RefObject<CustomDivElement>;
+  private touchStartX = 0;
+  private touchStartY = 0;
+  private swipeThreshold = 50;
+
   constructor(props: IAchievementCarousalProps) {
     super(props);
     this.state = { currentSlide: 0, waitAgain: false, touchStarts: false };
@@ -55,6 +60,7 @@ class AchievementCarousal extends Component<
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchMove = this.handleTouchMove.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.containerRef = createRef<HTMLDivElement>();
   }
   componentDidMount(): void {
@@ -85,31 +91,67 @@ class AchievementCarousal extends Component<
   }
   handleTouchStart(event: any) {
     const touch = event.touches[0];
-    if (this.containerRef?.current) {
-      this.containerRef.current.startX = touch.clientX;
-    }
+    this.touchStartX = touch.clientX;
+    this.touchStartY = touch.clientY;
     this.setState({ touchStarts: true });
-    console.log("yooo");
   }
   handleTouchMove(event: any) {
     if (!this.state.touchStarts) return;
+
     const touch = event.touches[0];
-    const diffX = touch.clientX - (this.containerRef?.current?.startX || 0);
-    console.log("I'm moving woahh..", diffX);
+    const diffX = touch.clientX - this.touchStartX;
+    const diffY = touch.clientY - this.touchStartY;
+
+    // Prevent vertical scroll if primarily horizontal swipe
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+      event.preventDefault();
+    }
   }
-  handleTouchEnd() {
+  handleTouchEnd(event: any) {
+    const touch = event.changedTouches[0];
+    const diffX = touch.clientX - this.touchStartX;
+    const diffY = touch.clientY - this.touchStartY;
+
+    // Check if it's a horizontal swipe (not vertical scroll)
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > this.swipeThreshold) {
+      if (diffX > 0) {
+        this.buttonPrev();
+      } else {
+        this.buttonNext();
+      }
+      this.setState({ waitAgain: true });
+    }
+
     this.setState({ touchStarts: false });
-    console.log("it ends :(");
+  }
+  handleKeyDown(event: any) {
+    if (event.key === "ArrowLeft") {
+      this.buttonPrev();
+      this.setState({ waitAgain: true });
+    } else if (event.key === "ArrowRight") {
+      this.buttonNext();
+      this.setState({ waitAgain: true });
+    } else if (event.key >= "1" && event.key <= "3") {
+      const index = parseInt(event.key) - 1;
+      this.handleClickOnDot(index);
+    }
   }
   render(): ReactNode {
     return (
-      <div className={styles.parent}>
+      <div
+        className={styles.parent}
+        role="region"
+        aria-label="Achievements carousel"
+        onKeyDown={this.handleKeyDown}
+        tabIndex={0}
+      >
         <button
           className={styles.btnPrev}
           onClick={() => {
             this.setState({ waitAgain: true });
             this.buttonPrev();
           }}
+          aria-label="Previous slide"
         >
           <ArrowBackIosIcon />
         </button>
@@ -119,17 +161,18 @@ class AchievementCarousal extends Component<
             this.setState({ waitAgain: true });
             this.buttonNext();
           }}
+          aria-label="Next slide"
         >
           <ArrowForwardIosIcon />
         </button>
         <div
-          id="cont"
           className={styles.achievements}
           ref={this.containerRef}
           onTouchStart={this.handleTouchStart}
           onTouchMove={this.handleTouchMove}
           onTouchEnd={this.handleTouchEnd}
-          style={{ cursor: this.state.touchStarts ? "grab" : "default" }}
+          style={{ cursor: this.state.touchStarts ? "grabbing" : "grab" }}
+          aria-live="polite"
         >
           {this.displaySliders.map((slider, index) => (
             <DisplaySlider
@@ -139,18 +182,17 @@ class AchievementCarousal extends Component<
             />
           ))}
         </div>
-        <div className={styles.carouselDots}>
-          {this.displaySliders.map((d, i) =>
-            this.state.currentSlide === i ? (
-              <div key={i} className={styles.highlightedDot}></div>
-            ) : (
-              <div
-                key={i}
-                className={styles.dot}
-                onClick={() => this.handleClickOnDot(i)}
-              ></div>
-            )
-          )}
+        <div className={styles.carouselDots} role="tablist" aria-label="Slide controls">
+          {this.displaySliders.map((_, index) => (
+            <button
+              key={index}
+              className={this.state.currentSlide === index ? styles.highlightedDot : styles.dot}
+              onClick={() => this.handleClickOnDot(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              aria-selected={this.state.currentSlide === index}
+              role="tab"
+            />
+          ))}
         </div>
       </div>
     );

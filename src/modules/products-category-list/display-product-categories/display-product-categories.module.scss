@@ -2,14 +2,37 @@
 
 .displayContainer {
   box-sizing: border-box;
-  margin-top: 1rem;
-  flex-wrap: wrap;
+  margin-top: 3rem;
+  width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+
   .displayRow {
-    @include display-flex(row, flex-start, center);
-    flex-wrap: wrap;
-    column-gap: 5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2.5rem;
+    justify-items: center;
+
+    @include respond-to(desktop-lg) {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    @include respond-to(desktop) {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.75rem;
+    }
+
     @include respond-to(mobile) {
-      column-gap: 0%;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
     }
   }
 }

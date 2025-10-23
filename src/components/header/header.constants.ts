@@ -1,5 +1,6 @@
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { ActionCreatorWithPayload, ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 import { NavigateFunction, Params } from "react-router-dom";
+import { ISearchResultsData } from "../../utils/models/search-results.model";
 
 export interface IHeaderProps {
   router: {
@@ -11,12 +12,17 @@ export interface IHeaderProps {
     string,
     "searchResults/handleSearchValueChange"
   >;
+  setSearchResultsDataToInitial: ActionCreatorWithoutPayload<"searchResults/setSearchResultsDataToInitial">;
+  fetchAsyncSearchResultsData: () => void;
   searchVal: string;
+  searchResults: ISearchResultsData[];
+  searchLoader: boolean;
 }
 export interface IHeaderStates {
   width: number;
   isMobileWidth: boolean;
+  isLargeDevice: boolean;
   openMenu: boolean;
-  toggleSearch: boolean;
+  openSearchModal: boolean;
   isCopied: boolean;
 }

@@ -1,27 +1,75 @@
 @import "./../../../../../style/index.scss";
 
-.displayImg {
-  width: 65%;
-  @include viewportHeight(55);
-  object-fit: cover;
-  box-sizing: border-box;
+.imageWrapper {
+  flex: 1;
+  max-width: 50%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.15),
+    0 10px 30px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.5);
+
   @include respond-to(desktop-lg) {
-    width: 60%;
-    @include viewportHeight(50);
+    max-width: 48%;
+    border-radius: 16px;
   }
   @include respond-to(desktop) {
-    width: 55%;
-    @include viewportHeight(50);
+    max-width: 50%;
+    border-radius: 14px;
   }
   @include respond-to(tablet) {
-    width: 60%;
-    @include viewportHeight(25);
+    max-width: 50%;
+    border-radius: 12px;
+    aspect-ratio: 4 / 3;
   }
   @include respond-to(mobile) {
     position: absolute;
-    @include viewportHeight(35);
+    top: 0;
+    left: 0;
     width: 100%;
-    right: 0;
+    max-width: 100%;
+    height: 100%;
+    aspect-ratio: unset;
     z-index: -1;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+.displayImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  box-sizing: border-box;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0.2, 1);
+  z-index: 1;
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(238, 51, 66, 0.08) 0%,
+    rgba(0, 60, 117, 0.08) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+
+  @include respond-to(mobile) {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
   }
 }

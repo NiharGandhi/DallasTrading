@@ -6,6 +6,8 @@ import {
 } from "./display-slider.constants";
 import { motion } from "framer-motion";
 import DisplayImage from "./display-image/display-image";
+import { useNavigate } from "react-router-dom";
+import withRouter from "../../../../components/common/withRouterComponent/withRouter";
 
 class DisplaySlider extends Component<
   IDisplaySliderProps,
@@ -16,6 +18,8 @@ class DisplaySlider extends Component<
     this.state = {
       imageToShow: 0,
     };
+    this.handleGetQuote = this.handleGetQuote.bind(this);
+    this.handleDownloadCatalogue = this.handleDownloadCatalogue.bind(this);
   }
   componentDidMount(): void {
     setInterval(() => {
@@ -24,6 +28,18 @@ class DisplaySlider extends Component<
           this.state.imageToShow !== 3 ? this.state.imageToShow + 1 : 0,
       });
     }, 4000);
+  }
+
+  handleGetQuote() {
+    this.props.router?.navigate("/contact-us");
+  }
+
+  handleDownloadCatalogue() {
+    const fileUrl = "DALLAS CATALOGUE & COMPANY PROFILE.pdf";
+    const a = document.createElement("a");
+    a.href = fileUrl;
+    a.download = "DALLAS CATALOGUE & COMPANY PROFILE.pdf";
+    a.click();
   }
 
   render(): ReactNode {
@@ -37,10 +53,26 @@ class DisplaySlider extends Component<
       >
         <div className={styles.slider}>
           <div className={styles.displayHeading}>
-            <h1 className={styles.rank}>{slider.rank}</h1>
+            {slider.rank && <h1 className={styles.rank}>{slider.rank}</h1>}
             <h3 className={styles.company}>{slider.comapny}</h3>
             <h4 className={styles.info}>{slider.info}</h4>
             <h5 className={styles.extraText}>{slider.extraText}</h5>
+            <div className={styles.ctaButtons}>
+              <button
+                className={styles.primaryCta}
+                onClick={this.handleGetQuote}
+                aria-label="Get a quote"
+              >
+                Get a Quote
+              </button>
+              <button
+                className={styles.secondaryCta}
+                onClick={this.handleDownloadCatalogue}
+                aria-label="Download catalogue"
+              >
+                Download Catalogue
+              </button>
+            </div>
           </div>
           <DisplayImage image={slider.image} isActive={isActive} />
         </div>
@@ -49,4 +81,4 @@ class DisplaySlider extends Component<
   }
 }
 
-export default DisplaySlider;
+export default withRouter(DisplaySlider);

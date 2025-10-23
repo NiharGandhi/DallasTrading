@@ -1,0 +1,553 @@
+@import "./../../../style/index.scss";
+
+.modal {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12vh;
+  
+  @include respond-to(mobile) {
+    padding-top: 8vh;
+  }
+}
+
+.backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.modalContent {
+  position: relative;
+  width: 90%;
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-radius: 24px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+  outline: none;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.8) 50%,
+      transparent 100%
+    );
+  }
+  
+  @include respond-to(mobile) {
+    width: 95%;
+    max-width: none;
+    border-radius: 20px;
+  }
+}
+
+.header {
+  @include display-flex(row, space-between, center);
+  padding: 1.8rem 2rem 1.2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  
+  @include respond-to(mobile) {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.9);
+  margin: 0;
+  letter-spacing: -0.3px;
+  
+  @include respond-to(mobile) {
+    font-size: 1.3rem;
+  }
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: rgba(0, 0, 0, 0.6);
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.9);
+    transform: rotate(90deg);
+  }
+  
+  &:active {
+    transform: rotate(90deg) scale(0.95);
+  }
+  
+  svg {
+    font-size: 1.4rem;
+  }
+  
+  @include respond-to(mobile) {
+    width: 36px;
+    height: 36px;
+    
+    svg {
+      font-size: 1.3rem;
+    }
+  }
+}
+
+.searchContainer {
+  padding: 1.5rem 2rem 1rem;
+  
+  @include respond-to(mobile) {
+    padding: 1.2rem 1.5rem 0.8rem;
+  }
+}
+
+.searchBar {
+  position: relative;
+  width: 100%;
+  @include display-flex(row, flex-start, center);
+  background: rgba(249, 249, 249, 0.9);
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding: 0 1.2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:focus-within {
+    background: #ffffff;
+    border-color: $primaryColor;
+    box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.12);
+  }
+  
+  @include respond-to(mobile) {
+    padding: 0 1rem;
+    border-radius: 14px;
+  }
+}
+
+.searchIcon {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 1.8rem;
+  margin-right: 0.8rem;
+  flex-shrink: 0;
+  
+  @include respond-to(mobile) {
+    font-size: 1.5rem;
+    margin-right: 0.6rem;
+  }
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 1.2rem 0;
+  font-size: 1.1rem;
+  color: rgba(0, 0, 0, 0.9);
+  font-family: inherit;
+  
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+    font-weight: 400;
+  }
+  
+  @include respond-to(mobile) {
+    padding: 1rem 0;
+    font-size: 1rem;
+  }
+}
+
+.clearButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.08);
+    color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  svg {
+    font-size: 1.4rem;
+  }
+  
+  @include respond-to(mobile) {
+    width: 28px;
+    height: 28px;
+    
+    svg {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.resultsSection {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0 0.5rem;
+  margin: 0 1.5rem 1rem;
+  
+  @include respond-to(mobile) {
+    max-height: 350px;
+    margin: 0 1rem 0.8rem;
+  }
+  
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 10px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.25);
+    }
+  }
+}
+
+.resultsHeader {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  margin-bottom: 0.5rem;
+  
+  @include respond-to(mobile) {
+    padding: 0.6rem 0.8rem;
+  }
+}
+
+.resultsCount {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.6);
+  
+  @include respond-to(mobile) {
+    font-size: 0.85rem;
+  }
+}
+
+.resultsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.resultItem {
+  @include display-flex(row, space-between, center);
+  padding: 1rem;
+  background: rgba(249, 249, 249, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 1rem;
+  
+  &:hover {
+    background: rgba(0, 102, 204, 0.05);
+    border-color: rgba(0, 102, 204, 0.2);
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    
+    .resultArrow {
+      opacity: 1;
+      transform: translateX(4px);
+    }
+  }
+  
+  &:active {
+    transform: translateX(2px) scale(0.99);
+  }
+  
+  @include respond-to(mobile) {
+    padding: 0.8rem;
+    gap: 0.8rem;
+  }
+}
+
+.resultImage {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: white;
+  padding: 0.5rem;
+  flex-shrink: 0;
+  
+  @include respond-to(mobile) {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.resultContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.resultTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.85);
+  margin: 0 0 0.4rem 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
+  @include respond-to(mobile) {
+    font-size: 0.9rem;
+  }
+}
+
+.resultCategory {
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 0;
+  @include display-flex(row, flex-start, center);
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  
+  .separator {
+    color: rgba(0, 0, 0, 0.3);
+  }
+  
+  @include respond-to(mobile) {
+    font-size: 0.8rem;
+  }
+}
+
+.categoryName {
+  font-weight: 600;
+  color: $primaryColor;
+}
+
+.companyName {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.resultArrow {
+  color: $primaryColor;
+  font-size: 1.3rem;
+  opacity: 0.3;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  
+  @include respond-to(mobile) {
+    font-size: 1.1rem;
+  }
+}
+
+.loaderContainer {
+  @include display-flex(column, center, center);
+  padding: 3rem 2rem;
+  gap: 1rem;
+}
+
+.loadingText {
+  font-size: 0.95rem;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 0;
+}
+
+.noResults {
+  @include display-flex(column, center, center);
+  padding: 3rem 2rem;
+  text-align: center;
+  
+  @include respond-to(mobile) {
+    padding: 2rem 1.5rem;
+  }
+}
+
+.noResultsIcon {
+  width: 64px;
+  height: 64px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  @include display-flex(row, center, center);
+  margin-bottom: 1rem;
+  
+  svg {
+    font-size: 2rem;
+    color: rgba(0, 0, 0, 0.3);
+  }
+  
+  @include respond-to(mobile) {
+    width: 56px;
+    height: 56px;
+    
+    svg {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+.noResultsText {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.7);
+  margin: 0 0 0.5rem 0;
+  
+  @include respond-to(mobile) {
+    font-size: 0.95rem;
+  }
+}
+
+.noResultsHint {
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.5);
+  margin: 0;
+  
+  @include respond-to(mobile) {
+    font-size: 0.85rem;
+  }
+}
+
+.emptyState {
+  @include display-flex(column, center, center);
+  padding: 3rem 2rem;
+  text-align: center;
+  
+  @include respond-to(mobile) {
+    padding: 2rem 1.5rem;
+  }
+}
+
+.emptyIcon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(0, 102, 204, 0.1) 0%, rgba(0, 102, 204, 0.05) 100%);
+  border-radius: 50%;
+  @include display-flex(row, center, center);
+  margin-bottom: 1.5rem;
+  
+  svg {
+    font-size: 2.5rem;
+    color: $primaryColor;
+    opacity: 0.6;
+  }
+  
+  @include respond-to(mobile) {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 1rem;
+    
+    svg {
+      font-size: 2.2rem;
+    }
+  }
+}
+
+.emptyText {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.7);
+  margin: 0 0 0.5rem 0;
+  
+  @include respond-to(mobile) {
+    font-size: 1rem;
+  }
+}
+
+.emptyHint {
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.5);
+  margin: 0;
+  
+  @include respond-to(mobile) {
+    font-size: 0.85rem;
+  }
+}
+
+.query {
+  font-weight: 600;
+  color: $primaryColor;
+}
+
+.footer {
+  padding: 1rem 2rem 1.8rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  margin-top: 1rem;
+  
+  @include respond-to(mobile) {
+    padding: 0.8rem 1.5rem 1.5rem;
+  }
+}
+
+.tips {
+  @include display-flex(row, center, center);
+}
+
+.tipText {
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.5);
+  margin: 0;
+  @include display-flex(row, center, center);
+  gap: 0.5rem;
+  
+  .separator {
+    color: rgba(0, 0, 0, 0.3);
+    margin: 0 0.2rem;
+  }
+  
+  @include respond-to(mobile) {
+    font-size: 0.8rem;
+  }
+}
+
+.kbd {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  background: rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-family: monospace;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  
+  @include respond-to(mobile) {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+  }
+}
+

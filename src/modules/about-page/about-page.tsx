@@ -13,50 +13,91 @@ class AboutPage extends Component<IAboutPageProps, IAboutPageStates> {
   render(): ReactNode {
     return (
       <div className={styles.aboutPageContainer}>
-        <BreadCrumb
-          items={[
-            { moduleName: "Home", link: "/home" },
-            { moduleName: "About Us", link: "" },
-          ]}
-        />
-        <div className={styles.heading}>
-          <ShadowHeading
-            headingText1="About"
-            headingText2="Us"
-            backShadowHeading={false}
+        <div className={styles.backgroundAccent}></div>
+        
+        <div className={styles.contentWrapper}>
+          <BreadCrumb
+            items={[
+              { moduleName: "Home", link: "/home" },
+              { moduleName: "About Us", link: "" },
+            ]}
           />
-          <img className={styles.logo} src={companyLogo} alt="dallas_logo" />
+          
+          <div className={styles.heroSection}>
+            <div className={styles.heading}>
+              <ShadowHeading
+                headingText1="About"
+                headingText2="Us"
+                backShadowHeading={false}
+              />
+            </div>
+            <div className={styles.logoContainer}>
+              <img className={styles.logo} src={companyLogo} alt="dallas_logo" />
+            </div>
+          </div>
+
+          <div className={styles.introCard}>
+            <p className={styles.introText}>
+              Welcome to <span className={styles.highlight}>Dallas Group of Companies</span> - a trusted name in the trading
+              and distribution of high-quality electrical products and industrial
+              solutions across the GCC.
+            </p>
+          </div>
+
+          <div className={styles.contentSection}>
+            <div className={styles.storyCard}>
+              <div className={styles.cardHeader}>
+                <h3 className={styles.cardTitle}>Our Story</h3>
+                <div className={styles.yearBadge}>Since 1995</div>
+              </div>
+              <p className={styles.cardText}>
+                Founded in 1995 under the visionary leadership of Mr. Prakash Ahuja,
+                Dallas Group has evolved from its roots in Dubai into a multi-regional
+                enterprise with a strong presence in the UAE, Oman, and Bahrain, and a
+                growing footprint through an associated company in Dammam, Saudi Arabia.
+              </p>
+            </div>
+
+            <div className={styles.valuesCard}>
+              <h3 className={styles.cardTitle}>Our Excellence</h3>
+              <p className={styles.cardText}>
+                Over the years, Dallas has built a reputation for reliability, efficiency,
+                and customer-focused service. Guided by a well-structured management
+                framework - with Mr. Prakash Ahuja at the helm and each division led by
+                experienced General Managers and Directors - the Group ensures streamlined
+                operations and consistent excellence across all regions.
+              </p>
+            </div>
+
+            <div className={styles.approachCard}>
+              <h3 className={styles.cardTitle}>Our Approach</h3>
+              <p className={styles.cardText}>
+                At Dallas, we believe in partnership-driven growth. Our customers are our
+                collaborators, and we go beyond supplying products by offering technical
+                expertise, cost-effective solutions, and end-to-end support. Our centralized
+                sales coordination and sourcing teams based in Dubai, Oman, and Bahrain work
+                closely to ensure timely deliveries, technical assistance, and superior
+                after-sales service.
+              </p>
+            </div>
+
+            <div className={styles.commitmentCard}>
+              <h3 className={styles.cardTitle}>Our Commitment</h3>
+              <p className={styles.cardText}>
+                We are deeply committed to innovation, sustainability, and alignment with
+                government initiatives aimed at building a more energy-efficient and sustainable
+                future. Through continuous research, collaboration with consultants, and a focus
+                on operational efficiency, Dallas Group continues to expand its capabilities —
+                delivering value, fostering trust, and driving long-term success across the
+                Middle East.
+              </p>
+            </div>
+          </div>
+
+          <div className={styles.partnersSection}>
+            <OurPartners isSidePaddingNeeded={false} />
+          </div>
         </div>
-        <p className={styles.aboutText}>
-          Welcome to Dallas Group your dependable source for electrical products
-          for trade & industry, dedicated to provide genuine products with
-          prompt customer service.
-        </p>
-        <p className={styles.aboutText}>
-          Dallas was founded by Mr. Prakash Ahuja about twenty three years back
-          with one division in Dubai and in pursuit of his passion he expanded
-          to serve entire United Arab Emirates, followed by adding divisions in
-          Qatar and Oman. Mr. Prakash Ahuja is assisted by his operations team
-          headed by Chief Executive Officer at Head office and each division is
-          headed by General Managers.
-        </p>
-        <p className={styles.aboutText}>
-          Dallas serves to its customers from GCC countries and African region
-          too. Dallas network of branches provides excellent service, technical
-          support and optimum stocks to meet customer requirements in time.
-          Dallas group has over 20,000 sqft of storage space and manned by sixty
-          staff. We are proud of our centralized skilled sales coordination cum
-          sourcing team based in Dubai and Europe to support our partners in the
-          Middle East and Africa region. Dallas treats its customers as partners
-          and strives continually in their growth and development. This has been
-          possible due to its trained staff, who also imparts technical advice
-          to buy and install electrical products to save on costs and to get
-          best results. Dallas team works closely with consultants, suggesting
-          efficient & economical products, does R&D for them, which in turn adds
-          to our product profile. We strongly believe in contributing to
-          environment in line with Governments strategy of sustainability.
-        </p>
-        <OurPartners isSidePaddingNeeded={false} />
       </div>
     );
   }

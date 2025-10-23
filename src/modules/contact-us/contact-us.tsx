@@ -70,13 +70,10 @@ class ContactUs extends Component<IContactUsProps, IContactUsStates> {
                 Dubai
               </MenuItem>
               <MenuItem key={`text_item_${2}`} value={2}>
-                Qatar (Doha Office)
+                Oman (Muscat Office)
               </MenuItem>
               <MenuItem key={`text_item_${3}`} value={3}>
-                Qatar (Doha Showroom)
-              </MenuItem>
-              <MenuItem key={`text_item_${4}`} value={4}>
-                Oman (Muscat Office)
+                Bahrain (Warehouse)
               </MenuItem>
             </Select>
             {this.state.loader ? (

@@ -8,6 +8,7 @@ export interface IDisplaySliderProps {
     img_info: string;
   };
   isActive: boolean;
+  router?: any;
 }
 export interface IDisplaySliderStates {
   imageToShow: number;

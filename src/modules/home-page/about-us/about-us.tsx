@@ -33,7 +33,7 @@ class AboutUs extends Component<IAboutUsProps, IAboutUsStates> {
                 ></CountUp>
                 +
               </h1>
-              <h3 className={styles.info}>Countires Operation</h3>
+              <h3 className={styles.info}>Countries in Operation</h3>
             </div>
           </div>
           <div className={styles.col2}>
@@ -59,7 +59,7 @@ class AboutUs extends Component<IAboutUsProps, IAboutUsStates> {
                 ></CountUp>
                 +
               </h1>
-              <h3 className={styles.info}>Supplliers across</h3>
+              <h3 className={styles.info}>Suppliers Across Globe</h3>
             </div>
           </div>
         </div>

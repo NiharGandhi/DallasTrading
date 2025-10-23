@@ -2,11 +2,203 @@
 
 .ourTeamPageContainer {
   @include pageCommonCss;
-  .loaderDiv {
-    position: relative;
-    height: $windowHeight * 0.4;
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  overflow-x: hidden;
+
+  // Decorative background elements
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 600px;
+    height: 600px;
+    background: linear-gradient(135deg, rgba(0, 60, 117, 0.04) 0%, rgba(238, 51, 66, 0.04) 100%);
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+    pointer-events: none;
   }
-  .teamDetails {
-    margin-top: $windowHeight * 0.06;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    left: -5%;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, rgba(238, 51, 66, 0.04) 0%, rgba(0, 60, 117, 0.04) 100%);
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .contentWrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+
+    @media (max-width: 768px) {
+      padding: 0 1rem 3rem;
+    }
+  }
+
+  .headerSection {
+    text-align: center;
+    padding: 2rem 0 4rem;
+    
+    .headerContent {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: $primaryColor;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease 0.2s forwards;
+      position: relative;
+      display: inline-block;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(90deg, $primaryColor, $secondaryColor);
+        border-radius: 2px;
+      }
+    }
+
+    .description {
+      font-size: 1.15rem;
+      color: #64748b;
+      line-height: 1.8;
+      margin-top: 2rem;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease 0.4s forwards;
+      font-weight: 400;
+    }
+  }
+
+  .loaderContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 0;
+    
+    .loadingText {
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      color: #64748b;
+      font-weight: 500;
+      animation: pulse 2s ease-in-out infinite;
+    }
+  }
+
+  .teamSection {
+    padding: 0 0 4rem;
+    
+    .teamGrid {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+
+      @media (max-width: 768px) {
+        gap: 2rem;
+      }
+
+      @media (max-width: 480px) {
+        gap: 1.5rem;
+      }
+    }
+
+    .cardWrapper {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 0.8s ease forwards;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        transform: translateY(-4px);
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .ourTeamPageContainer {
+    .teamSection .teamGrid {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2.5rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .ourTeamPageContainer {
+    .headerSection {
+      padding: 2rem 0 3rem;
+      
+      .subtitle {
+        font-size: 0.85rem;
+      }
+
+      .description {
+        font-size: 1rem;
+        padding: 0 1rem;
+        margin-top: 1.5rem;
+      }
+    }
+    
+    .teamSection {
+      padding: 0 0 3rem;
+    }
   }
 }

@@ -4,8 +4,8 @@
     "image": "prakash_ahuja_img",
     "altTextForImg": "prakash_ahuja_img",
     "name": "Prakash Ahuja",
-    "position": "Chairman and Founder",
-    "bio": "Prakash Ahuja is one of the pioneers in the electrical field with over three decades of experience as an entrepreneur. He has a reputation for being a visionary and business is a passion for him."
+    "position": "Chairman & Founder",
+    "bio": "Prakash Ahuja is a pioneering figure in the electrical industry with over three decades of entrepreneurial experience. Known for his visionary leadership and deep business acumen, he has built Dallas Group of Companies on the foundations of trust, innovation, and excellence. Business is not just a profession for him — It is his passion and lifelong pursuit."
   },
   {
     "id": 1,
@@ -13,30 +13,30 @@
     "altTextForImg": "ibrahim_somji_img",
     "name": "Ibrahim Somji",
     "position": "Director",
-    "bio": "Ibrahim Somji has been a first generation entrepreneur in the field of electrical products and a leading builder, having built certain very prestigious towers. He is known among the business community as an astute and straight forward man."
+    "bio": "A first-generation entrepreneur, Ibrahim Somji has made his mark in the electrical products sector as well as the real estate industry, having developed several prestigious towers. Highly regarded within the business community, he is known for his integrity, strategic insight, and straightforward approach to leadership."
   },
   {
     "id": 2,
-    "image": "amjad_ali_img",
-    "altTextForImg": "amjad_ali_img",
-    "name": "Amjad Ali",
-    "position": "General Manager – UAE",
-    "bio": "Amjad Ali is a qualified Electrical engineer, and has been with Dallas since last 28 years. Dallas customers call him a articulate engineer, as the technical suggestions imparted by him has benefited cost savings, and provided efficient and effective solutions."
+    "image": "jay_ahuja_img",
+    "altTextForImg": "jay_ahuja_img",
+    "name": "Jay Ahuja",
+    "position": "Executive Director",
+    "bio": "As Executive Director of Dallas Group, Jay Ahuja brings over two decades of diverse experience within the organization. He oversees the Group's overall operations and IT infrastructure across all branches in the Middle East. His hands-on leadership and commitment to operational excellence have been instrumental in strengthening Dallas's regional presence and efficiency."
   },
   {
     "id": 3,
     "image": "vijay_ahuja_img",
     "altTextForImg": "vijay_ahuja_img",
     "name": "Vijay Ahuja",
-    "position": "General Manager – Oman",
-    "bio": "Vijay Ahuja has Masters in Finance from United States. After undergoing rigorous training he is given charge of Oman operations."
+    "position": "Director – Oman Operations",
+    "bio": "Vijay Ahuja has an educational background in Management Information Systems and Accounting, combined with extensive training and experience in branding, business development, and marketing in both the US and Indian markets. Since 2015, as the leader of operations in Oman, his experience includes strategic planning, team management, and fostering relationships with key stakeholders. This combination of academic qualifications and practical experience underscores his capability to drive growth and expansion in Oman's market."
   },
   {
     "id": 4,
-    "image": "jay_ahuja_img",
-    "altTextForImg": "jay_ahuja_img",
-    "name": "Jay Ahuja",
-    "position": "Executive Director",
-    "bio": "Jay Ahuja is the Executive Director in Dallas. With over 2 decades of experience in multiple domains in the company - Jay is responsible for managing the entire operations and IT infrastructure across all branches of Dallas in the Middle East"
+    "image": "amjad_ali_img",
+    "altTextForImg": "amjad_ali_img",
+    "name": "Amjad Ali",
+    "position": "General Manager – UAE & Bahrain",
+    "bio": "Amjad Ali, a qualified Electrical Engineer, has been an integral part of Dallas for over 28 years. Widely recognized by clients for his articulate technical guidance, his solutions have consistently delivered cost efficiency, reliability, and performance optimization. His long-standing commitment and deep product knowledge make him one of the most respected professionals in the industry."
   }
 ]

@@ -21,37 +21,59 @@ class OurTeam extends Component<IOurTeamProps, IOurTeamStates> {
   render(): ReactNode {
     return (
       <div className={styles.ourTeamPageContainer}>
-        <BreadCrumb
-          items={[
-            { moduleName: "Home", link: "/home" },
-            { moduleName: "Our Team", link: "" },
-          ]}
-        />
-        <ShadowHeading
-          headingText1="Our"
-          headingText2="Team"
-          backShadowHeading={false}
-        />
-        {this.props.loader ? (
-          <div className={styles.loaderDiv}>
-            <CustomLoader />
-          </div>
-        ) : (
-          <div className={styles.teamDetails}>
-            {this.props.ourTeamDetailsData.map((person) => (
-              <SideImageCard
-                key={person.id}
-                image={person.image}
-                altTextImg={person.altTextForImg}
-                details={{
-                  name: person.name,
-                  position: person.position,
-                  bio: person.bio,
-                }}
+        <div className={styles.backgroundAccent}></div>
+        
+        <div className={styles.contentWrapper}>
+          <BreadCrumb
+            items={[
+              { moduleName: "Home", link: "/home" },
+              { moduleName: "Our Team", link: "" },
+            ]}
+          />
+          
+          <div className={styles.headerSection}>
+            <div className={styles.headerContent}>
+              <ShadowHeading
+                headingText1="Our"
+                headingText2="Team"
+                backShadowHeading={false}
               />
-            ))}
+              <p className={styles.description}>
+                A team of passionate professionals dedicated to delivering 
+                exceptional results with creativity and expertise.
+              </p>
+            </div>
           </div>
-        )}
+
+          {this.props.loader ? (
+            <div className={styles.loaderContainer}>
+              <CustomLoader />
+              <p className={styles.loadingText}>Loading our team...</p>
+            </div>
+          ) : (
+            <div className={styles.teamSection}>
+              <div className={styles.teamGrid}>
+                {this.props.ourTeamDetailsData.map((person, index) => (
+                  <div 
+                    key={person.id} 
+                    className={styles.cardWrapper}
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <SideImageCard
+                      image={person.image}
+                      altTextImg={person.altTextForImg}
+                      details={{
+                        name: person.name,
+                        position: person.position,
+                        bio: person.bio,
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     );
   }

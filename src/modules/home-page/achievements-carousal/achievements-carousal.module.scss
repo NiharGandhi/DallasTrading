@@ -3,155 +3,231 @@
 .parent {
   position: relative;
   box-sizing: border-box;
-  width: $windowWidth;
-  @include viewportHeight(65);
-  padding: 0 $commonPaddingForSides;
-  padding-top: 1rem;
-  @include respond-to(desktop-lg) {
-    @include viewportHeight(60);
-  }
-  @include respond-to(tablet) {
-    @include viewportHeight(34);
-  }
+  width: 100%;
+  padding: 1rem;
+  margin: 2rem 0;
+
+  // Mobile first approach
   @include respond-to(mobile) {
-    height: auto;
-    padding: 0;
+    padding: 0.75rem 0.5rem;
+    margin: 1rem 0;
+  }
+
+  @include respond-to(tablet) {
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  @include respond-to(desktop) {
+    padding: 2rem $commonPaddingForSides;
+    margin: 3rem 0;
+  }
+
+  @include respond-to(desktop-lg) {
+    padding: 2.5rem $commonPaddingForSides;
+    margin: 3rem 0;
   }
   .achievements {
     width: 100%;
-    @include display-flex(row);
+    display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 16px;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+
+    // Hide scrollbar but maintain functionality
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    // Modern gradient background with better browser support
+    background: radial-gradient(
+        ellipse at top right,
+        rgba(238, 51, 66, 0.05) 0%,
+        transparent 50%
+      ),
+      radial-gradient(ellipse at bottom left, rgba(0, 60, 117, 0.05) 0%, transparent 50%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.1),
+      0 10px 30px rgba(0, 0, 0, 0.08),
+      0 0 0 1px rgba(0, 0, 0, 0.03);
+
+    // Mobile
+    @include respond-to(mobile) {
+      border-radius: 12px;
+      scroll-snap-type: none;
+      min-height: 450px;
+    }
+
+    // Tablet
+    @include respond-to(tablet) {
+      min-height: 400px;
+    }
+
+    // Desktop
+    @include respond-to(desktop) {
+      min-height: 500px;
+    }
+
+    // Large Desktop
+    @include respond-to(desktop-lg) {
+      min-height: 550px;
+    }
+
+    @include respond-to(desktop-xxlg) {
+      min-height: 600px;
+    }
   }
   .btnNext,
   .btnPrev {
     @include display-flex(row, center, center);
     cursor: pointer;
     position: absolute;
-    outline: none;
-    border: none;
-    background: none;
-    z-index: 10;
-    bottom: -1%;
+    top: 50%;
     transform: translateY(-50%);
-    color: rgba(0, 0, 0, 0.5);
+    border: none;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 10;
+    color: $primaryColor;
     border-radius: 50%;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    height: 3rem;
-    width: 3rem;
-    &:hover,
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08);
+
+    // Accessible touch targets (minimum 44px)
+    height: 44px;
+    width: 44px;
+    min-height: 44px;
+    min-width: 44px;
+
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background: linear-gradient(135deg, $primaryColor, darken($primaryColor, 8%));
+      color: white;
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 12px 40px rgba(238, 51, 66, 0.25), 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    &:active {
+      transform: translateY(-50%) scale(1.05);
+    }
+
     &:focus {
-      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+      outline: none;
+      box-shadow: 0 12px 40px rgba(238, 51, 66, 0.25), 0 6px 20px rgba(0, 0, 0, 0.15),
+        0 0 0 4px rgba(238, 51, 66, 0.2);
+    }
+
+    // Mobile-specific styles
+    @include respond-to(mobile) {
+      display: none; // Hide on mobile, rely on swipe
+    }
+
+    @include respond-to(tablet) {
+      height: 40px;
+      width: 40px;
+      min-height: 40px;
+      min-width: 40px;
     }
   }
+
   .btnNext {
-    right: 40%;
-    padding-left: 1em;
+    right: 1.5rem;
+    padding-left: 2px; // Visual adjustment for arrow
   }
+
   .btnPrev {
-    left: 40%;
-    padding-right: 1em;
+    left: 1.5rem;
+    padding-right: 2px; // Visual adjustment for arrow
   }
   @include respond-to(desktop-xxlg) {
     .btnNext,
     .btnPrev {
-      height: 3.5rem;
-      width: 3.5rem;
-      bottom: 0%;
+      height: 52px;
+      width: 52px;
+      min-height: 52px;
+      min-width: 52px;
     }
   }
   @include respond-to(desktop-lg) {
     .btnNext,
     .btnPrev {
-      height: 2.5rem;
-      width: 2.5rem;
-      bottom: -4%;
+      height: 48px;
+      width: 48px;
+      min-height: 48px;
+      min-width: 48px;
     }
   }
   @include respond-to(desktop) {
     .btnNext,
     .btnPrev {
-      height: 2.5rem;
-      width: 2.5rem;
-    }
-  }
-  @include respond-to(tablet) {
-    .btnNext,
-    .btnPrev {
-      height: 2.5rem;
-      width: 2.5rem;
-    }
-    .btnNext {
-      right: 35%;
-    }
-    .btnPrev {
-      left: 35%;
-    }
-  }
-  @include respond-to(mobile) {
-    .btnNext,
-    .btnPrev {
-      display: none;
+      height: 44px;
+      width: 44px;
     }
   }
   .carouselDots {
     position: absolute;
-    @include display-flex(row, space-between, center);
-    @include viewportWidth(4);
-    left: 48%;
-    bottom: 5%;
+    @include display-flex(row, center, center);
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 0.75rem;
+    z-index: 10;
+
     .dot,
     .highlightedDot {
       cursor: pointer;
-      background-color: $fontColor;
       border-radius: 50%;
-      height: 0.8rem;
-      width: 0.8rem;
-      z-index: 2;
-      opacity: 0.4;
-      transition: all ease-in-out 0.2s;
-    }
-    .highlightedDot {
-      opacity: 1;
-      transform: scale(1.2);
+      border: 2px solid transparent;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+      // Accessible touch targets
+      height: 12px;
+      width: 12px;
+      min-height: 12px;
+      min-width: 12px;
     }
 
-    @include respond-to(desktop-lg) {
-      @include viewportWidth(5);
-      left: 47.5%;
-      bottom: 2.5%;
-    }
-    @include respond-to(desktop) {
-      @include viewportWidth(6);
-      left: 47%;
-      bottom: 7.5%;
-      .dot,
-      .highlightedDot {
-        height: 0.7rem;
-        width: 0.7rem;
+    .dot {
+      background: rgba(174, 169, 186, 0.4);
+
+      &:hover {
+        background: rgba(238, 51, 66, 0.6);
+        transform: scale(1.2);
+      }
+
+      // Mobile: larger touch targets
+      @include respond-to(mobile) {
+        height: 14px;
+        width: 14px;
+        min-height: 14px;
+        min-width: 14px;
       }
     }
-    @include respond-to(tablet) {
-      @include viewportWidth(8);
-      left: 46%;
-      bottom: 8.5%;
-      .dot,
-      .highlightedDot {
-        height: 0.7rem;
-        width: 0.7rem;
+
+    .highlightedDot {
+      background: linear-gradient(135deg, $primaryColor, darken($primaryColor, 8%));
+      transform: scale(1.3);
+      box-shadow: 0 0 0 3px rgba(238, 51, 66, 0.2), 0 4px 12px rgba(238, 51, 66, 0.3);
+
+      @include respond-to(mobile) {
+        transform: scale(1.4);
       }
     }
+
+    // Responsive positioning
     @include respond-to(mobile) {
-      @include viewportWidth(14);
-      left: 43%;
-      .dot,
-      .highlightedDot {
-        height: 0.6rem;
-        width: 0.6rem;
-      }
+      bottom: 1rem;
+      gap: 0.5rem;
     }
   }
 }

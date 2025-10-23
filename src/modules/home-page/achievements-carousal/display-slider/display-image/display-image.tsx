@@ -27,25 +27,28 @@ class DisplayImage extends Component<IDisplayImageProps, IDisplayImageStates> {
     const visibleMask = `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 0px, rgba(0,0,0,1) 0px, rgba(0,0,0,1) 40px)`;
     const { image, isActive } = this.props;
     return isActive ? (
-      <motion.img
-        className={styles.displayImg}
-        src={image}
-        initial={false}
-        animate={
-          this.state.isInView && this.state.isLoaded
-            ? { WebkitMaskImage: visibleMask, maskImage: visibleMask }
-            : { WebkitMaskImage: hiddenMask, maskImage: hiddenMask }
-        }
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-        exit={
-          this.state.isInView && this.state.isLoaded
-            ? { WebkitMaskImage: visibleMask, maskImage: visibleMask }
-            : { WebkitMaskImage: hiddenMask, maskImage: hiddenMask }
-        }
-        onViewportEnter={() => this.setState({ isInView: true })}
-        onLoad={() => this.setState({ isLoaded: true })}
-      />
+      <div className={styles.imageWrapper}>
+        <motion.img
+          className={styles.displayImg}
+          src={image}
+          initial={false}
+          animate={
+            this.state.isInView && this.state.isLoaded
+              ? { WebkitMaskImage: visibleMask, maskImage: visibleMask }
+              : { WebkitMaskImage: hiddenMask, maskImage: hiddenMask }
+          }
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          exit={
+            this.state.isInView && this.state.isLoaded
+              ? { WebkitMaskImage: visibleMask, maskImage: visibleMask }
+              : { WebkitMaskImage: hiddenMask, maskImage: hiddenMask }
+          }
+          onViewportEnter={() => this.setState({ isInView: true })}
+          onLoad={() => this.setState({ isLoaded: true })}
+        />
+        <div className={styles.imageOverlay}></div>
+      </div>
     ) : null;
   }
 }

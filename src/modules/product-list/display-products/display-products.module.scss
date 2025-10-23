@@ -2,18 +2,48 @@
 
 .displayContainer {
   box-sizing: border-box;
-  margin-top: 1rem;
-  flex-wrap: wrap;
+  margin-top: 3rem;
+  width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+
   .displayRow {
-    @include display-flex(row, flex-start, center);
-    flex-wrap: wrap;
-    column-gap: 5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2.5rem;
+    justify-items: center;
+
+    @include respond-to(desktop-lg) {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    @include respond-to(desktop) {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.75rem;
+    }
+
+    @include respond-to(mobile) {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
   }
+
   .noProducts {
-    background-color: $greyText;
+    background: linear-gradient(135deg, rgba(0, 60, 117, 0.9) 0%, rgba(238, 51, 66, 0.9) 100%);
     width: 100%;
-    padding: 1em;
-    font-size: 1.2rem;
+    padding: 2rem;
+    font-size: 1.1rem;
     color: $white;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   }
 }

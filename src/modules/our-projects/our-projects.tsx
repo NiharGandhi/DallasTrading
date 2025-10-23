@@ -13,82 +13,94 @@ import Palm_Jumeirah from "./../../images/Palm Jumeirah.jpg";
 import The_Atlantis_Royal from "./../../images/The Atlantis Royal.jpg";
 import jumeirah_park_villas_project from "./../../images/jumeirah park villas-project.jpg";
 import jumeirah_park_villas_project1 from "./../../images/jumeirah park villas-project (5).jpg";
-import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
 
 class OurProjects extends Component<IOurProjectsProps, IOurProjectsStates> {
   componentDidMount(): void {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
-  itemData = [
+  projectsData = [
     {
-      img: Al_Habtoor_city,
-      name: "Al Habtoor City",
-      title: "Al_Habtoor_city",
+      id: 1,
+      image: Al_Habtoor_city,
+      title: "Al Habtoor City"
     },
     {
-      img: Dubai_Fountain_project,
-      name: "Dubai Fountain Project",
-      title: "Dubai_Fountain_project",
+      id: 2,
+      image: Dubai_Fountain_project,
+      title: "Dubai Fountain Project"
     },
     {
-      img: Future_museum,
-      name: "Future Museum",
-      title: "Future_museum",
+      id: 3,
+      image: Future_museum,
+      title: "Future Museum"
     },
     {
-      img: jumeirah_park_villas_project,
-      name: "Jumeirah Park Villas Project",
-      title: "jumeirah_park_villas_project",
+      id: 4,
+      image: jumeirah_park_villas_project,
+      title: "Jumeirah Park Villas"
     },
     {
-      img: jumeirah_park_villas_project1,
-      name: "Jumeirah Park Villas Project",
-      title: "jumeirah_park_villas_project1",
+      id: 5,
+      image: jumeirah_park_villas_project1,
+      title: "Jumeirah Park Villas Phase 2"
     },
     {
-      img: Palm_Jumeirah,
-      name: "Palm Jumeirah",
-      title: "Palm_Jumeirah",
+      id: 6,
+      image: Palm_Jumeirah,
+      title: "Palm Jumeirah"
     },
     {
-      img: The_Atlantis_Royal,
-      name: "The Atlantis Royal",
-      title: "The_Atlantis_Royal",
+      id: 7,
+      image: The_Atlantis_Royal,
+      title: "The Atlantis Royal"
     },
   ];
   render(): ReactNode {
     return (
-      <div className={styles.ourProjectsContainer}>
+      <section className={styles.ourProjectsContainer}>
         <BreadCrumb
           items={[
             { moduleName: "Home", link: "/home" },
-            { moduleName: "Our Projects", link: "" },
+            { moduleName: "Our Projects", link: ""},
           ]}
         />
-        <ShadowHeading
-          headingText1="Our"
-          headingText2="Projects"
-          backShadowHeading={false}
-        />
-        <div className={styles.projects}>
-          <ImageList className={styles.imageList} cols={1}>
-            {this.itemData.map((item) => (
-              <ImageListItem key={item.img} sx={{marginBottom: "1em"}}>
-                <img
-                  src={`${item.img}?w=248&fit=crop&auto=format`}
-                  srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.title}
-                  loading="lazy"
-                />
-                <ImageListItemBar
-                  title={item.name}
-                  position="below"
-                />
-              </ImageListItem>
+        
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <ShadowHeading
+              headingText1="Our"
+              headingText2="Projects"
+              backShadowHeading={false}
+            />
+            <p className={styles.subtitle}>
+              Showcasing our portfolio of successful projects and achievements
+            </p>
+          </div>
+          
+          <div className={styles.projectsGrid}>
+            {this.projectsData.map((project, index) => (
+              <div
+                key={project.id}
+                className={styles.projectCard}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className={styles.imageContainer}>
+                  <img
+                    className={styles.projectImage}
+                    src={project.image}
+                    alt={project.title}
+                    loading="lazy"
+                  />
+                </div>
+                
+                <div className={styles.content}>
+                  <h3 className={styles.projectTitle}>{project.title}</h3>
+                </div>
+              </div>
             ))}
-          </ImageList>
+          </div>
         </div>
-      </div>
+      </section>
     );
   }
 }

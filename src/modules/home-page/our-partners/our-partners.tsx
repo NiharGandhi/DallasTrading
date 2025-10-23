@@ -32,100 +32,20 @@ class OurPartners extends Component<IOurPartnersProps, IOurPartnersStates> {
     this.handleResize = this.handleResize.bind(this);
   }
   partnersList = [
-    [
-      { image: Partner1, altText: "partner_1", delay: 0, customWidth: "8rem" },
-      {
-        image: Partner2,
-        altText: "partner_2",
-        delay: 100,
-        customWidth: "8rem",
-      },
-      {
-        image: Partner3,
-        altText: "partner_3",
-        delay: 200,
-        customWidth: "10rem",
-      },
-      {
-        image: Partner4,
-        altText: "partner_4",
-        delay: 300,
-        customWidth: "10rem",
-      },
-    ],
-    [
-      {
-        image: Partner5,
-        altText: "partner_5",
-        delay: 100,
-        customWidth: "10rem",
-      },
-      {
-        image: Partner6,
-        altText: "partner_6",
-        delay: 200,
-        customWidth: "6rem",
-        marginLeft: "-0.8rem",
-      },
-      {
-        image: Partner7,
-        altText: "partner_7",
-        delay: 300,
-        customWidth: "10rem",
-        marginLeft: "1rem",
-      },
-      {
-        image: Partner8,
-        altText: "partner_8",
-        delay: 200,
-        customWidth: "6rem",
-        marginLeft: "0.8rem",
-      },
-    ],
-    [
-      {
-        image: Partner9,
-        altText: "partner_9",
-        delay: 300,
-        customWidth: "10rem",
-        marginLeft: "-0.4rem",
-      },
-      {
-        image: Partner10,
-        altText: "partner_10",
-        delay: 400,
-        customWidth: "10rem",
-        marginLeft: "-1.4rem",
-      },
-      {
-        image: Partner11,
-        altText: "partner_11",
-        delay: 500,
-        customWidth: "10rem",
-        marginLeft: "-2rem",
-      },
-      {
-        image: Partner12,
-        altText: "partner_12",
-        delay: 200,
-        customWidth: "10rem",
-      },
-    ],
-    [
-      {
-        image: Partner13,
-        altText: "partner_13",
-        delay: 300,
-        customWidth: "10rem",
-      },
-      {
-        image: Partner14,
-        altText: "partner_14",
-        delay: 300,
-        customWidth: "10rem",
-        marginLeft: "-1rem",
-      },
-    ],
+    { image: Partner1, altText: "PCE", name: "PCE" },
+    { image: Partner2, altText: "3M", name: "3M" },
+    { image: Partner3, altText: "Raychem", name: "Raychem" },
+    { image: Partner4, altText: "Barton", name: "Barton" },
+    { image: Partner5, altText: "Oxford", name: "Oxford" },
+    { image: Partner6, altText: "MK", name: "MK" },
+    { image: Partner7, altText: "Legrand", name: "Legrand" },
+    { image: Partner8, altText: "Hex", name: "Hex" },
+    { image: Partner9, altText: "Breeze", name: "Breeze" },
+    { image: Partner10, altText: "Ashfield", name: "Ashfield" },
+    { image: Partner11, altText: "Elite", name: "Elite" },
+    { image: Partner12, altText: "MESC", name: "MESC" },
+    { image: Partner13, altText: "Schneider", name: "Schneider" },
+    { image: Partner14, altText: "Marechal Electric", name: "Marechal Electric" },
   ];
   componentDidMount(): void {
     Aos.init();
@@ -142,51 +62,44 @@ class OurPartners extends Component<IOurPartnersProps, IOurPartnersStates> {
   }
   render(): ReactNode {
     return (
-      <div
+      <section
         className={styles.ourPartners}
         style={{
           paddingRight: this.props.isSidePaddingNeeded === false ? "0" : "",
           paddingLeft: this.props.isSidePaddingNeeded === false ? "0" : "",
         }}
       >
-        <div className={styles.heading}>
-          <ShadowHeading headingText1="Our" headingText2="Partners" />
-        </div>
-        <table className={styles.partners}>
-          <tbody>
-            {this.partnersList.map((list, i) => (
-              <tr key={i} className={styles.row}>
-                {list.map((item, j) => {
-                  return (
-                    <td
-                      key={j}
-                      data-aos="fade-left"
-                      data-aos-delay={item.delay}
-                      data-aos-offset="100"
-                      data-aos-duration="1500"
-                      data-aos-once="true"
-                    >
-                      <img
-                        className={styles.partnerImg}
-                        style={{
-                          marginLeft: item?.marginLeft ? item.marginLeft : "",
-                          width: this.state.isMobileWidth
-                            ? ""
-                            : this.state.isDesktopWidth
-                            ? ""
-                            : item.customWidth,
-                        }}
-                        src={item.image}
-                        alt={item.altText}
-                      />
-                    </td>
-                  );
-                })}
-              </tr>
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <ShadowHeading headingText1="Our" headingText2="Partners" />
+            <p className={styles.subtitle}>
+              Authorized Distributors of Leading Global Brands
+            </p>
+          </div>
+          
+          <div className={styles.partnersGrid}>
+            {this.partnersList.map((partner, index) => (
+              <div
+                key={index}
+                className={styles.partnerCard}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className={styles.partnerImageContainer}>
+                  <img
+                    className={styles.partnerImage}
+                    src={partner.image}
+                    alt={partner.altText}
+                    loading="lazy"
+                  />
+                </div>
+                <div className={styles.partnerName}>
+                  {partner.name}
+                </div>
+              </div>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </div>
+        </div>
+      </section>
     );
   }
 }

@@ -1,10 +1,28 @@
 @import "./../../style/index.scss";
 
 .productDetailsContainer {
-  @include pageCommonCss;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 3rem 4%;
+  padding-top: 5vh;
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @include respond-to(desktop) {
+    padding: 3rem 3%;
+  }
+
+  @include respond-to(tablet) {
+    padding: 2rem 2.5%;
+  }
+
+  @include respond-to(mobile) {
+    padding: 2rem 4%;
+  }
+
   .loaderDiv {
     position: relative;
-    height: $windowHeight * 0.4;
+    height: 40vh;
     width: 100%;
     @include respond-to(mobile) {
       width: 80%;

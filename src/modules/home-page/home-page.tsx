@@ -21,7 +21,6 @@ class HomePage extends Component<IHomePageProps, IHomePageStates> {
         <OurProducts />
         <AboutUs />
         <OurPartners />
-        <JoinMailingList />
       </div>
     );
   }

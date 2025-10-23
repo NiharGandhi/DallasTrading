@@ -2,158 +2,403 @@
 
 .display {
   width: 100%;
+  min-width: 100%;
   box-sizing: border-box;
+  flex-shrink: 0;
+
   .slider {
     @include display-flex(row, space-between, center);
     width: 100%;
+    height: 100%;
     scroll-snap-align: start;
-    padding-left: $commonPaddingForSides;
-    @include respond-to(desktop-lg) {
-      padding-left: 2rem;
-    }
-    @include respond-to(desktop) {
-      padding-left: 0;
-    }
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+
     @include respond-to(mobile) {
-      position: relative;
-      overflow-y: hidden;
-      padding-top: 1em;
-      @include viewportHeight(30);
+      @include display-flex(column, flex-end, center);
+      padding: 1.5rem 1rem;
+      min-height: 450px;
+    }
+
+    @include respond-to(tablet) {
+      padding: 2rem 1.5rem;
+      min-height: 400px;
+    }
+
+    @include respond-to(desktop) {
+      padding: 2.5rem 2rem;
+      min-height: 500px;
+    }
+
+    @include respond-to(desktop-lg) {
+      padding: 3rem 2.5rem;
+      min-height: 550px;
+    }
+
+    @include respond-to(desktop-xxlg) {
+      padding: 3rem;
+      min-height: 600px;
     }
     .displayHeading {
       color: $greyText;
       box-sizing: border-box;
       text-align: right;
+      flex: 1;
+      max-width: 50%;
+      padding-right: 2rem;
+      @include display-flex(column, center, flex-end);
       .rank {
-        font-size: 4.5rem;
-        line-height: 0;
-        font-weight: 600;
+        font-size: 4rem;
+        line-height: 1.1;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, $primaryColor 0%, darken($primaryColor, 10%) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.02em;
       }
       .company {
         font-size: 1.5rem;
-        line-height: 1em;
-        font-weight: 600;
+        line-height: 1.3;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: $secondaryColor;
+        letter-spacing: -0.01em;
       }
       .info {
-        font-size: 1.2em;
-        line-height: 1em;
+        font-size: 1.15rem;
+        line-height: 1.4;
         font-weight: 500;
-        color: #aea9ba;
+        color: rgba(104, 104, 104, 0.85);
+        margin-bottom: 0.5rem;
       }
       .extraText {
-        font-size: 1.1em;
-        line-height: 5em;
-        font-weight: 400;
+        font-size: 1rem;
+        line-height: 1.4;
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+        color: rgba(104, 104, 104, 0.75);
+        position: relative;
+        padding-left: 1rem;
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 4px;
+          height: 80%;
+          background: linear-gradient(180deg, $primaryColor 0%, transparent 100%);
+          border-radius: 2px;
+        }
+      }
+      .ctaButtons {
+        @include display-flex(row, flex-end, center);
+        gap: 1em;
+        margin-top: 0.5em;
+        width: 100%;
+      }
+      .primaryCta {
+        background: linear-gradient(135deg, $primaryColor 0%, darken($primaryColor, 8%) 100%);
+        color: $white;
+        border: none;
+        padding: 1em 2em;
+        font-size: 1em;
+        font-weight: 600;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        min-height: 44px;
+        min-width: 44px;
+        box-shadow:
+          0 4px 16px rgba(238, 51, 66, 0.25),
+          0 2px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+          );
+          transition: left 0.5s ease;
+        }
+        &:hover {
+          background: linear-gradient(135deg, darken($primaryColor, 5%) 0%, darken($primaryColor, 13%) 100%);
+          transform: translateY(-3px);
+          box-shadow:
+            0 8px 24px rgba(238, 51, 66, 0.35),
+            0 4px 12px rgba(0, 0, 0, 0.15);
+          &::before {
+            left: 100%;
+          }
+        }
+        &:active {
+          transform: translateY(-1px);
+        }
+      }
+      .secondaryCta {
+        background: rgba(255, 255, 255, 0.8);
+        color: $primaryColor;
+        border: 2px solid $primaryColor;
+        padding: 1em 2em;
+        font-size: 1em;
+        font-weight: 600;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        min-height: 44px;
+        min-width: 44px;
+        box-shadow:
+          0 4px 16px rgba(238, 51, 66, 0.15),
+          0 2px 8px rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        position: relative;
+        overflow: hidden;
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, $primaryColor 0%, darken($primaryColor, 8%) 100%);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(238, 51, 66, 0.2),
+            transparent
+          );
+          transition: left 0.5s ease;
+          z-index: 1;
+        }
+        & > * {
+          position: relative;
+          z-index: 2;
+        }
+        &:hover {
+          background: linear-gradient(135deg, $primaryColor 0%, darken($primaryColor, 8%) 100%);
+          color: $white;
+          transform: translateY(-3px);
+          box-shadow:
+            0 8px 24px rgba(238, 51, 66, 0.3),
+            0 4px 12px rgba(0, 0, 0, 0.15);
+          border-color: transparent;
+          &::after {
+            left: 100%;
+          }
+        }
+        &:active {
+          transform: translateY(-1px);
+        }
       }
       @include respond-to(desktop-lg) {
+        max-width: 48%;
+        padding-right: 2rem;
         .rank {
-          font-size: 4rem;
+          font-size: 4.5rem;
+        }
+        .company {
+          font-size: 1.6rem;
+        }
+        .info {
+          font-size: 1.2rem;
+        }
+        .extraText {
+          font-size: 1.1rem;
+        }
+        .primaryCta,
+        .secondaryCta {
+          font-size: 0.95em;
+          padding: 0.9em 1.8em;
+        }
+      }
+      @include respond-to(desktop) {
+        max-width: 50%;
+        padding-right: 1.5rem;
+        .rank {
+          font-size: 3.5rem;
         }
         .company {
           font-size: 1.4rem;
         }
         .info {
-          font-size: 1.1em;
-          line-height: 1em;
+          font-size: 1.1rem;
         }
         .extraText {
-          font-size: 1em;
-          line-height: 3em;
+          font-size: 1rem;
+        }
+        .ctaButtons {
+          @include display-flex(row, flex-end, center);
+          flex-wrap: wrap;
+          gap: 0.75em;
+        }
+        .primaryCta,
+        .secondaryCta {
+          font-size: 0.9em;
+          padding: 0.85em 1.5em;
         }
       }
-      @include respond-to(desktop) {
-        width: 40%;
+      @include respond-to(tablet) {
+        max-width: 50%;
+        text-align: left;
+        align-items: flex-start;
+        padding-right: 1.5rem;
         .rank {
-          font-size: 3rem;
+          font-size: 2.5rem;
+          line-height: 1.1;
         }
         .company {
           font-size: 1.2rem;
         }
         .info {
-          font-size: 1em;
-          line-height: 1em;
+          font-size: 0.95rem;
+          margin-bottom: 0.4rem;
         }
         .extraText {
-          font-size: 0.9em;
-          line-height: 3em;
+          font-size: 0.9rem;
+          margin-bottom: 1rem;
+        }
+        .ctaButtons {
+          @include display-flex(row, flex-start, center);
+          gap: 0.75em;
+          flex-wrap: wrap;
+        }
+        .primaryCta,
+        .secondaryCta {
+          font-size: 0.85em;
+          padding: 0.75em 1.2em;
         }
       }
-      @include respond-to(tablet) {
-        width: 36%;
+      @include respond-to(mobile) {
+        max-width: 100%;
+        color: $white;
         text-align: left;
+        align-items: flex-start;
+        padding: 0;
+        padding-right: 0;
         .rank {
-          font-size: 2.7rem;
+          font-size: 2.25rem;
+          line-height: 1.1;
+          font-weight: 700;
+          margin-bottom: 0.4rem;
+        }
+        .company {
+          font-size: 1.25rem;
+          line-height: 1.2;
+          font-weight: 700;
+          margin-bottom: 0.4rem;
+        }
+        .info {
+          font-size: 0.95rem;
+          line-height: 1.3;
+          font-weight: 500;
+          color: $white;
+          margin-bottom: 0.4rem;
+        }
+        .extraText {
+          font-size: 0.85rem;
+          line-height: 1.3;
+          font-weight: 400;
+          margin-bottom: 1rem;
+          color: $white;
+        }
+        .ctaButtons {
+          @include display-flex(row, flex-start, center);
+          gap: 0.6em;
+          flex-wrap: wrap;
+        }
+        .primaryCta,
+        .secondaryCta {
+          font-size: 0.85em;
+          padding: 0.7em 1.1em;
+          flex: 1;
+          min-width: 120px;
+        }
+        .secondaryCta {
+          background: rgba(255, 255, 255, 0.15);
+          color: $white;
+          border-color: $white;
+          &:hover {
+            background: $white;
+            color: $primaryColor;
+          }
+        }
+      }
+      @include respond-to(small-mobile) {
+        .rank {
+          font-size: 2rem;
         }
         .company {
           font-size: 1.1rem;
         }
         .info {
-          font-size: 0.8em;
-          line-height: 1em;
-          margin-bottom: 2em;
+          font-size: 0.85rem;
         }
         .extraText {
+          font-size: 0.75rem;
+        }
+        .ctaButtons {
+          @include display-flex(column, flex-start, stretch);
+          gap: 0.5em;
+        }
+        .primaryCta,
+        .secondaryCta {
           font-size: 0.8em;
-          line-height: 1em;
-        }
-      }
-      @include respond-to(mobile) {
-        @include viewportWidth(100);
-        color: $white;
-        text-align: left;
-        .rank {
-          font-size: 3rem;
-          line-height: 0.2em;
-          font-weight: 600;
-        }
-        .company {
-          font-size: 1.8rem;
-          line-height: 1em;
-          font-weight: 600;
-        }
-        .info {
-          font-size: 1em;
-          line-height: 1.1em;
-          font-weight: 600;
-          color: $white;
-        }
-        .extraText {
-          font-size: 0.9em;
-          line-height: 1.1em;
-          font-weight: 400;
-        }
-      }
-      @include respond-to(small-mobile) {
-        .rank {
-          font-size: 2.5rem;
-        }
-        .company {
-          font-size: 1.2rem;
-        }
-        .info {
-          font-size: 0.8em;
-        }
-        .extraText {
-          font-size: 0.6em;
+          padding: 0.7em 1em;
+          width: 100%;
+          flex: none;
         }
       }
     }
     .displayImg {
-      // width: 60%;
-      @include viewportHeight(55);
+      @include viewportHeight(60);
       object-fit: cover;
       box-sizing: border-box;
+      max-width: 50%;
+      @include respond-to(desktop-lg) {
+        @include viewportHeight(58);
+      }
       @include respond-to(desktop) {
-        width: 45%;
+        width: 48%;
+        max-width: 48%;
+        @include viewportHeight(55);
       }
       @include respond-to(tablet) {
-        @include viewportHeight(26);
+        width: 48%;
+        max-width: 48%;
+        @include viewportHeight(35);
       }
       @include respond-to(mobile) {
         position: absolute;
         @include viewportHeight(30);
+        max-width: 100%;
+        width: 100%;
         right: 0;
+        top: 0;
         z-index: -1;
+        opacity: 0.4;
       }
     }
   }

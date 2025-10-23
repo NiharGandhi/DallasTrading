@@ -1,10 +1,32 @@
 @import "./../../style/index.scss";
 
 .productsPage {
-  @include pageCommonCss;
+  width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 3rem 5%;
+  padding-top: 5vh;
+  background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%);
+
+  @include respond-to(desktop) {
+    padding: 3rem 4%;
+  }
+
+  @include respond-to(tablet) {
+    padding: 2rem 3%;
+  }
+
+  @include respond-to(mobile) {
+    padding: 2rem 4%;
+  }
+
   .loaderDiv {
     height: 20rem;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     @include respond-to(mobile) {
       width: 80%;
     }

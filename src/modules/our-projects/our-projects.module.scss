@@ -2,14 +2,165 @@
 
 .ourProjectsContainer {
   @include pageCommonCss;
-  .projects {
-    margin-top: $windowHeight * 0.06;
-    @include display-flex(row, flex-start, center);
-    .imageList {
-      width: 50%;
-      @include respond-to(mobile){
-        width: 100%;
+  padding-bottom: 3rem;
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  // Breadcrumb styling
+  
+
+  .header {
+    text-align: center;
+    margin-bottom: 4rem;
+    
+    .subtitle {
+      font-size: 1.25rem;
+      color: #64748b;
+      margin-top: 1rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.5;
+      
+      @include respond-to(mobile) {
+        font-size: 1.1rem;
+        margin-top: 0.75rem;
       }
     }
+  }
+
+  .projectsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+    
+    @include respond-to(mobile) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  .projectCard {
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    position: relative;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: projectReveal 2s ease-out forwards;
+    
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.12),
+        0 8px 16px rgba(0, 0, 0, 0.08);
+      
+      .projectImage {
+        transform: scale(1.05);
+      }
+      
+      .projectTitle {
+        color: #1e293b;
+      }
+    }
+  }
+
+  .imageContainer {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    
+    @include respond-to(mobile) {
+      height: 240px;
+    }
+  }
+
+  .projectImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: brightness(0.95);
+  }
+
+
+  .content {
+    padding: 1.5rem;
+    
+    @include respond-to(mobile) {
+      padding: 0.2rem;
+    }
+  }
+
+  .projectTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0rem;
+    margin-top: 0rem;
+    transition: all 0.4s ease;
+    line-height: 1.3;
+    
+    @include respond-to(mobile) {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      padding-left: 0.5rem;
+    }
+  }
+
+
+  // Responsive adjustments
+  @include respond-to(tablet) {
+    padding: 1.5rem 0 4rem 0;
+    
+    .container {
+      padding: 0 1.5rem;
+    }
+    
+    .header {
+      margin-bottom: 3rem;
+    }
+  }
+  
+  @include respond-to(mobile) {
+    padding: 1rem 0 3rem 0;
+    
+    .container {
+      padding: 0 1rem;
+    }
+    
+    .header {
+      margin-bottom: 2.5rem;
+    }
+  }
+}
+
+// Project reveal animation
+@keyframes projectReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  60% {
+    opacity: 0.7;
+    transform: translateY(20px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
