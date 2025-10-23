@@ -7,7 +7,7 @@ import {
 import Aos from "aos";
 import "aos/dist/aos.css";
 import ShadowHeading from "../../../components/common/headings/shadowHeading/shadowHeading";
-import Partner1 from "./../../../store/our-companies/ourCompaniesImages/pce.png";
+import Partner1 from "./../../../store/our-companies/ourCompaniesImages/pce.jpeg";
 import Partner2 from "./../../../store/our-companies/ourCompaniesImages/3M.png";
 import Partner3 from "./../../../store/our-companies/ourCompaniesImages/raychem-logo.png";
 import Partner4 from "./../../../store/our-companies/ourCompaniesImages/barton.png";

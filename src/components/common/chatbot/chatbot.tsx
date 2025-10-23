@@ -217,49 +217,29 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
     this.setState({ currentStep: "chat" });
   }
 
-  sendUserDetailsEmail(name: string, email: string, country: string) {
-    // Determine which office email to send to based on country
-    let officeEmail = "info@dallastrading.net"; // Default to Dubai
-    let officeLocation = "Dubai";
+  async sendUserDetailsEmail(name: string, email: string, country: string) {
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/send-user-registration`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userName: name,
+          userEmail: email,
+          userCountry: country
+        })
+      });
 
-    if (country === "Oman") {
-      officeEmail = "vijay@dallastrading.net";
-      officeLocation = "Oman";
-    } else if (country === "Bahrain") {
-      officeEmail = "info@dallastrading.net";
-      officeLocation = "Bahrain";
-    } else if (country === "Saudi Arabia") {
-      officeEmail = "info@dallastrading.net";
-      officeLocation = "Saudi Arabia";
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error('Failed to send user registration email:', data.error);
+      } else {
+        console.log('User registration email sent successfully');
+      }
+    } catch (error) {
+      console.error('Error sending user registration email:', error);
     }
-
-    // Create email body
-    const subject = encodeURIComponent("New Chatbot User Registration");
-    const body = encodeURIComponent(
-      `New user has registered on the Dallas Group chatbot:\n\n` +
-      `Name: ${name}\n` +
-      `Email: ${email}\n` +
-      `Country: ${country}\n` +
-      `Office: ${officeLocation}\n` +
-      `Timestamp: ${new Date().toLocaleString()}\n\n` +
-      `Please follow up if needed.`
-    );
-
-    // Send to both info@ and country-specific email
-    const emails = officeEmail === "info@dallastrading.net"
-      ? "info@dallastrading.net"
-      : `info@dallastrading.net,${officeEmail}`;
-
-    // Open mailto link (this will use the user's default email client)
-    // In production, you'd want to use a backend API to send emails
-    console.log("User details captured:", { name, email, country, officeEmail });
-
-    // For now, just log it. In production, you'd make an API call like:
-    // fetch('/api/send-email', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ name, email, country, officeEmail })
-    // });
   }
 
   handleContactHuman() {
@@ -280,45 +260,47 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
     });
   }
 
-  handleInquirySubmit(e: React.FormEvent) {
+  async handleInquirySubmit(e: React.FormEvent) {
     e.preventDefault();
     const { userName, userEmail, userCountry, inquiryMessage, inquiryPhone } = this.state;
 
-    // Create email body for inquiry
-    const subject = encodeURIComponent("Product Inquiry from Dallas Chatbot");
-    const body = encodeURIComponent(
-      `New product inquiry received:\n\n` +
-      `Name: ${userName}\n` +
-      `Email: ${userEmail}\n` +
-      `Phone: ${inquiryPhone || "Not provided"}\n` +
-      `Country: ${userCountry}\n\n` +
-      `Inquiry:\n${inquiryMessage}\n\n` +
-      `Timestamp: ${new Date().toLocaleString()}`
-    );
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/send-inquiry`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userName,
+          userEmail,
+          userCountry,
+          inquiryPhone,
+          inquiryMessage
+        })
+      });
 
-    // Log inquiry (in production, send to backend API)
-    console.log("Inquiry submitted:", {
-      userName,
-      userEmail,
-      userCountry,
-      inquiryPhone,
-      inquiryMessage
-    });
+      const data = await response.json();
 
-    // Show success message
-    this.addBotMessage(
-      `Thank you ${userName}! Your inquiry has been sent to our team. We'll get back to you at ${userEmail} within 24 hours. 📧\n\nIs there anything else I can help you with?`
-    );
+      if (!response.ok) {
+        console.error('Failed to send inquiry email:', data.error);
+        this.addBotMessage(
+          `Sorry ${userName}, there was an issue sending your inquiry. Please try contacting us directly at info@dallastrading.net or call +971 4 3635500.`
+        );
+      } else {
+        console.log('Inquiry email sent successfully');
+        // Show success message
+        this.addBotMessage(
+          `Thank you ${userName}! Your inquiry has been sent to our team. We'll get back to you at ${userEmail} within 24 hours. 📧\n\nIs there anything else I can help you with?`
+        );
+      }
+    } catch (error) {
+      console.error('Error sending inquiry email:', error);
+      this.addBotMessage(
+        `Sorry ${userName}, there was an issue sending your inquiry. Please try contacting us directly at info@dallastrading.net or call +971 4 3635500.`
+      );
+    }
 
     // Close form and reset
     this.handleCloseInquiryForm();
-
-    // In production, make API call:
-    // fetch('/api/send-inquiry', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ userName, userEmail, userCountry, inquiryPhone, inquiryMessage })
-    // });
   }
 
   renderMessageWithLinks(text: string): ReactNode {

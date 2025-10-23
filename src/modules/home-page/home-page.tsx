@@ -3,7 +3,6 @@ import styles from "./home-page.module.scss";
 import { IHomePageProps, IHomePageStates } from "./home-page.constants";
 import AchievementCarousal from "./achievements-carousal/achievements-carousal";
 import OurProducts from "./our-products/our-products";
-import JoinMailingList from "../../components/common/joinMailingList/joinMailingList";
 import OurPartners from "./our-partners/our-partners";
 import AboutUs from "./about-us/about-us";
 

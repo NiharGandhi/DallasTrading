@@ -25,7 +25,7 @@ class AchievementCarousal extends Component<
       rank: "",
       comapny: "Electrical Products & Industrial Solutions",
       info: "for Commercial Projects — Powering UAE's Infrastructure Since 1995",
-      extraText: "28 Years of Excellence in Electrical Industrial Solutions",
+      extraText: "30+ Years of Excellence in Electrical Industrial Solutions",
       image: img1,
       img_info: "display_img1",
     },

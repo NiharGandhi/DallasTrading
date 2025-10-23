@@ -24,6 +24,8 @@ class ContactUs extends Component<IContactUsProps, IContactUsStates> {
       message: "",
       answer: "",
       loader: false,
+      submitStatus: "",
+      submitMessage: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -41,7 +43,89 @@ class ContactUs extends Component<IContactUsProps, IContactUsStates> {
       }, 500);
     }
   }
-  handleSubmit() {}
+  async handleSubmit() {
+    const { name, email, phone, message, answer, selectVal } = this.state;
+    const { contactUsData } = this.props;
+
+    // Validate form
+    if (!name || !email || !message) {
+      this.setState({
+        submitStatus: "error",
+        submitMessage: "Please fill in all required fields (Name, Email, Message)"
+      });
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      this.setState({
+        submitStatus: "error",
+        submitMessage: "Please enter a valid email address"
+      });
+      return;
+    }
+
+    // Validate captcha
+    if (answer !== 9 && answer !== "9") {
+      this.setState({
+        submitStatus: "error",
+        submitMessage: "Incorrect answer to the equation. Please try again."
+      });
+      return;
+    }
+
+    // Get selected country from contactUsData
+    const selectedLocation = contactUsData[selectVal - 1];
+    const country = selectedLocation?.name || "Dubai";
+
+    this.setState({ loader: true, submitStatus: "", submitMessage: "" });
+
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/send-contact-form`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          message,
+          country
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error('Failed to send contact form email:', data.error);
+        this.setState({
+          submitStatus: "error",
+          submitMessage: "Failed to send message. Please try again or contact us directly at info@dallastrading.net",
+          loader: false
+        });
+      } else {
+        console.log('Contact form email sent successfully');
+        this.setState({
+          submitStatus: "success",
+          submitMessage: "Thank you for your message! We'll get back to you within 24 hours.",
+          loader: false,
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+          answer: ""
+        });
+      }
+    } catch (error) {
+      console.error('Error sending contact form email:', error);
+      this.setState({
+        submitStatus: "error",
+        submitMessage: "Failed to send message. Please try again or contact us directly at info@dallastrading.net",
+        loader: false
+      });
+    }
+  }
   render(): ReactNode {
     const { contactUsData } = this.props;
     return (
@@ -128,6 +212,20 @@ class ContactUs extends Component<IContactUsProps, IContactUsStates> {
               <h4 className={styles.text1}>
                 For general enquiries please contact us using the form below:
               </h4>
+              {this.state.submitMessage && (
+                <div
+                  style={{
+                    padding: "12px",
+                    marginBottom: "16px",
+                    borderRadius: "4px",
+                    backgroundColor: this.state.submitStatus === "success" ? "#d4edda" : "#f8d7da",
+                    color: this.state.submitStatus === "success" ? "#155724" : "#721c24",
+                    border: `1px solid ${this.state.submitStatus === "success" ? "#c3e6cb" : "#f5c6cb"}`
+                  }}
+                >
+                  {this.state.submitMessage}
+                </div>
+              )}
               <TextField
                 key={`text_${0}`}
                 className={styles.textField}

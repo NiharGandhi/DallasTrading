@@ -11,4 +11,6 @@ export interface IContactUsStates {
   message: string;
   answer: number | string;
   loader: boolean;
+  submitStatus: string;
+  submitMessage: string;
 }

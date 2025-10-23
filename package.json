@@ -18,6 +18,10 @@
     "@types/react-dom": "^18.2.4",
     "aos": "^2.3.4",
     "clipboard-copy": "^4.0.1",
+    "concurrently": "^9.2.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
     "framer-motion": "^10.12.16",
     "gh-pages": "^5.0.0",
     "react": "^18.2.0",
@@ -27,11 +31,14 @@
     "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.8",
+    "resend": "^6.2.2",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "react-scripts start",
+    "server": "node server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
