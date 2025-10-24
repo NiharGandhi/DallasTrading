@@ -94,7 +94,7 @@ app.post('/api/send-user-registration', async (req, res) => {
 // Send product inquiry email
 app.post('/api/send-inquiry', async (req, res) => {
   try {
-    const { userName, userEmail, userCountry, inquiryPhone, inquiryMessage } = req.body;
+    const { userName, userEmail, userCountry, inquiryPhone, inquiryMessage, companyName, companyLocation } = req.body;
 
     if (!userName || !userEmail || !userCountry || !inquiryMessage) {
       return res.status(400).json({
@@ -136,8 +136,20 @@ app.post('/api/send-inquiry', async (req, res) => {
             <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Phone:</td>
             <td style="padding: 8px; border: 1px solid #ddd;">${inquiryPhone || 'Not provided'}</td>
           </tr>
+          ${companyName ? `
           <tr>
-            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Country:</td>
+            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Company Name:</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${companyName}</td>
+          </tr>
+          ` : ''}
+          ${companyLocation ? `
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Company Location:</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${companyLocation}</td>
+          </tr>
+          ` : ''}
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Region/Branch Inquiring About:</td>
             <td style="padding: 8px; border: 1px solid #ddd;">${userCountry}</td>
           </tr>
           <tr>
@@ -177,7 +189,7 @@ app.post('/api/send-inquiry', async (req, res) => {
 // Send contact form email
 app.post('/api/send-contact-form', async (req, res) => {
   try {
-    const { name, email, phone, company, message, country } = req.body;
+    const { name, email, phone, message, country, companyName, companyLocation } = req.body;
 
     if (!name || !email || !message) {
       return res.status(400).json({
@@ -212,15 +224,21 @@ app.post('/api/send-contact-form', async (req, res) => {
             <td style="padding: 8px; border: 1px solid #ddd;">${phone}</td>
           </tr>
           ` : ''}
-          ${company ? `
+          ${companyName ? `
           <tr>
-            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Company:</td>
-            <td style="padding: 8px; border: 1px solid #ddd;">${company}</td>
+            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Company Name:</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${companyName}</td>
+          </tr>
+          ` : ''}
+          ${companyLocation ? `
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Company Location:</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${companyLocation}</td>
           </tr>
           ` : ''}
           ${country ? `
           <tr>
-            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Country:</td>
+            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Region/Branch Inquiring About:</td>
             <td style="padding: 8px; border: 1px solid #ddd;">${country}</td>
           </tr>
           ` : ''}

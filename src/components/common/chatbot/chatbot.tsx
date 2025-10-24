@@ -33,6 +33,8 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
       showInquiryForm: false,
       inquiryMessage: "",
       inquiryPhone: "",
+      companyName: "",
+      companyLocation: "",
     };
     this.messagesEndRef = createRef();
     this.handleToggle = this.handleToggle.bind(this);
@@ -256,13 +258,15 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
     this.setState({
       showInquiryForm: false,
       inquiryMessage: "",
-      inquiryPhone: ""
+      inquiryPhone: "",
+      companyName: "",
+      companyLocation: ""
     });
   }
 
   async handleInquirySubmit(e: React.FormEvent) {
     e.preventDefault();
-    const { userName, userEmail, userCountry, inquiryMessage, inquiryPhone } = this.state;
+    const { userName, userEmail, userCountry, inquiryMessage, inquiryPhone, companyName, companyLocation } = this.state;
 
     try {
       const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -274,7 +278,9 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
           userEmail,
           userCountry,
           inquiryPhone,
-          inquiryMessage
+          inquiryMessage,
+          companyName,
+          companyLocation
         })
       });
 
@@ -418,7 +424,7 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
   }
 
   render(): ReactNode {
-    const { isOpen, isMinimized, messages, userInput, currentStep, isTyping, userName, userEmail, userCountry, showInquiryForm, inquiryMessage, inquiryPhone } =
+    const { isOpen, isMinimized, messages, userInput, currentStep, isTyping, userName, userEmail, userCountry, showInquiryForm, inquiryMessage, inquiryPhone, companyName, companyLocation } =
       this.state;
 
     if (!isOpen) {
@@ -489,14 +495,34 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label htmlFor="inquiryCountry">Country *</label>
+                  <label htmlFor="companyName">Company Name</label>
+                  <input
+                    type="text"
+                    id="companyName"
+                    value={companyName}
+                    onChange={(e) => this.setState({ companyName: e.target.value })}
+                    placeholder="Your company name"
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="companyLocation">Company Location</label>
+                  <input
+                    type="text"
+                    id="companyLocation"
+                    value={companyLocation}
+                    onChange={(e) => this.setState({ companyLocation: e.target.value })}
+                    placeholder="City, Country"
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="inquiryCountry">Region/Branch You Want to Inquire About *</label>
                   <select
                     id="inquiryCountry"
                     value={userCountry}
                     onChange={(e) => this.setState({ userCountry: e.target.value })}
                     required
                   >
-                    <option value="">Select your country</option>
+                    <option value="">Select region/branch</option>
                     {COUNTRIES.map((country) => (
                       <option key={country} value={country}>
                         {country}
@@ -583,14 +609,14 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
                 />
               </div>
               <div className={styles.formGroup}>
-                <label htmlFor="userCountry">Country *</label>
+                <label htmlFor="userCountry">Region/Branch You Want to Inquire About *</label>
                 <select
                   id="userCountry"
                   value={userCountry}
                   onChange={this.handleCountryChange}
                   required
                 >
-                  <option value="">Select your country</option>
+                  <option value="">Select region/branch</option>
                   {COUNTRIES.map((country) => (
                     <option key={country} value={country}>
                       {country}

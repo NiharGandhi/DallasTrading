@@ -14,6 +14,8 @@ export interface IChatbotStates {
   showInquiryForm: boolean;
   inquiryMessage: string;
   inquiryPhone: string;
+  companyName: string;
+  companyLocation: string;
 }
 
 export interface IMessage {

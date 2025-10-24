@@ -82,7 +82,7 @@ class Footer extends Component<IFooterProps, IFooterStates> {
           </div>
         </div>
         <div className={styles.rights}>
-          © 2023 All Rights Reserved. Designed & Developed by MVP.
+          © 2025 All Rights Reserved.
         </div>
       </div>
     );

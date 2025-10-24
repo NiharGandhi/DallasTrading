@@ -26,6 +26,8 @@ class ContactUs extends Component<IContactUsProps, IContactUsStates> {
       loader: false,
       submitStatus: "",
       submitMessage: "",
+      companyName: "",
+      companyLocation: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -44,7 +46,7 @@ class ContactUs extends Component<IContactUsProps, IContactUsStates> {
     }
   }
   async handleSubmit() {
-    const { name, email, phone, message, answer, selectVal } = this.state;
+    const { name, email, phone, message, answer, selectVal, companyName, companyLocation } = this.state;
     const { contactUsData } = this.props;
 
     // Validate form
@@ -91,7 +93,9 @@ class ContactUs extends Component<IContactUsProps, IContactUsStates> {
           email,
           phone,
           message,
-          country
+          country,
+          companyName,
+          companyLocation
         })
       });
 
@@ -114,7 +118,9 @@ class ContactUs extends Component<IContactUsProps, IContactUsStates> {
           email: "",
           phone: "",
           message: "",
-          answer: ""
+          answer: "",
+          companyName: "",
+          companyLocation: ""
         });
       }
     } catch (error) {
@@ -144,6 +150,9 @@ class ContactUs extends Component<IContactUsProps, IContactUsStates> {
         <div className={styles.contactDetailsCont}>
           <div className={styles.contactInfo}>
             <h2>Contact Information</h2>
+            <p style={{ marginBottom: "10px", fontSize: "14px", color: "#666" }}>
+              Select the region/branch you want to inquire about:
+            </p>
             <Select
               className={styles.selectBox}
               value={this.state.selectVal}
@@ -259,6 +268,26 @@ class ContactUs extends Component<IContactUsProps, IContactUsStates> {
               <TextField
                 key={`text_${3}`}
                 className={styles.textField}
+                id="custom-css-outlined-input"
+                type="text"
+                fullWidth
+                label="Company Name"
+                value={this.state.companyName}
+                onChange={(e) => this.setState({ companyName: e.target.value })}
+              />
+              <TextField
+                key={`text_${4}`}
+                className={styles.textField}
+                id="custom-css-outlined-input"
+                type="text"
+                fullWidth
+                label="Company Location"
+                value={this.state.companyLocation}
+                onChange={(e) => this.setState({ companyLocation: e.target.value })}
+              />
+              <TextField
+                key={`text_${5}`}
+                className={styles.textField}
                 id="outlined-multiline-static"
                 label="Message"
                 type="text"
@@ -273,7 +302,7 @@ class ContactUs extends Component<IContactUsProps, IContactUsStates> {
                 14 = ?
               </h4>
               <TextField
-                key={`text_${4}`}
+                key={`text_${6}`}
                 className={styles.textField}
                 id="custom-css-outlined-input"
                 type="number"

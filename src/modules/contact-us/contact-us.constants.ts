@@ -13,4 +13,6 @@ export interface IContactUsStates {
   loader: boolean;
   submitStatus: string;
   submitMessage: string;
+  companyName: string;
+  companyLocation: string;
 }
