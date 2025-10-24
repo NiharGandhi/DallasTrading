@@ -9,11 +9,14 @@ import Chatbot from "../common/chatbot/chatbot";
 
 class Home extends Component<IHomeProps, IHomeStates> {
   handleDownload() {
-    const fileUrl = "DALLAS CATALOGUE & COMPANY PROFILE.pdf";
+    const fileUrl = "/DALLAS CATALOGUE & COMPANY PROFILE.pdf";
     const a = document.createElement("a");
     a.href = fileUrl;
     a.download = "DALLAS CATALOGUE & COMPANY PROFILE.pdf";
+    a.target = "_blank";
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
   }
   render(): ReactNode {
     return (
