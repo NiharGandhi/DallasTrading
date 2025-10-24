@@ -27,3 +27,4 @@ yarn-debug.log*
 yarn-error.log*
 
 dallas-trading.tar.gz
+/vps_config
