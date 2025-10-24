@@ -6,9 +6,9 @@ const initialState: { contactUsData: IContactUsData[]; loader: boolean } = {
   contactUsData: [
     {
       name: "Dubai",
-      address: "DUBAI INDUSTRIAL CITY, PHASE 1 , BLOCK J-08, P.O.BOX 2028",
-      mobileNo: "+971 4 3635500",
-      fax: "+971 4 4290088",
+      address: "Dubai Industrial City Phase 1, J Block, Warehouse No. 08, P.O. Box 2028, Dubai, United Arab Emirates.",
+      mobileNo: "+971 4 363 5500",
+      fax: "+971 4 429 0088",
       email: "info@dallastrading.net",
       location:
         "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3620.105210625898!2d55.06092531500273!3d24.860255984054014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjTCsDUxJzM2LjkiTiA1NcKwMDMnNDcuMiJF!5e0!3m2!1sen!2sae!4v1690217954086!5m2!1sen!2sae",

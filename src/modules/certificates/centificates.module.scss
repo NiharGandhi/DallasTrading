@@ -2,35 +2,323 @@
 
 .certificatesContainer {
   @include pageCommonCss;
-  .certificates {
-    @include display-flex(row, flex-start, center);
-    flex-wrap: wrap;
-    column-gap: 10rem;
-    margin-top: 2em;
-    .certificateDiv {
-      width: 25%;
-      @include respond-to(mobile) {
-        width: 100%;
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  overflow-x: hidden;
+
+  // Decorative background elements
+  .backgroundAccent {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      right: -5%;
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, rgba(0, 60, 117, 0.04) 0%, rgba(238, 51, 66, 0.04) 100%);
+      border-radius: 50%;
+      filter: blur(80px);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 20%;
+      left: -5%;
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(135deg, rgba(238, 51, 66, 0.03) 0%, rgba(0, 60, 117, 0.03) 100%);
+      border-radius: 50%;
+      filter: blur(80px);
+    }
+  }
+
+  .contentWrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+
+    @media (max-width: 768px) {
+      padding: 0 1rem 3rem;
+    }
+  }
+
+  .headerSection {
+    padding: 2rem 0 3rem;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      padding: 1.5rem 0 2rem;
+    }
+
+    .headerDescription {
+      max-width: 700px;
+      margin: 1.5rem auto 0;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: #475569;
+
+      @media (max-width: 768px) {
+        font-size: 1rem;
+        margin-top: 1rem;
       }
-      @include respond-to(tablet) {
-        width: 100%;
+    }
+  }
+
+  .certificatesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 3rem;
+    margin: 3rem 0;
+    justify-items: center;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .certificateCard {
+      background: white;
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.05),
+        0 4px 12px rgba(0, 0, 0, 0.04);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      position: relative;
+      overflow: hidden;
+      max-width: 500px;
+      width: 100%;
+
+      @media (max-width: 768px) {
+        padding: 1.5rem;
       }
-      @include respond-to(desktop) {
-        width: 40%;
-      }
-      @include respond-to(desktop-lg) {
-        width: 22%;
-      }
-      .certificate {
-        object-fit: contain;
-        max-width: 100%;
-        transition: all ease-in-out 0.3s;
-        &:hover {
-          transform: scale(1.1);
+
+      &:hover {
+        box-shadow:
+          0 8px 16px rgba(0, 0, 0, 0.08),
+          0 16px 32px rgba(0, 60, 117, 0.12);
+        transform: translateY(-8px);
+        border-color: rgba($primaryColor, 0.1);
+
+        .certificateOverlay {
+          opacity: 1;
+        }
+
+        .certificateImage {
+          transform: scale(1.05);
+        }
+
+        .certificateBadge {
+          background: linear-gradient(135deg, $primaryColor 0%, darken($primaryColor, 10%) 100%);
+          transform: rotate(15deg) scale(1.1);
         }
       }
-      .pTag {
-        color: $fontColor;
+
+      .certificateBadge {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, $secondaryColor 0%, darken($secondaryColor, 8%) 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0, 60, 117, 0.2);
+        transition: all 0.3s ease;
+        z-index: 2;
+
+        .badgeIcon {
+          color: white;
+          font-size: 28px;
+        }
+      }
+
+      .certificateImageWrapper {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+        background: #f8fafc;
+        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+
+        .certificateImage {
+          width: 100%;
+          height: auto;
+          display: block;
+          transition: transform 0.4s ease;
+        }
+
+        .certificateOverlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(0, 60, 117, 0.92) 0%, rgba(238, 51, 66, 0.92) 100%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          cursor: pointer;
+
+          .overlayIcon {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 0.5rem;
+          }
+
+          .overlayText {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+          }
+        }
+      }
+
+      .certificateInfo {
+        .certificateTitle {
+          font-size: 1.75rem;
+          font-weight: 700;
+          color: $secondaryColor;
+          margin: 0 0 0.5rem 0;
+          line-height: 1.3;
+
+          @media (max-width: 540px) {
+            font-size: 1.5rem;
+          }
+        }
+
+        .certificateLocation {
+          font-size: 1.15rem;
+          color: #64748b;
+          margin: 0 0 1.25rem 0;
+          font-weight: 500;
+        }
+
+        .certificateMeta {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+
+          .metaBadge {
+            background: linear-gradient(135deg, rgba(0, 60, 117, 0.1) 0%, rgba(0, 60, 117, 0.05) 100%);
+            color: $secondaryColor;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid rgba(0, 60, 117, 0.15);
+          }
+
+          .metaYear {
+            background: linear-gradient(135deg, rgba(238, 51, 66, 0.1) 0%, rgba(238, 51, 66, 0.05) 100%);
+            color: $primaryColor;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid rgba(238, 51, 66, 0.15);
+          }
+        }
+      }
+    }
+  }
+
+  .infoSection {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+      margin-top: 3rem;
+    }
+
+    .infoCard {
+      background: linear-gradient(135deg, $secondaryColor 0%, darken($secondaryColor, 5%) 100%);
+      padding: 3rem;
+      border-radius: 24px;
+      box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.05),
+        0 10px 20px rgba(0, 60, 117, 0.15);
+      max-width: 800px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 300px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+        filter: blur(60px);
+      }
+
+      @media (max-width: 768px) {
+        padding: 2rem;
+      }
+
+      .infoIcon {
+        color: $primaryColor;
+        font-size: 64px;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 4px 8px rgba(238, 51, 66, 0.3));
+      }
+
+      .infoTitle {
+        color: white;
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 0 1rem 0;
+        position: relative;
+        z-index: 1;
+
+        @media (max-width: 540px) {
+          font-size: 1.75rem;
+        }
+      }
+
+      .infoText {
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 1.15rem;
+        line-height: 1.8;
+        margin: 0;
+        position: relative;
+        z-index: 1;
+
+        @media (max-width: 540px) {
+          font-size: 1rem;
+        }
       }
     }
   }

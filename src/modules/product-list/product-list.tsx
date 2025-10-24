@@ -34,6 +34,21 @@ class ProductList extends Component<IProductListProps, IProductListStates> {
       productCategory: productCategoryId,
     });
   }
+
+  componentDidUpdate(prevProps: Readonly<IProductListProps>): void {
+    // Check if the product category ID in the URL has changed
+    const prevProductCategoryId = prevProps.router.location.pathname.split("/")[2];
+    const currentProductCategoryId = this.props.router.location.pathname.split("/")[2];
+
+    if (prevProductCategoryId !== currentProductCategoryId) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      this.props.fetchAsyncProductsData({
+        productCategoryId: currentProductCategoryId,
+        productCategory: currentProductCategoryId,
+      });
+    }
+  }
+
   render(): ReactNode {
     const { productCategoryName } = this.props;
     const productsCatName = productCategoryName?.split(" ");

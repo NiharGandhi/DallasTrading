@@ -35,16 +35,20 @@
 
   .projectsGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
     max-width: 1200px;
     margin: 0 auto;
-    
+
+    @media (min-width: 1400px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
     @include respond-to(tablet) {
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
     }
-    
+
     @include respond-to(mobile) {
       grid-template-columns: 1fr;
       gap: 1.5rem;
@@ -62,19 +66,38 @@
     opacity: 0;
     transform: translateY(40px);
     animation: projectReveal 2s ease-out forwards;
-    
+
     &:hover {
       transform: translateY(-8px);
-      box-shadow: 
+      box-shadow:
         0 20px 40px rgba(0, 0, 0, 0.12),
         0 8px 16px rgba(0, 0, 0, 0.08);
-      
+
       .projectImage {
         transform: scale(1.05);
       }
-      
+
       .projectTitle {
         color: #1e293b;
+      }
+    }
+
+    // Center the last card when it's alone in the row (7th card)
+    &:nth-child(7) {
+      grid-column: 1 / -1;
+      max-width: calc(50% - 1.25rem);
+      justify-self: center;
+
+      @media (min-width: 1400px) {
+        grid-column: 2 / 3;
+        max-width: 100%;
+        justify-self: auto;
+      }
+
+      @include respond-to(mobile) {
+        grid-column: 1;
+        max-width: 100%;
+        justify-self: auto;
       }
     }
   }

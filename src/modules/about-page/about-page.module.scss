@@ -240,6 +240,7 @@
         font-size: 1.05rem;
         line-height: 1.8;
         margin: 0;
+        text-align: justify;
 
         @media (max-width: 540px) {
           font-size: 1rem;
@@ -248,7 +249,8 @@
       }
     }
 
-    .storyCard {
+    .storyCard,
+    .commitmentCard {
       grid-column: span 2;
 
       @media (max-width: 992px) {

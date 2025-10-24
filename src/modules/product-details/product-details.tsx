@@ -30,6 +30,20 @@ class ProductDetails extends Component<
     const pathArr = this.props.router.location.pathname.split("/");
     this.props.fetchAsyncProductDetailData(pathArr[pathArr.length - 1]);
   }
+
+  componentDidUpdate(prevProps: Readonly<IProductDetailsProps>): void {
+    // Check if the product ID in the URL has changed
+    const prevPathArr = prevProps.router.location.pathname.split("/");
+    const currentPathArr = this.props.router.location.pathname.split("/");
+    const prevProductId = prevPathArr[prevPathArr.length - 1];
+    const currentProductId = currentPathArr[currentPathArr.length - 1];
+
+    if (prevProductId !== currentProductId) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      this.props.fetchAsyncProductDetailData(currentProductId);
+    }
+  }
+
   render(): ReactNode {
     return (
       <div className={styles.productDetailsContainer}>

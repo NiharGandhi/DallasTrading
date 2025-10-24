@@ -6,13 +6,14 @@ import CallIcon from "@mui/icons-material/Call";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import EmailIcon from "@mui/icons-material/Email";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 class Footer extends Component<IFooterProps, IFooterStates> {
   render(): ReactNode {
     const contacts = [
       {
         icon: <LocationOnIcon />,
-        infoText: "DUBAI INDUSTRIAL CITY, PHASE 1 , BLOCK J-08, P.O.BOX 2028",
+        infoText: "Dubai Industrial City Phase 1, J Block, Warehouse No. 08, P.O. Box 2028, Dubai, United Arab Emirates.",
       },
       {
         icon: <CallIcon />,
@@ -31,6 +32,12 @@ class Footer extends Component<IFooterProps, IFooterStates> {
       {
         icon: <LinkedInIcon />,
         infoText: "LinkedIn",
+        link: "https://www.linkedin.com/in/dallas-trading-co-llc-723306217/",
+      },
+      {
+        icon: <InstagramIcon />,
+        infoText: "Instagram",
+        link: "https://www.instagram.com/dallastradingdxb/",
       },
     ];
     return (
@@ -59,7 +66,9 @@ class Footer extends Component<IFooterProps, IFooterStates> {
                     <td className={styles.text}>
                       <a
                         className={styles.link}
-                        href="https://linkedin.com/in/dallas-trading-co-llc-723306217"
+                        href={contact.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
                         {contact.infoText}
                       </a>
