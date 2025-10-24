@@ -168,6 +168,9 @@ class ContactUs extends Component<IContactUsProps, IContactUsStates> {
               <MenuItem key={`text_item_${3}`} value={3}>
                 Bahrain (Warehouse)
               </MenuItem>
+              <MenuItem key={`text_item_${4}`} value={4}>
+                Saudi (through an associated company)
+              </MenuItem>
             </Select>
             {this.state.loader ? (
               <div className={styles.emptyBox}>

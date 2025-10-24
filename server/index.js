@@ -39,9 +39,12 @@ app.post('/api/send-user-registration', async (req, res) => {
     if (userCountry === 'Oman') {
       officeEmail = process.env.DALLAS_OMAN_EMAIL || 'vijay@dallastrading.net';
       officeLocation = 'Oman';
-    } else if (userCountry === 'Bahrain' || userCountry === 'Saudi Arabia') {
+    } else if (userCountry === 'Saudi Arabia' || userCountry === 'Saudi Arabia (through an associated company)') {
+      officeEmail = process.env.DALLAS_SAUDI_EMAIL || 'jay@pesgulf.com';
+      officeLocation = 'Saudi Arabia';
+    } else if (userCountry === 'Bahrain') {
       officeEmail = process.env.DALLAS_DUBAI_EMAIL || 'info@dallastrading.net';
-      officeLocation = userCountry === 'Bahrain' ? 'Bahrain' : 'Saudi Arabia';
+      officeLocation = 'Bahrain';
     }
 
     const { data, error } = await resend.emails.send({
@@ -109,9 +112,12 @@ app.post('/api/send-inquiry', async (req, res) => {
     if (userCountry === 'Oman') {
       officeEmail = process.env.DALLAS_OMAN_EMAIL || 'vijay@dallastrading.net';
       officeLocation = 'Oman';
-    } else if (userCountry === 'Bahrain' || userCountry === 'Saudi Arabia') {
+    } else if (userCountry === 'Saudi Arabia' || userCountry === 'Saudi Arabia (through an associated company)') {
+      officeEmail = process.env.DALLAS_SAUDI_EMAIL || 'jay@pesgulf.com';
+      officeLocation = 'Saudi Arabia';
+    } else if (userCountry === 'Bahrain') {
       officeEmail = process.env.DALLAS_DUBAI_EMAIL || 'info@dallastrading.net';
-      officeLocation = userCountry === 'Bahrain' ? 'Bahrain' : 'Saudi Arabia';
+      officeLocation = 'Bahrain';
     }
 
     const { data, error } = await resend.emails.send({
@@ -199,6 +205,14 @@ app.post('/api/send-contact-form', async (req, res) => {
 
     // Determine office email based on country or use Dubai as default
     let officeEmail = process.env.DALLAS_DUBAI_EMAIL || 'info@dallastrading.net';
+
+    if (country === 'Oman' || country === 'Oman (Muscat Office)') {
+      officeEmail = process.env.DALLAS_OMAN_EMAIL || 'vijay@dallastrading.net';
+    } else if (country === 'Saudi Arabia' || country === 'Saudi Arabia (through an associated company)') {
+      officeEmail = process.env.DALLAS_SAUDI_EMAIL || 'jay@pesgulf.com';
+    } else if (country === 'Bahrain' || country === 'Bahrain (Warehouse)') {
+      officeEmail = process.env.DALLAS_DUBAI_EMAIL || 'info@dallastrading.net';
+    }
 
     const { data, error } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL || 'Dallas Contact Form <onboarding@resend.dev>',
