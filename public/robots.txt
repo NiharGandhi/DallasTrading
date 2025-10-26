@@ -1,0 +1,18 @@
+# robots.txt for Dallas Trading
+# https://www.dallastrading.net
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin or private paths (if any in future)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Block access to source maps and config files
+Disallow: /*.map$
+Disallow: /static/js/*.map
+Disallow: /static/css/*.map
+
+# Sitemap location
+Sitemap: https://www.dallastrading.net/sitemap.xml
