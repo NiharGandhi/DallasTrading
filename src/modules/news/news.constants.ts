@@ -1,13 +1,8 @@
-export interface INewsProps {}
-export interface INewsStates {}
+import { INewsArticle } from "../../utils/models/news.model";
 
-export interface INewsItem {
-  id: number;
-  reference: string;
-  title: string;
-  date: string;
-  location: string;
-  content: string[];
-  images: string[];
-  hashtags: string[];
+export interface INewsProps {
+  newsData: INewsArticle[];
+  fetchAsyncNewsData: () => void;
 }
+
+export interface INewsStates {}

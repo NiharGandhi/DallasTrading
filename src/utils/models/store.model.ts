@@ -1,5 +1,6 @@
 import { IContactUsData } from "./contact-us.model";
 import { IMenuItems } from "./menu.model";
+import { INewsArticle } from "./news.model";
 import { IOurTeamDetails } from "./our-team.model";
 import { IProductDetailData } from "./product-detail.model";
 import { IProductsData } from "./products.model";
@@ -36,6 +37,10 @@ export interface IStore {
   };
   contactUs: {
     contactUsData: IContactUsData[];
+    loader: boolean;
+  };
+  news: {
+    newsData: INewsArticle[];
     loader: boolean;
   };
 }

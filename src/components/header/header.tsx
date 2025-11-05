@@ -1,7 +1,7 @@
 import { Component, Fragment, ReactNode } from "react";
 import { IHeaderProps, IHeaderStates } from "./header.constants";
 import styles from "./header.module.scss";
-import headerLogo from "./../../images/Dallas_logo.png";
+import headerLogo from "./../../images/Dallas_logo_2.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";

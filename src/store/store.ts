@@ -6,6 +6,7 @@ import productsCategorySlice from "./products-category/productsCategorySlice";
 import productsSlice from "./products/productsSlice";
 import searchResultsSlice from "./searchResults/searchResultsSlice";
 import contactUsSlice from "./contact-us/contactUsSlice";
+import newsSlice from "./news/newsSlice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     products: productsSlice,
     searchResults: searchResultsSlice,
     contactUs: contactUsSlice,
+    news: newsSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
