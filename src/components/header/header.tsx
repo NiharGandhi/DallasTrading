@@ -145,6 +145,14 @@ class Header extends Component<IHeaderProps, IHeaderStates> {
               </a>
               <a
                 className={`${styles.navLink} ${
+                  currentPath.includes("/news") ? styles.active : ""
+                }`}
+                onClick={() => this.props.router.navigate("/news")}
+              >
+                News
+              </a>
+              <a
+                className={`${styles.navLink} ${
                   currentPath.includes("/contact-us") ? styles.active : ""
                 }`}
                 onClick={() => this.props.router.navigate("/contact-us")}

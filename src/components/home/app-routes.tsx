@@ -10,6 +10,7 @@ import OurTeam from "../../modules/our-team-page/our-team";
 import CareerOpportunities from "../../modules/career-opportunities/career-opportunities";
 import ContactUs from "../../modules/contact-us/contact-us";
 import OurProjects from "../../modules/our-projects/our-projects";
+import News from "../../modules/news/news";
 
 interface ICustomRoute {
   id: number;
@@ -64,6 +65,11 @@ class AppRoutes extends Component {
       id: 10,
       path: "/contact-us",
       element: <ContactUs />,
+    },
+    {
+      id: 11,
+      path: "/news",
+      element: <News />,
     },
   ];
   render(): ReactNode {

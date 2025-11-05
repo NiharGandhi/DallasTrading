@@ -1,6 +1,7 @@
 import { Component, ReactNode } from "react";
 import styles from "./home-page.module.scss";
 import { IHomePageProps, IHomePageStates } from "./home-page.constants";
+import NewsCarousel from "./news-carousel/news-carousel";
 import AchievementCarousal from "./achievements-carousal/achievements-carousal";
 import OurProducts from "./our-products/our-products";
 import OurPartners from "./our-partners/our-partners";
@@ -13,6 +14,7 @@ class HomePage extends Component<IHomePageProps, IHomePageStates> {
   render(): ReactNode {
     return (
       <div className={styles.homePage}>
+        <NewsCarousel />
         <AchievementCarousal />
         {/* <div
           style={{ width: "100%", height: "40vh", backgroundColor: "#DCF0F7" }}
