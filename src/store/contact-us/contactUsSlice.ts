@@ -32,8 +32,8 @@ const initialState: { contactUsData: IContactUsData[]; loader: boolean } = {
     {
       name: "Saudi Arabia",
       address: "Contact through our associated company - PES Gulf",
-      mobileNo: "+966 XX XXX XXXX",
-      email: "jay@pesgulf.com",
+      mobileNo: "+966 50 216 1756",
+      email: "connect@pesgulf.com",
       location:
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3713.365!2d39.1925!3d21.4858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDI5JzA4LjkiTiAzOcKwMTEnMzMuMCJF!5e0!3m2!1sen!2sae!4v1690217954086!5m2!1sen!2sae",
     },

@@ -19,8 +19,10 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
 
   constructor(props: IChatbotProps) {
     super(props);
+    // Only auto-open on desktop (screen width > 768px), not on mobile
+    const isDesktop = window.innerWidth > 768;
     this.state = {
-      isOpen: true, // Open by default
+      isOpen: isDesktop, // Open by default only on desktop
       isMinimized: false,
       messages: [],
       userInput: "",
@@ -35,6 +37,7 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
       inquiryPhone: "",
       companyName: "",
       companyLocation: "",
+      showNotification: false,
     };
     this.messagesEndRef = createRef();
     this.handleToggle = this.handleToggle.bind(this);
@@ -52,11 +55,13 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
     this.handleOpenInquiryForm = this.handleOpenInquiryForm.bind(this);
     this.handleCloseInquiryForm = this.handleCloseInquiryForm.bind(this);
     this.handleInquirySubmit = this.handleInquirySubmit.bind(this);
+    this.handleDismissNotification = this.handleDismissNotification.bind(this);
   }
 
   componentDidMount() {
     // Check if user details exist in localStorage
     const savedUserData = localStorage.getItem('dallasUserData');
+    const notificationDismissed = localStorage.getItem('dallasChatbotNotificationDismissed');
 
     if (savedUserData) {
       try {
@@ -81,6 +86,14 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
     } else {
       // First time visitor
       this.showInitialWelcome();
+    }
+
+    // Show notification on mobile devices after 3 seconds if not dismissed and chatbot is closed
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile && !this.state.isOpen && !notificationDismissed) {
+      setTimeout(() => {
+        this.setState({ showNotification: true });
+      }, 3000);
     }
   }
 
@@ -145,7 +158,14 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
     this.setState((prevState) => ({
       isOpen: !prevState.isOpen,
       isMinimized: false,
+      showNotification: false, // Hide notification when chatbot is opened
     }));
+  }
+
+  handleDismissNotification() {
+    this.setState({ showNotification: false });
+    // Store in localStorage so it doesn't show again
+    localStorage.setItem('dallasChatbotNotificationDismissed', 'true');
   }
 
   handleMinimize() {
@@ -424,18 +444,38 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
   }
 
   render(): ReactNode {
-    const { isOpen, isMinimized, messages, userInput, currentStep, isTyping, userName, userEmail, userCountry, showInquiryForm, inquiryMessage, inquiryPhone, companyName, companyLocation } =
+    const { isOpen, isMinimized, messages, userInput, currentStep, isTyping, userName, userEmail, userCountry, showInquiryForm, inquiryMessage, inquiryPhone, companyName, companyLocation, showNotification } =
       this.state;
 
     if (!isOpen) {
       return (
-        <button
-          className={styles.chatbotButton}
-          onClick={this.handleToggle}
-          aria-label="Open chat"
-        >
-          <ChatIcon />
-        </button>
+        <>
+          <button
+            className={styles.chatbotButton}
+            onClick={this.handleToggle}
+            aria-label="Open chat"
+          >
+            <ChatIcon />
+          </button>
+
+          {showNotification && (
+            <div className={styles.chatbotNotification}>
+              <div className={styles.notificationContent}>
+                <div className={styles.notificationText}>
+                  <strong>Try Dallas Assistant!</strong>
+                  <p>Get instant answers about our products and services</p>
+                </div>
+                <button
+                  className={styles.dismissButton}
+                  onClick={this.handleDismissNotification}
+                  aria-label="Dismiss notification"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+          )}
+        </>
       );
     }
 

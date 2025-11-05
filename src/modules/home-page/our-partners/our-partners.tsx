@@ -17,7 +17,7 @@ import Partner7 from "./../../../store/our-companies/ourCompaniesImages/legrand-
 import Partner8 from "./../../../store/our-companies/ourCompaniesImages/hex.png";
 import Partner9 from "./../../../store/our-companies/ourCompaniesImages/breeze.png";
 import Partner10 from "./../../../store/our-companies/ourCompaniesImages/Ashfield.png";
-import Partner11 from "./../../../store/our-companies/ourCompaniesImages/elite.svg";
+import Partner11 from "./../../../store/our-companies/ourCompaniesImages/elite.jpeg";
 import Partner12 from "./../../../store/our-companies/ourCompaniesImages/MESC.jpg";
 import Partner13 from "./../../../store/our-companies/ourCompaniesImages/schneider-logo.png";
 import Partner14 from "./../../../store/our-companies/ourCompaniesImages/marechal_electric.jpg";

@@ -16,6 +16,7 @@ export interface IChatbotStates {
   inquiryPhone: string;
   companyName: string;
   companyLocation: string;
+  showNotification: boolean;
 }
 
 export interface IMessage {
