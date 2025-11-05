@@ -211,7 +211,16 @@ class NewsDetail extends Component<INewsDetailProps, INewsDetailStates> {
               <div className={styles.contentSection}>
                 <p className={styles.tagline}>{currentNews.tagline}</p>
                 <div className={styles.content}>
-                  <p>{currentNews.content}</p>
+                  {currentNews.content.split('\n\n').map((paragraph, index) => (
+                    <p key={index}>
+                      {paragraph.split('\n').map((line, lineIndex) => (
+                        <span key={lineIndex}>
+                          {line}
+                          {lineIndex < paragraph.split('\n').length - 1 && <br />}
+                        </span>
+                      ))}
+                    </p>
+                  ))}
                 </div>
               </div>
             </div>
