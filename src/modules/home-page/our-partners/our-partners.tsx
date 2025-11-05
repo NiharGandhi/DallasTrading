@@ -23,6 +23,9 @@ import Partner13 from "./../../../store/our-companies/ourCompaniesImages/schneid
 import Partner14 from "./../../../store/our-companies/ourCompaniesImages/marechal_electric.jpg";
 import Partner15 from "./../../../store/our-companies/ourCompaniesImages/hager.png";
 import Partner16 from "./../../../store/our-companies/ourCompaniesImages/simplex.png";
+import Partner17 from "./../../../store/our-companies/ourCompaniesImages/Katko.jpeg";
+import Partner18 from "./../../../store/our-companies/ourCompaniesImages/Braco.png";
+
 
 class OurPartners extends Component<IOurPartnersProps, IOurPartnersStates> {
   constructor(props: IOurPartnersProps) {
@@ -50,6 +53,8 @@ class OurPartners extends Component<IOurPartnersProps, IOurPartnersStates> {
     { image: Partner14, altText: "Marechal Electric", name: "Marechal Electric" },
     { image: Partner15, altText: "Hager", name: "Hager" },
     { image: Partner16, altText: "Simplex", name: "Simplex" },
+    { image: Partner17, altText: "Katko", name: "Katko" },
+    { image: Partner18, altText: "Braco", name: "Braco" },
   ];
   componentDidMount(): void {
     Aos.init();
