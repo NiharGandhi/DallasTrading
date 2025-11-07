@@ -1,5 +1,5 @@
 import prakash_ahuja_img from "./Prakash_Ahuja.png";
-import ibrahim_somji_img from "./Ibrahim_Somji.png";
+import ibrahim_somji_img from "./Ibrahim_Somji.jpeg";
 import amjad_ali_img from "./Amjad-Ali.jpg";
 import vijay_ahuja_img from "./Vijay-Ahuja.jpg";
 import jay_ahuja_img from "./Jay-Ahuja.jpg";

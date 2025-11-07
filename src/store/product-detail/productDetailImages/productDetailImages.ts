@@ -86,7 +86,7 @@ import heat_terminal_technical from "./heat-terminal-technical.jpg";
 import conduit_steel from "./conduit-steel.jpg";
 import terminal_box from "./terminal-box.jpg";
 import GI_Switch_And_Socket_Boxes from "./switch-socket-box.jpg";
-import TSJ_SC from "./TSJ-SC.png";
+import TSJ_SC from "./TSJ-SC.jpeg";
 
 export const productDetailImages: { [id: string]: string } = {
   pvc_conduit1: pvc_conduit1,

@@ -51,7 +51,7 @@ import Scotch_T2228_Rubber_Mastic_Tape from "./scotch-t2228.jpg";
 import Scotch_Vinyl_Mastic_Tape from "./scotch-vinyl-mastic-tape.jpg";
 import Scotchfil_Insulation_Putty from "./scotchfil-insulation-putty.jpg";
 import GI_Switch_And_Socket_Boxes from "./switch-socket-box.jpg";
-import TSJ_SC from "./TSJ-SC.png";
+import TSJ_SC from "./TSJ-SC.jpeg";
 
 export const productsImages: { [id: string]: string } = {
   A1A2_Cable_Gland: A1A2_Cable_Gland,
