@@ -1,7 +1,6 @@
 import { Component, ReactNode } from "react";
 import styles from "./home-page.module.scss";
 import { IHomePageProps, IHomePageStates } from "./home-page.constants";
-import NewsCarousel from "./news-carousel/news-carousel";
 import AchievementCarousal from "./achievements-carousal/achievements-carousal";
 import OurProducts from "./our-products/our-products";
 import OurPartners from "./our-partners/our-partners";

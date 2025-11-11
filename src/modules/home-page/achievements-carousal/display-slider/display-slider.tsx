@@ -6,7 +6,6 @@ import {
 } from "./display-slider.constants";
 import { motion } from "framer-motion";
 import DisplayImage from "./display-image/display-image";
-import { useNavigate } from "react-router-dom";
 import withRouter from "../../../../components/common/withRouterComponent/withRouter";
 
 class DisplaySlider extends Component<
