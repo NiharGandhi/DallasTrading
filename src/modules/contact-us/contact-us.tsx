@@ -160,13 +160,13 @@ class ContactUs extends Component<IContactUsProps, IContactUsStates> {
               onChange={(e) => this.setState({ selectVal: +e.target.value })}
             >
               <MenuItem key={`text_item_${1}`} value={1}>
-              Dubai - United Arab Emirates
+                Dubai - United Arab Emirates
               </MenuItem>
               <MenuItem key={`text_item_${2}`} value={2}>
-              Muscat - Sultanate of Oman
+                Muscat - Sultanate of Oman
               </MenuItem>
               <MenuItem key={`text_item_${3}`} value={3}>
-                Bahrain
+                Hidd - Kingdom of Bahrain
               </MenuItem>
               <MenuItem key={`text_item_${4}`} value={4}>
                 Khobar - Kingdom of Saudi Arabia

@@ -22,7 +22,7 @@ const initialState: { contactUsData: IContactUsData[]; loader: boolean } = {
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14627.436410419681!2d58.34767921107112!3d23.57350333324495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e91ffd75ae2f525%3A0xba7e54290d8f6b76!2sGhala%20Industrial%20Area!5e0!3m2!1sen!2sin!4v1687796554275!5m2!1sen!2sin",
     },
     {
-      name: "Bahrain",
+      name: "Hidd - Kingdom of Bahrain",
       address: "Majaal 4, Bldg 1988, Unit 13, Road 1527, Block 115, BIW, Hidd Industrial Area, Kingdom of Bahrain",
       mobileNo: "+973 1770 2277",
       email: "info@dallastrading.net",

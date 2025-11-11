@@ -31,6 +31,6 @@ export interface IMessage {
 export const COUNTRIES = [
   "Dubai - United Arab Emirates",
   "Muscat - Sultanate of Oman",
-  "Bahrain",
+  "Hidd - Kingdom of Bahrain",
   "Khobar - Kingdom of Saudi Arabia",
 ];

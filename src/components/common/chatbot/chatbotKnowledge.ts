@@ -79,7 +79,7 @@ We are deeply committed to innovation, sustainability, and alignment with govern
       manager: "Vijay Ahuja (Director – Oman Operations)"
     },
     bahrain: {
-      name: "Bahrain Warehouse",
+      name: "Hidd - Kingdom of Bahrain",
       country: "Kingdom of Bahrain",
       type: "Warehouse Facility",
       address: "Majaal 4, Bldg 1988, Unit 13, Road 1527, Block 115, BIW, Hidd Industrial Area",
