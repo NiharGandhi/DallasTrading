@@ -83,7 +83,7 @@ We are deeply committed to innovation, sustainability, and alignment with govern
       country: "Kingdom of Bahrain",
       type: "Warehouse Facility",
       address: "Majaal 4, Bldg 1988, Unit 13, Road 1527, Block 115, BIW, Hidd Industrial Area",
-      phone: "+973 1770 2277",
+      phone: "+973 3398 8702",
       email: "info@dallastrading.net",
       manager: "Amjad Ali (General Manager)"
     },

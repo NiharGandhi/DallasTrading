@@ -266,7 +266,7 @@ class Chatbot extends Component<IChatbotProps, IChatbotStates> {
 
   handleContactHuman() {
     this.addBotMessage(
-      `I'll connect you with our team! 👋\n\nYou can reach us at:\n\n📞 Dubai: +971 4 3635500\n📞 Oman: +968 2 459 3041\n📞 Bahrain: +973 1770 2277\n📧 Email: info@dallastrading.net\n\nOr visit our [Contact Page](/contact-us) to send us a message and we'll get back to you shortly!`
+      `I'll connect you with our team! 👋\n\nYou can reach us at:\n\n📞 Dubai: +971 4 3635500\n📞 Oman: +968 2 459 3041\n📞 Bahrain: +973 3398 8702\n📧 Email: info@dallastrading.net\n\nOr visit our [Contact Page](/contact-us) to send us a message and we'll get back to you shortly!`
     );
   }
 

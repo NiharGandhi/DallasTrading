@@ -163,7 +163,7 @@ const getFallbackResponse = (message: string): string => {
   }
 
   if (lowerMessage.includes("contact") || lowerMessage.includes("phone") || lowerMessage.includes("email")) {
-    return `📞 Contact Us:\n\nDubai: +971 4 3635500\nOman: +968 2 459 3041\nBahrain: +973 1770 2277\nEmail: info@dallastrading.net\n\nYou can also reach us via our [Contact Page](/contact-us)`;
+    return `📞 Contact Us:\n\nDubai: +971 4 3635500\nOman: +968 2 459 3041\nBahrain: +973 3398 8702\nEmail: info@dallastrading.net\n\nYou can also reach us via our [Contact Page](/contact-us)`;
   }
 
   if (lowerMessage.includes("location") || lowerMessage.includes("office")) {
