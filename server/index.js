@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { Resend } = require('resend');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
 const rateLimit = require('express-rate-limit');
 
 // Load environment variables
@@ -331,10 +330,27 @@ app.post('/api/gemini', geminiLimiter, async (req, res) => {
       return res.status(503).json({ error: 'AI service is not configured.' });
     }
 
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
+    const geminiRes = await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-latest:generateContent',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-goog-api-key': apiKey,
+        },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+        }),
+      }
+    );
+
+    if (!geminiRes.ok) {
+      console.error('[gemini] upstream error:', geminiRes.status);
+      return res.status(502).json({ error: 'AI service temporarily unavailable. Please try again.' });
+    }
+
+    const json = await geminiRes.json();
+    const text = json?.candidates?.[0]?.content?.parts?.[0]?.text;
 
     res.json({ text });
   } catch (err) {
