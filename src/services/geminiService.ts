@@ -1,9 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import { chatbotKnowledge } from "../components/common/chatbot/chatbotKnowledge";
-
-// Initialize Gemini AI
-const API_KEY = process.env.REACT_APP_GEMINI_API_KEY || "";
-const genAI = new GoogleGenerativeAI(API_KEY);
 
 // Create context from knowledge base for RAG
 const createContextPrompt = (): string => {
@@ -95,34 +90,14 @@ INQUIRY GUIDANCE:
   return context;
 };
 
-// Chat with Gemini API
+// Chat via server-side proxy — the Gemini API key never reaches the browser
 export const getChatResponse = async (
   userMessage: string,
   conversationHistory: Array<{ role: string; parts: string }>
 ): Promise<string> => {
-  try {
-    console.log("API_KEY present:", !!API_KEY);
-    console.log("API_KEY length:", API_KEY?.length);
+  const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
-    if (!API_KEY || API_KEY.length < 10) {
-      console.error("Invalid API key. Please check your .env file and restart the dev server.");
-      return "⚠️ AI service configuration error. Please ensure the API key is set correctly and the server has been restarted.\n\nFor now, here's what I can tell you:\n\n" + getFallbackResponse(userMessage);
-    }
-
-    console.log("Sending message to Gemini:", userMessage);
-
-    // Try to get the model - try multiple model names as fallback
-    const modelNames = ["gemini-2.5-flash"];
-    let model;
-    let lastError;
-
-    for (const modelName of modelNames) {
-      try {
-        console.log("Trying model:", modelName);
-        model = genAI.getGenerativeModel({ model: modelName });
-
-        // Build the full prompt with context
-        const fullPrompt = `${createContextPrompt()}
+  const fullPrompt = `${createContextPrompt()}
 
 User Question: ${userMessage}
 
@@ -131,31 +106,23 @@ ${conversationHistory.map(msg => `${msg.role === 'user' ? 'User' : 'Assistant'}:
 
 Please provide a helpful, accurate response based on the knowledge base above.`;
 
-        const result = await model.generateContent(fullPrompt);
-        const response = await result.response;
-        const responseText = response.text();
-        console.log("Gemini response received with model", modelName, ":", responseText.substring(0, 100));
-        return responseText;
-      } catch (err) {
-        console.log("Model", modelName, "failed, trying next...");
-        lastError = err;
-        continue;
-      }
-    }
+  const response = await fetch(`${apiUrl}/api/gemini`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt: fullPrompt }),
+  });
 
-    throw lastError || new Error("All model names failed");
-
-  } catch (error) {
-    console.error("Gemini API Error:", error);
-    console.error("Error details:", JSON.stringify(error, null, 2));
-
-    // Fallback to basic pattern matching if API fails
-    return "⚠️ AI service temporarily unavailable. Here's basic information:\n\n" + getFallbackResponse(userMessage);
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.error || `Server error ${response.status}`);
   }
+
+  const data = await response.json();
+  return data.text;
 };
 
-// Fallback response if API fails
-const getFallbackResponse = (message: string): string => {
+// Fallback response if the proxy is unreachable
+export const getFallbackResponse = (message: string): string => {
   const lowerMessage = message.toLowerCase();
 
   if (lowerMessage.includes("product") || lowerMessage.includes("cable") || lowerMessage.includes("plug")) {

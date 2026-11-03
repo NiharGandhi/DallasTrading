@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { Resend } = require('resend');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+const rateLimit = require('express-rate-limit');
 
 // Load environment variables
 dotenv.config();
@@ -12,9 +14,33 @@ const PORT = process.env.PORT || 3001;
 // Initialize Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+// CORS — restrict to production origin (and localhost for dev)
+const allowedOrigins = [
+  'https://www.dallastrading.net',
+  'https://dallastrading.net',
+  'http://localhost:3000',
+];
+app.use(cors({
+  origin: (origin, callback) => {
+    // allow requests with no origin (e.g. curl, server-to-server)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+}));
+
+app.use(express.json({ limit: '16kb' }));
+
+// Rate limiter for the Gemini proxy: 30 requests per minute per IP
+const geminiLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests. Please try again later.' },
+});
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -283,6 +309,38 @@ app.post('/api/send-contact-form', async (req, res) => {
   } catch (error) {
     console.error('Server error:', error);
     res.status(500).json({ error: 'Failed to send email', details: error.message });
+  }
+});
+
+// Gemini proxy — key never leaves the server
+app.post('/api/gemini', geminiLimiter, async (req, res) => {
+  try {
+    const { prompt } = req.body;
+
+    if (!prompt || typeof prompt !== 'string') {
+      return res.status(400).json({ error: 'Invalid request: prompt must be a non-empty string.' });
+    }
+
+    if (prompt.length > 8000) {
+      return res.status(400).json({ error: 'Request too large.' });
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      console.error('[gemini] GEMINI_API_KEY is not set');
+      return res.status(503).json({ error: 'AI service is not configured.' });
+    }
+
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    const result = await model.generateContent(prompt);
+    const text = result.response.text();
+
+    res.json({ text });
+  } catch (err) {
+    // Log without exposing the key or stack to the client
+    console.error('[gemini] Error calling Gemini API:', err.message);
+    res.status(502).json({ error: 'AI service temporarily unavailable. Please try again.' });
   }
 });
 
