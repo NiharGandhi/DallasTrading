@@ -30,7 +30,7 @@ app.use(cors({
   },
 }));
 
-app.use(express.json({ limit: '16kb' }));
+app.use(express.json({ limit: '512kb' }));
 
 // Rate limiter for the Gemini proxy: 30 requests per minute per IP
 const geminiLimiter = rateLimit({
@@ -320,7 +320,7 @@ app.post('/api/gemini', geminiLimiter, async (req, res) => {
       return res.status(400).json({ error: 'Invalid request: prompt must be a non-empty string.' });
     }
 
-    if (prompt.length > 8000) {
+    if (prompt.length > 400000) {
       return res.status(400).json({ error: 'Request too large.' });
     }
 
