@@ -1,5 +1,8 @@
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
+
 /**
  * Seed script: populates Strapi with existing JSON data.
  * Usage: STRAPI_URL=https://cms.dallastrading.net API_TOKEN=<token> node scripts/seed.js
@@ -36,9 +39,44 @@ async function post(endpoint, data) {
 }
 
 async function getAll(endpoint) {
-  const res = await fetch(`${STRAPI_URL}/api/${endpoint}?pagination[pageSize]=100`, { headers });
+  const res = await fetch(`${STRAPI_URL}/api/${endpoint}?pagination[pageSize]=200`, { headers });
   const json = await res.json();
   if (!res.ok) throw new Error(`GET /api/${endpoint} failed`);
+  return json.data;
+}
+
+async function uploadFile(filePath, fileName) {
+  const fileBuffer = fs.readFileSync(filePath);
+  const ext = path.extname(fileName).toLowerCase();
+  const mimeTypes = {
+    '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
+    '.svg': 'image/svg+xml', '.gif': 'image/gif', '.webp': 'image/webp',
+  };
+  const mime = mimeTypes[ext] || 'application/octet-stream';
+
+  const form = new FormData();
+  form.append('files', new Blob([fileBuffer], { type: mime }), fileName);
+
+  const res = await fetch(`${STRAPI_URL}/api/upload`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${API_TOKEN}` },
+    body: form,
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(`Upload ${fileName} failed: ${JSON.stringify(json.error)}`);
+  return json[0]; // returns the uploaded file object
+}
+
+async function put(endpoint, id, data) {
+  const res = await fetch(`${STRAPI_URL}/api/${endpoint}/${id}`, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify({ data }),
+  });
+  const json = await res.json();
+  if (!res.ok) {
+    throw new Error(`PUT /api/${endpoint}/${id} failed: ${JSON.stringify(json.error)}`);
+  }
   return json.data;
 }
 
@@ -129,6 +167,135 @@ const teamMembers = [
   { name: 'Jay Ahuja', position: 'Executive Director', bio: 'As Executive Director of Dallas Group, Jay Ahuja brings over two decades of diverse experience within the organization. He oversees the Group\'s overall operations and IT infrastructure across all branches in the Middle East. His hands-on leadership and commitment to operational excellence have been instrumental in strengthening Dallas\'s regional presence and efficiency.', order: 2 },
   { name: 'Vijay Ahuja', position: 'Director – Oman Operations', bio: 'Vijay Ahuja has an educational background in Management Information Systems and Accounting, combined with extensive training and experience in branding, business development, and marketing in both the US and Indian markets. Since 2015, as the leader of operations in Oman, his experience includes strategic planning, team management, and fostering relationships with key stakeholders.', order: 3 },
   { name: 'Amjad Ali', position: 'General Manager – UAE & Bahrain', bio: 'Amjad Ali, a qualified Electrical Engineer, has been an integral part of Dallas for over 30 years. Widely recognized by clients for his articulate technical guidance, his solutions have consistently delivered cost efficiency, reliability, and performance optimization. His long-standing commitment and deep product knowledge make him one of the most respected professionals in the industry.', order: 4 },
+];
+
+const LOGOS_DIR = path.join(__dirname, '..', '..', 'src', 'store', 'our-companies', 'ourCompaniesImages');
+
+const partners = [
+  { name: 'Hex',           logoFile: 'hex.png',              websiteUrl: '',                            order: 1 },
+  { name: 'Elite',         logoFile: 'elite.png',            websiteUrl: '',                            order: 2 },
+  { name: 'Mesc',          logoFile: 'MESC.jpg',             websiteUrl: '',                            order: 3 },
+  { name: 'Oxford Cavi',   logoFile: 'oxford.png',           websiteUrl: '',                            order: 4 },
+  { name: '3M',            logoFile: '3M.png',               websiteUrl: 'https://www.3m.com',          order: 5 },
+  { name: 'PCE',           logoFile: 'pce.png',              websiteUrl: 'https://www.pce-instruments.com', order: 6 },
+  { name: 'Marechal',      logoFile: 'marechal_electric.jpg',websiteUrl: 'https://www.marechal.com',   order: 7 },
+  { name: 'Legrand Swift', logoFile: 'legrand-logo.png',     websiteUrl: 'https://www.legrand.com',    order: 8 },
+  { name: 'Barton',        logoFile: 'barton.png',           websiteUrl: '',                            order: 9 },
+  { name: 'Decoduct',      logoFile: 'decoduct.png',         websiteUrl: '',                            order: 10 },
+  { name: 'ABB',           logoFile: 'ABB.png',              websiteUrl: 'https://www.abb.com',         order: 11 },
+  { name: 'Hager',         logoFile: 'hager.png',            websiteUrl: 'https://www.hager.com',       order: 12 },
+  { name: 'Eaton (Moeller)',logoFile: 'eaton.png',           websiteUrl: 'https://www.eaton.com',       order: 13 },
+  { name: 'Schneider',     logoFile: 'schneider-logo.png',   websiteUrl: 'https://www.se.com',          order: 14 },
+  { name: 'Siemens',       logoFile: 'Siemens_logo.png',     websiteUrl: 'https://www.siemens.com',     order: 15 },
+  { name: 'Breeze',        logoFile: 'breeze.png',           websiteUrl: '',                            order: 16 },
+  { name: 'MK Logic Plus', logoFile: 'mk-logo.jpg',          websiteUrl: '',                            order: 17 },
+  { name: 'Rayon',         logoFile: 'rayan.png',            websiteUrl: '',                            order: 18 },
+  { name: 'Raychem',       logoFile: 'raychem-logo.png',     websiteUrl: '',                            order: 19 },
+];
+
+const pages = [
+  {
+    title: 'About Us',
+    slug: 'about-us',
+    seoTitle: 'About Us | Dallas Trading Co. LLC',
+    seoDescription: 'Learn about Dallas Group of Companies — a trusted name in trading and distribution of high-quality electrical products across the GCC since 1995.',
+    sections: [
+      {
+        __component: 'sections.rich-text-block',
+        content: `## Welcome to Dallas Group of Companies
+
+Welcome to **Dallas Group of Companies** — a trusted name in the trading and distribution of high-quality electrical products and industrial solutions across the GCC.
+
+## Our Story
+
+Founded in 1995 under the visionary leadership of Mr. Prakash Ahuja, Dallas Group has evolved from its roots in Dubai into a multi-regional enterprise with a strong presence in the UAE, Oman, and Bahrain, and a growing footprint through an associated company in Dammam, Saudi Arabia.
+
+## Our Excellence
+
+Over the years, Dallas has built a reputation for reliability, efficiency, and customer-focused service. Guided by a well-structured management framework — with Mr. Prakash Ahuja at the helm and each division led by experienced General Managers and Directors — the Group ensures streamlined operations and consistent excellence across all regions.
+
+## Our Approach
+
+At Dallas, we believe in partnership-driven growth. Our customers are our collaborators, and we go beyond supplying products by offering technical expertise, cost-effective solutions, and end-to-end support. Our centralized sales coordination and sourcing teams based in Dubai, Oman, and Bahrain work closely to ensure timely deliveries, technical assistance, and superior after-sales service.
+
+## Our Commitment
+
+We are deeply committed to innovation, sustainability, and alignment with government initiatives aimed at building a more energy-efficient and sustainable future. Through continuous research, collaboration with consultants, and a focus on operational efficiency, Dallas Group continues to expand its capabilities — delivering value, fostering trust, and driving long-term success across the Middle East.`,
+      },
+    ],
+  },
+  {
+    title: 'Career Opportunities',
+    slug: 'career-opportunities',
+    seoTitle: 'Career Opportunities | Dallas Trading Co. LLC',
+    seoDescription: 'Explore career opportunities at Dallas Trading Co. LLC. Join our dynamic team across UAE, Oman, and Bahrain.',
+    sections: [
+      {
+        __component: 'sections.rich-text-block',
+        content: `## Career Opportunities
+
+Dallas requires a dynamic Sales Head for its newly formed Oil & Gas Division. The ideal candidate should have about 10 years experience in Sales of electrical in Gulf region including a minimum of 4 to 5 years of sales experience to Oil & Gas sector.
+
+**Key responsibilities would include:**
+
+- Product portfolio & Customer development in Oil & Gas Segment.
+- Strategic Relationship Management.
+- Design and implement Sales strategies.
+- Implementing and Supervising Sales process.
+
+To apply for one of the above positions, email or post to the below addresses. Should you have questions, please do not hesitate to contact the HR Department on the specified email address.
+
+**Dallas Group**
+PO Box: 2028, Dubai, United Arab Emirates
+Email: **info@dallastrading.net**
+
+We have a working environment in which all individuals are able to make the best use of their skills, free from discrimination or harassment, and in which all decisions are based on merit.`,
+      },
+    ],
+  },
+  {
+    title: 'Certificates',
+    slug: 'certificates',
+    seoTitle: 'Certificates | Dallas Trading Co. LLC',
+    seoDescription: 'Dallas Trading Co. LLC holds ISO 9001:2015 certifications for UAE and Oman operations.',
+    sections: [
+      {
+        __component: 'sections.rich-text-block',
+        content: `## Our Certifications
+
+Our commitment to quality is demonstrated through internationally recognized certifications, ensuring excellence in every aspect of our operations.
+
+**ISO 9001:2015 — United Arab Emirates**
+Our UAE operations are certified to ISO 9001:2015, demonstrating our dedication to maintaining the highest standards in quality management systems.
+
+**ISO 9001:2015 — Oman**
+Our Oman operations hold the ISO 9001:2015 certification, affirming our consistent quality standards across all regional branches.`,
+      },
+    ],
+  },
+  {
+    title: 'Our Projects',
+    slug: 'our-projects',
+    seoTitle: 'Our Projects | Dallas Trading Co. LLC',
+    seoDescription: 'Explore Dallas Trading Co. LLC\'s portfolio of successful projects across the UAE and GCC.',
+    sections: [
+      {
+        __component: 'sections.rich-text-block',
+        content: `## Our Projects
+
+Showcasing our portfolio of successful projects and achievements across the UAE and the wider GCC region.
+
+Dallas Trading Co. LLC has proudly supplied electrical products and solutions to some of the most prestigious projects in the region, including:
+
+- **Al Habtoor City** — Dubai
+- **Dubai Fountain Project** — Downtown Dubai
+- **Museum of the Future** — Dubai
+- **Jumeirah Park Villas** — Dubai
+- **Palm Jumeirah** — Dubai
+- **The Atlantis Royal** — Palm Jumeirah, Dubai`,
+      },
+    ],
+  },
 ];
 
 const newsArticles = [
@@ -264,6 +431,228 @@ async function seed() {
       publishedAt: new Date().toISOString(),
     });
     console.log(`  created: ${article.title} (id=${created.id})`);
+  }
+
+  // 5. Partners
+  console.log('\n── Partners ──');
+  const existingPartners = await getAll('partners');
+  const existingPartnerNames = new Set(existingPartners.map(p => p.attributes.name));
+
+  for (const partner of partners) {
+    if (existingPartnerNames.has(partner.name)) {
+      console.log(`  skip (exists): ${partner.name}`);
+      continue;
+    }
+
+    // Upload logo
+    let logoId = null;
+    if (partner.logoFile) {
+      const logoPath = path.join(LOGOS_DIR, partner.logoFile);
+      if (fs.existsSync(logoPath)) {
+        const uploaded = await uploadFile(logoPath, partner.logoFile);
+        logoId = uploaded.id;
+        console.log(`  uploaded logo: ${partner.logoFile} (fileId=${logoId})`);
+      } else {
+        console.warn(`  WARN: logo file not found: ${logoPath}`);
+      }
+    }
+
+    const created = await post('partners', {
+      name: partner.name,
+      websiteUrl: partner.websiteUrl || null,
+      order: partner.order,
+      logo: logoId,
+    });
+    console.log(`  created: ${partner.name} (id=${created.id})`);
+  }
+
+  // 6. Pages
+  console.log('\n── Pages ──');
+  const existingPages = await getAll('pages');
+  const existingPageSlugs = new Set(existingPages.map(p => p.attributes.slug));
+
+  for (const page of pages) {
+    if (existingPageSlugs.has(page.slug)) {
+      console.log(`  skip (exists): ${page.title}`);
+      continue;
+    }
+    const created = await post('pages', {
+      title: page.title,
+      slug: page.slug,
+      seoTitle: page.seoTitle,
+      seoDescription: page.seoDescription,
+      sections: page.sections,
+      publishedAt: new Date().toISOString(),
+    });
+    console.log(`  created: ${page.title} (id=${created.id})`);
+  }
+
+  // 7. News images — upload and link to existing news articles
+  console.log('\n── News Images ──');
+  const newsDir = path.join(__dirname, '..', '..', 'public', 'news');
+  const allNews = await getAll('news-articles');
+
+  // Build a map of existing media filenames to avoid re-uploading
+  const existingMediaRes = await fetch(`${STRAPI_URL}/api/upload/files?pagination[pageSize]=500`, { headers });
+  const existingMediaJson = await existingMediaRes.json();
+  const uploadedFileNames = new Set((existingMediaJson.map ? existingMediaJson : []).map(f => f.name));
+
+  for (const article of allNews) {
+    const slugId = article.attributes.slug; // e.g. "a-proud-moment-..."
+    // Find matching news folder by title keyword match
+    const newsDataPath = path.join(__dirname, '..', '..', 'public', 'data', 'news.json');
+    const newsData = JSON.parse(fs.readFileSync(newsDataPath, 'utf8'));
+    const match = newsData.find(n => article.attributes.title === n.title);
+    if (!match) continue;
+
+    const folderPath = path.join(newsDir, match.id);
+    if (!fs.existsSync(folderPath)) {
+      console.log(`  WARN: no image folder for news "${match.id}"`);
+      continue;
+    }
+
+    const imageFiles = fs.readdirSync(folderPath).filter(f => /\.(jpe?g|png|gif|webp)$/i.test(f));
+    const uploadedIds = [];
+    let mainImageId = null;
+
+    for (const imgFile of imageFiles) {
+      if (uploadedFileNames.has(imgFile)) {
+        // already uploaded — find its id
+        const found = (existingMediaJson.map ? existingMediaJson : []).find(f => f.name === imgFile);
+        if (found) {
+          uploadedIds.push(found.id);
+          if (imgFile === match.mainImage) mainImageId = found.id;
+        }
+        console.log(`  skip upload (exists): ${imgFile}`);
+        continue;
+      }
+      const uploaded = await uploadFile(path.join(folderPath, imgFile), imgFile);
+      uploadedFileNames.add(imgFile);
+      uploadedIds.push(uploaded.id);
+      if (imgFile === match.mainImage) mainImageId = uploaded.id;
+      console.log(`  uploaded: ${imgFile} (fileId=${uploaded.id})`);
+    }
+
+    await put('news-articles', article.id, {
+      mainImage: mainImageId,
+      images: uploadedIds,
+    });
+    console.log(`  linked images to: ${article.attributes.title}`);
+  }
+
+  // 8. PDFs — upload and link to products by downloadFile field
+  console.log('\n── Product PDFs ──');
+  const uploadsDir = path.join(__dirname, '..', '..', 'public', 'uploads');
+  const productDetailsForPdf = JSON.parse(fs.readFileSync(
+    path.join(__dirname, '..', '..', 'public', 'data', 'product-details.json'), 'utf8'
+  ));
+  const allProductsForPdf = await getAll('products');
+  const productBySlugForPdf = {};
+  for (const p of allProductsForPdf) productBySlugForPdf[p.attributes.slug] = p;
+
+  // Re-fetch media to include any newly uploaded files
+  const mediaRes2 = await fetch(`${STRAPI_URL}/api/upload/files?pagination[pageSize]=500`, { headers });
+  const allMedia = await mediaRes2.json();
+  const mediaByName = {};
+  for (const f of (allMedia.map ? allMedia : [])) mediaByName[f.name] = f;
+
+  for (const detail of productDetailsForPdf) {
+    if (!detail.downloadFile) continue;
+    const pdfPath = path.join(uploadsDir, detail.downloadFile);
+    if (!fs.existsSync(pdfPath)) {
+      console.log(`  WARN: PDF not found: ${detail.downloadFile}`);
+      continue;
+    }
+
+    const product = productBySlugForPdf[slugify(detail.id)];
+    if (!product) {
+      console.log(`  WARN: no product for ${detail.id}`);
+      continue;
+    }
+
+    let fileId;
+    if (mediaByName[detail.downloadFile]) {
+      fileId = mediaByName[detail.downloadFile].id;
+      console.log(`  skip upload (exists): ${detail.downloadFile}`);
+    } else {
+      const uploaded = await uploadFile(pdfPath, detail.downloadFile);
+      fileId = uploaded.id;
+      mediaByName[detail.downloadFile] = uploaded;
+      console.log(`  uploaded PDF: ${detail.downloadFile} (fileId=${fileId})`);
+    }
+
+    await put('products', product.id, { downloadFile: fileId });
+    console.log(`  linked PDF to: ${detail.productName}`);
+  }
+
+  // 10. Team member photos
+  console.log('\n── Team Member Photos ──');
+  const TEAM_PHOTOS_DIR = path.join(__dirname, '..', '..', 'src', 'store', 'our-team', 'ourTeamImages');
+  const teamPhotoMap = {
+    'Prakash Ahuja':  'Prakash_Ahuja.png',
+    'Ibrahim Somji':  'Ibrahim_Somji.jpeg',
+    'Jay Ahuja':      'Jay-Ahuja.jpg',
+    'Vijay Ahuja':    'Vijay-Ahuja.jpg',
+    'Amjad Ali':      'Amjad-Ali.jpg',
+  };
+  const allTeam = await getAll('team-members');
+  // Re-fetch media
+  const mediaRes3 = await fetch(`${STRAPI_URL}/api/upload/files?pagination[pageSize]=500`, { headers });
+  const allMedia3 = await mediaRes3.json();
+  const mediaByName3 = {};
+  for (const f of (allMedia3.map ? allMedia3 : [])) mediaByName3[f.name] = f;
+
+  for (const member of allTeam) {
+    const photoFile = teamPhotoMap[member.attributes.name];
+    if (!photoFile) continue;
+    const photoPath = path.join(TEAM_PHOTOS_DIR, photoFile);
+    if (!fs.existsSync(photoPath)) {
+      console.log(`  WARN: photo not found: ${photoFile}`);
+      continue;
+    }
+    let fileId;
+    if (mediaByName3[photoFile]) {
+      fileId = mediaByName3[photoFile].id;
+      console.log(`  skip upload (exists): ${photoFile}`);
+    } else {
+      const uploaded = await uploadFile(photoPath, photoFile);
+      fileId = uploaded.id;
+      console.log(`  uploaded: ${photoFile} (fileId=${fileId})`);
+    }
+    await put('team-members', member.id, { photo: fileId });
+    console.log(`  linked photo to: ${member.attributes.name}`);
+  }
+
+  // 12. Product Details — update existing products with detail JSON fields
+  console.log('\n── Product Details ──');
+  const detailsPath = path.join(__dirname, '..', '..', 'public', 'data', 'product-details.json');
+  if (!fs.existsSync(detailsPath)) {
+    console.log('  SKIP: product-details.json not found at', detailsPath);
+  } else {
+    const productDetails = JSON.parse(fs.readFileSync(detailsPath, 'utf8'));
+    const allProducts = await getAll('products');
+    const productBySlug = {};
+    for (const p of allProducts) {
+      productBySlug[p.attributes.slug] = p;
+    }
+
+    for (const detail of productDetails) {
+      const slug = slugify(detail.id);
+      const existing = productBySlug[slug];
+      if (!existing) {
+        console.log(`  WARN: no product found for slug "${slug}" (id=${detail.id}), skipping`);
+        continue;
+      }
+      await put('products', existing.id, {
+        specifications: detail.Specification || [],
+        description: detail.description || [],
+        detailDescription: detail.detailDescription || [],
+        detailDescriptionAfterTable: detail.detailDescriptionAfterTable || [],
+        productDetailTableData: detail.productDetailTableData || [],
+        customerReviews: detail.customerReviews || [],
+      });
+      console.log(`  updated: ${detail.productName} (id=${existing.id})`);
+    }
   }
 
   console.log('\n✅ Seed complete!\n');
