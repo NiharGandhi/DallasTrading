@@ -1,0 +1,47 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_settings",
+  "info": {
+    "singularName": "site-setting",
+    "pluralName": "site-settings",
+    "displayName": "Site Settings",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "companyName": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "dubaiPhone": {
+      "type": "string"
+    },
+    "omanPhone": {
+      "type": "string"
+    },
+    "bahrainPhone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "navigationLinks": {
+      "type": "json",
+      "default": []
+    },
+    "socialLinks": {
+      "type": "json",
+      "default": {}
+    }
+  }
+}

@@ -4,9 +4,10 @@
   "version": "0.1.0",
   "description": "A Strapi application",
   "scripts": {
-    "develop": "strapi develop",
-    "start": "strapi start",
-    "build": "strapi build",
+    "copy-schemas": "node scripts/copy-schemas.js",
+    "develop": "npm run copy-schemas && strapi develop",
+    "start": "npm run copy-schemas && strapi start",
+    "build": "strapi build && npm run copy-schemas",
     "strapi": "strapi",
     "deploy": "strapi deploy"
   },

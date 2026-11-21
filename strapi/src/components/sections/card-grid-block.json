@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_card_grid_blocks",
+  "info": {
+    "displayName": "Card Grid Block",
+    "icon": "layout",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card-item"
+    }
+  }
+}

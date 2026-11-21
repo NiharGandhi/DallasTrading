@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_shared_card_items",
+  "info": {
+    "displayName": "Card Item",
+    "icon": "layout",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "text": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "string"
+    }
+  }
+}
