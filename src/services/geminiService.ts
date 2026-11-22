@@ -1,12 +1,68 @@
 import { chatbotKnowledge } from "../components/common/chatbot/chatbotKnowledge";
+import { STRAPI_URL } from "./strapiService";
 
-// Create context from knowledge base for RAG
-const createContextPrompt = (): string => {
-  const context = `
-You are an AI assistant for Dallas Group of Companies, a leading electrical products and industrial solutions provider in the GCC region.
-Use the following knowledge base to answer questions accurately and helpfully.
+// Fetches live product and company data from Strapi to build the chatbot context.
+// Falls back to the static chatbotKnowledge if Strapi is unreachable.
+async function buildContextFromStrapi(): Promise<string> {
+  try {
+    const [catsRes, prodsRes, teamRes, settingsRes] = await Promise.all([
+      fetch(`${STRAPI_URL}/api/product-categories?pagination[pageSize]=50`),
+      fetch(`${STRAPI_URL}/api/products?pagination[pageSize]=200&populate=category`),
+      fetch(`${STRAPI_URL}/api/team-members?pagination[pageSize]=20`),
+      fetch(`${STRAPI_URL}/api/site-setting`),
+    ]);
 
-COMPANY INFORMATION:
+    const [cats, prods, team, settings] = await Promise.all([
+      catsRes.json(),
+      prodsRes.json(),
+      teamRes.json(),
+      settingsRes.json(),
+    ]);
+
+    const categoryList = (cats.data || [])
+      .map((c: any) => `- ${c.attributes.title}: ${c.attributes.info || ""}`)
+      .join("\n");
+
+    const productList = (prods.data || [])
+      .map((p: any) => {
+        const cat = p.attributes.category?.data?.attributes?.title ?? "";
+        return `- ${p.attributes.name} (${cat})${p.attributes.company ? " — " + (p.attributes.company.name || p.attributes.company) : ""}`;
+      })
+      .join("\n");
+
+    const teamList = (team.data || [])
+      .map((t: any) => `- ${t.attributes.name}, ${t.attributes.position}: ${t.attributes.bio || ""}`)
+      .join("\n");
+
+    const s = settings.data?.attributes ?? {};
+    const companyInfo = `Company: ${s.companyName || "Dallas Trading Co. LLC"}
+Tagline: ${s.tagline || ""}
+Dubai: ${s.dubaiPhone || ""} | Oman: ${s.omanPhone || ""} | Bahrain: ${s.bahrainPhone || ""}
+Email: ${s.email || "info@dallastrading.net"}`;
+
+    return `COMPANY INFORMATION (live from CMS):
+${companyInfo}
+
+PRODUCT CATEGORIES:
+${categoryList}
+
+PRODUCTS:
+${productList}
+
+TEAM MEMBERS:
+${teamList}
+
+LOCATIONS:
+${JSON.stringify(chatbotKnowledge.locations, null, 2)}
+
+SERVICES:
+${JSON.stringify(chatbotKnowledge.services, null, 2)}
+
+PROJECT EXPERIENCE:
+${JSON.stringify(chatbotKnowledge.projectExperience, null, 2)}`;
+  } catch {
+    // Fall back to static knowledge base
+    return `COMPANY INFORMATION:
 ${JSON.stringify(chatbotKnowledge.company, null, 2)}
 
 TEAM MEMBERS:
@@ -24,19 +80,32 @@ ${JSON.stringify(chatbotKnowledge.brands, null, 2)}
 SERVICES:
 ${JSON.stringify(chatbotKnowledge.services, null, 2)}
 
-WEBSITE PAGES:
-${JSON.stringify(chatbotKnowledge.websitePages, null, 2)}
-
-BROCHURE:
-${JSON.stringify(chatbotKnowledge.brochure, null, 2)}
-
 PROJECT EXPERIENCE:
-${JSON.stringify(chatbotKnowledge.projectExperience, null, 2)}
+${JSON.stringify(chatbotKnowledge.projectExperience, null, 2)}`;
+  }
+}
+
+let _cachedContext: string | null = null;
+let _cacheTime = 0;
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+async function getCachedContext(): Promise<string> {
+  if (_cachedContext && Date.now() - _cacheTime < CACHE_TTL_MS) {
+    return _cachedContext;
+  }
+  _cachedContext = await buildContextFromStrapi();
+  _cacheTime = Date.now();
+  return _cachedContext;
+}
+
+const INSTRUCTIONS = `
+You are an AI assistant for Dallas Group of Companies, a leading electrical products and industrial solutions provider in the GCC region.
+Use the following knowledge base to answer questions accurately and helpfully.
 
 INSTRUCTIONS:
 - Always provide accurate information based on the knowledge base above
 - Be friendly, professional, and helpful
-- When asked about products, provide DETAILED technical specifications from the detailedInfo field
+- When asked about products, provide DETAILED technical specifications
 - For product inquiries, mention specific brands, suppliers, technical specs, ratings, and applications
 - If asked about team members, use the exact names and positions from the team section
 - If asked about locations, provide complete contact details
@@ -44,96 +113,83 @@ INSTRUCTIONS:
 - Use bullet points when listing specifications or multiple items
 - If you don't have specific information, suggest sending an inquiry via the "Send Inquiry" button
 - Always end responses with a follow-up question or offer to help further
-- Use emojis sparingly for a modern, friendly tone
-
-PRODUCT EXPERTISE - RAG APPROACH:
-- When users ask about specific products (e.g., "A1/A2 Cable Gland"), search through the detailedInfo AND productDetails fields
-- Provide ALL relevant technical details: specifications, ratings, temperature ranges, applications, suppliers
-- Mention specific brands (Elite, Hex, 3M, PCE, Schneider, ABB, etc.) when talking about products
-- Include IP ratings, current ratings, voltage ratings, temperature ranges when available
-- Specify applications and use cases (indoor, outdoor, hazardous environments, etc.)
-- If a product has multiple variants (A1 vs A2, Elite vs Hex), explain the differences clearly
 
 IMPORTANT - LINK FORMATTING:
 - When mentioning pages or products that users can visit, format them as clickable links
 - Use this EXACT format: [Link Text](path)
-- For category pages: [Industrial Cable Glands](/our-products/industrial_cable_glands)
-- For individual products: [A1/A2 Cable Gland by Elite](/our-products/industrial_cable_glands/A1A2_Cable_Gland)
+- For category pages: [Industrial Cable Glands](/our-products/industrial-cable-glands)
+- For individual products: [A1/A2 Cable Gland by Elite](/our-products/industrial-cable-glands/a1a2-cable-gland)
 - For other pages: [About Page](/about), [Contact Page](/contact-us), [Management Team](/management)
-- ALWAYS include relevant page links when users ask about products, services, team, certificates, or any specific topic
-- Product paths are in format: /our-products/{category_id}/{product_id}
-- Product category paths: /our-products/{category_id}
-- Other pages: /home, /about, /management, /certificates, /our-projects, /career-opportunities, /contact-us
-
-RESPONSE FORMATTING - CRITICAL:
-- Use clear paragraph breaks (double line breaks) between different topics
-- Use bullet points (- ) for listing multiple items or specifications
-- For technical specs, format like: "**Specifications:** IP68 rated, Temp: -40°C to +100°C, Thread: M12-M75"
-- When listing multiple products, format each on a new line with a bullet point
-- Keep responses organized: Start with direct answer, then details, then relevant links
-- Example format:
-  "We offer A1/A2 Cable Glands from two suppliers:
-
-  - [A1/A2 Cable Gland by Elite](/our-products/industrial_cable_glands/A1A2_Cable_Gland)
-  - [A1/A2 Cable Glands by Hex](/our-products/industrial_cable_glands/A1A2_Cable_Glands)
-
-  **Technical Specs:** Brass construction with nickel plating, IP68 rated, Thread sizes M12-M75, Temperature range: -40°C to +100°C.
-
-  View the full [Industrial Cable Glands](/our-products/industrial_cable_glands) category for more options!"
+- Product paths are in format: /our-products/{category-slug}/{product-slug}
 
 INQUIRY GUIDANCE:
-- When users want quotes, technical details, or have specific requirements, suggest they click "Send Inquiry"
-- Tell them their contact details will be pre-filled and they can add their specific requirements
+- When users want quotes, suggest they click "Send Inquiry"
 - Encourage users to send inquiries for custom solutions, bulk orders, or technical consultations
 `;
 
-  return context;
-};
-
-// Chat via server-side proxy — the Gemini API key never reaches the browser
 export const getChatResponse = async (
   userMessage: string,
   conversationHistory: Array<{ role: string; parts: string }>
 ): Promise<string> => {
-  const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+  const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3001";
+  const context = await getCachedContext();
 
-  const fullPrompt = `${createContextPrompt()}
+  const fullPrompt = `${INSTRUCTIONS}
+
+KNOWLEDGE BASE:
+${context}
+
+WEBSITE PAGES:
+${JSON.stringify(chatbotKnowledge.websitePages, null, 2)}
+
+BROCHURE:
+${JSON.stringify(chatbotKnowledge.brochure, null, 2)}
 
 User Question: ${userMessage}
 
 Previous Conversation:
-${conversationHistory.map(msg => `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.parts}`).join('\n')}
+${conversationHistory.map((msg) => `${msg.role === "user" ? "User" : "Assistant"}: ${msg.parts}`).join("\n")}
 
 Please provide a helpful, accurate response based on the knowledge base above.`;
 
   const response = await fetch(`${apiUrl}/api/gemini`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ prompt: fullPrompt }),
   });
 
   if (!response.ok) {
     const err = await response.json().catch(() => ({}));
-    throw new Error(err.error || `Server error ${response.status}`);
+    throw new Error((err as any).error || `Server error ${response.status}`);
   }
 
   const data = await response.json();
   return data.text;
 };
 
-// Fallback response if the proxy is unreachable
 export const getFallbackResponse = (message: string): string => {
   const lowerMessage = message.toLowerCase();
 
-  if (lowerMessage.includes("product") || lowerMessage.includes("cable") || lowerMessage.includes("plug")) {
+  if (
+    lowerMessage.includes("product") ||
+    lowerMessage.includes("cable") ||
+    lowerMessage.includes("plug")
+  ) {
     return "We offer a comprehensive range of electrical products including Industrial Plugs & Sockets, Cable Jointing Kits, Conduits, Cable Glands, and more. View our complete range on the [Products Page](/our-products) or contact us at +971 4 3635500.";
   }
 
-  if (lowerMessage.includes("contact") || lowerMessage.includes("phone") || lowerMessage.includes("email")) {
+  if (
+    lowerMessage.includes("contact") ||
+    lowerMessage.includes("phone") ||
+    lowerMessage.includes("email")
+  ) {
     return `📞 Contact Us:\n\nDubai: +971 4 3635500\nOman: +968 2 459 3041\nBahrain: +973 3398 8702\nEmail: info@dallastrading.net\n\nYou can also reach us via our [Contact Page](/contact-us)`;
   }
 
-  if (lowerMessage.includes("location") || lowerMessage.includes("office")) {
+  if (
+    lowerMessage.includes("location") ||
+    lowerMessage.includes("office")
+  ) {
     return "We operate across the GCC region with offices in Dubai (HQ), Muscat (Oman), Bahrain, and an associated company in Dammam, Saudi Arabia. Visit our [Contact Page](/contact-us) for detailed location information.";
   }
 

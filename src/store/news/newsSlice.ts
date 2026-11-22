@@ -1,12 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { INewsArticle } from "../../utils/models/news.model";
+import { getNewsArticles } from "../../services/strapiService";
 
 export const fetchAsyncNewsData = createAsyncThunk(
   "news/fetchAsyncNewsData",
   async () => {
-    const res: INewsArticle[] = await fetch("/data/news.json")
-      .then((res) => res.json())
-      .then((data) => data);
+    const res: INewsArticle[] = await getNewsArticles();
     return res;
   }
 );

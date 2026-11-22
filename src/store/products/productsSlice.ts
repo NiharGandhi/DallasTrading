@@ -1,17 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IProductsData } from "../../utils/models/products.model";
+import { getProductsByCategory } from "../../services/strapiService";
 
 export const fetchAsyncProductsData = createAsyncThunk(
   "products/fetchAsyncProductsData",
   async (payload: { productCategoryId: string; productCategory: string }) => {
-    let response: IProductsData[] = await fetch("/data/products.json")
-      .then((data) => data.json())
-      .then((data: IProductsData[]) =>
-        data.filter(
-          (item) => item.productCategoryId === payload.productCategoryId
-        )
-      );
-    return { data: response, productCategory: payload.productCategory };
+    const { data, productCategory } = await getProductsByCategory(
+      payload.productCategoryId
+    );
+    return { data, productCategory: productCategory || payload.productCategory };
   }
 );
 
@@ -42,7 +39,7 @@ const productsSlice = createSlice({
           productCategory: payload.data.length
             ? payload.data[0].productCategory
             : payload.productCategory
-                .split("_")
+                .split("-")
                 .map((word) => {
                   const first = word.charAt(0).toUpperCase();
                   const second = word.slice(1);

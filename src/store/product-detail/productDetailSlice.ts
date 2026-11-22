@@ -3,17 +3,16 @@ import {
   IProductDetailData,
   IProductDetailReviewsData,
 } from "../../utils/models/product-detail.model";
+import { getProductDetail } from "../../services/strapiService";
 
 export const fetchAsyncProductDetailData = createAsyncThunk(
   "productDetail/fetchAsyncProductDetailData",
   async (productId: string) => {
-    let response: IProductDetailData = await fetch("/data/product-details.json")
-      .then((data) => data.json())
-      .then(
-        (data: IProductDetailData[]) =>
-          data?.filter((item) => item.id === productId)[0]
-      );
-    return response;
+    const detail = await getProductDetail(productId);
+    if (!detail) {
+      throw new Error(`Product not found: ${productId}`);
+    }
+    return detail;
   }
 );
 

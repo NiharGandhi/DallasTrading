@@ -128,7 +128,7 @@ class DetailDescription extends Component<
                     <button
                       className={styles.downloadBtn}
                       onClick={() => {
-                        window.open("/uploads/" + data?.downloadFile, "_blank");
+                        window.open(data?.downloadFile, "_blank");
                       }}
                     >
                       Download Datasheet

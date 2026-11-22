@@ -1,12 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ISearchResultsData } from "../../utils/models/search-results.model";
+import { getAllProducts } from "../../services/strapiService";
 
 export const fetchAsyncSearchResultsData = createAsyncThunk(
   "searchResults/fetchAsyncSearchResultsData",
   async () => {
-    let response: ISearchResultsData[] = await fetch("/data/searchResults.json")
-      .then((res) => res.json())
-      .then((data) => data);
+    const products = await getAllProducts();
+    // ISearchResultsData is a subset of IProductsData — same shape
+    const response: ISearchResultsData[] = products.map((p) => ({
+      id: p.id,
+      productCategoryId: p.productCategoryId,
+      productCategory: p.productCategory,
+      title: p.title,
+      image: p.image,
+      company: p.company,
+    }));
     return response;
   }
 );

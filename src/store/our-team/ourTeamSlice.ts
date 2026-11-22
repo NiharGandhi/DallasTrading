@@ -1,12 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IOurTeamDetails } from "../../utils/models/our-team.model";
+import { getTeamMembers } from "../../services/strapiService";
 
 export const fetchAsyncOurTeamDetailsData = createAsyncThunk(
   "ourTeam/fetchAsyncOurTeamDetailsData",
   async () => {
-    const res: IOurTeamDetails[] = await fetch("/data/our-team.json")
-      .then((res) => res.json())
-      .then((data) => data);
+    const res: IOurTeamDetails[] = await getTeamMembers();
     return res;
   }
 );

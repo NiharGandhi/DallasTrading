@@ -1,14 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IProductsCategoryData } from "../../utils/models/productsCategory.model";
+import { getProductCategories } from "../../services/strapiService";
 
 export const fetchAsyncProductsCategoryData = createAsyncThunk(
   "productsCategory/fetchAsyncProductsCategoryData",
   async () => {
-    let response: IProductsCategoryData[] = await fetch(
-      "/data/products-category.json"
-    )
-      .then((data) => data.json())
-      .then((data: IProductsCategoryData[]) => data);
+    const response: IProductsCategoryData[] = await getProductCategories();
     return response;
   }
 );

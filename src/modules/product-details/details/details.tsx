@@ -126,7 +126,7 @@ class Details extends Component<IDetailsProps, IDetailsStates> {
               <button
                 className={styles.downloadBtn}
                 onClick={() => {
-                  window.open("/uploads/" + details?.downloadFile, "_blank");
+                  window.open(details?.downloadFile, "_blank");
                 }}
               >
                 Download Datasheet
