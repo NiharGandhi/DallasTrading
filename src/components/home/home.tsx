@@ -6,8 +6,14 @@ import styles from "./home.module.scss";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import Chatbot from "../common/chatbot/chatbot";
+import { connect } from "react-redux";
+import { fetchAsyncSiteSettings } from "../../store/site-settings/siteSettingsSlice";
 
-class Home extends Component<IHomeProps, IHomeStates> {
+class Home extends Component<IHomeProps & { fetchAsyncSiteSettings: () => void }, IHomeStates> {
+  componentDidMount(): void {
+    this.props.fetchAsyncSiteSettings();
+  }
+
   handleDownload() {
     const fileUrl = "/DALLAS CATALOGUE & COMPANY PROFILE.pdf";
     const a = document.createElement("a");
@@ -18,15 +24,13 @@ class Home extends Component<IHomeProps, IHomeStates> {
     a.click();
     document.body.removeChild(a);
   }
+
   render(): ReactNode {
     return (
       <Fragment>
         <div className={styles.home}>
-          {/* Hash router (starts with # value)  */}
           <BrowserRouter>
-            {/* Header remains same for entire web page */}
             <Header />
-            {/* Main body of web app */}
             <div className={styles.homeBody}>
               <div className={styles.spaceHeader}></div>
               <button
@@ -35,12 +39,9 @@ class Home extends Component<IHomeProps, IHomeStates> {
               >
                 Download Brochure
               </button>
-              {/* All your modules goes here this section is dynamic (it change when path changes) */}
               <AppRoutes />
             </div>
-            {/* Footer remains same for entire web page */}
             <Footer />
-            {/* Chatbot */}
             <Chatbot />
           </BrowserRouter>
         </div>
@@ -49,4 +50,4 @@ class Home extends Component<IHomeProps, IHomeStates> {
   }
 }
 
-export default Home;
+export default connect(null, { fetchAsyncSiteSettings })(Home);

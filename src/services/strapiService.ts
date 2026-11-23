@@ -270,3 +270,37 @@ export async function getSiteSettings(): Promise<ISiteSettings | null> {
     socialLinks: a.socialLinks ?? {},
   };
 }
+
+// ── Page Documents ────────────────────────────────────────────────────────────
+
+export interface IPageSection {
+  __component: string;
+  id: number;
+  heading?: string;
+  content?: string;
+}
+
+export interface IPageData {
+  slug: string;
+  title: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  sections: IPageSection[];
+}
+
+export async function getPage(slug: string): Promise<IPageData | null> {
+  const res = await fetch(
+    `${STRAPI_URL}/api/pages?filters[slug][$eq]=${slug}&populate=sections`
+  );
+  if (!res.ok) return null;
+  const json = await res.json();
+  if (!json.data?.length) return null;
+  const a = json.data[0].attributes;
+  return {
+    slug: a.slug,
+    title: a.title ?? "",
+    seoTitle: a.seoTitle ?? "",
+    seoDescription: a.seoDescription ?? "",
+    sections: a.sections ?? [],
+  };
+}

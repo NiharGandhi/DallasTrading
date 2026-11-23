@@ -1,6 +1,7 @@
 import { ActionCreatorWithPayload, ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 import { NavigateFunction, Params } from "react-router-dom";
 import { ISearchResultsData } from "../../utils/models/search-results.model";
+import { ISiteSettings } from "../../services/strapiService";
 
 export interface IHeaderProps {
   router: {
@@ -17,6 +18,7 @@ export interface IHeaderProps {
   searchVal: string;
   searchResults: ISearchResultsData[];
   searchLoader: boolean;
+  settings: ISiteSettings | null;
 }
 export interface IHeaderStates {
   width: number;

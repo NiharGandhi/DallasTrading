@@ -7,39 +7,33 @@ import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import EmailIcon from "@mui/icons-material/Email";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import { connect } from "react-redux";
+import { IStore } from "../../utils/models/store.model";
 
 class Footer extends Component<IFooterProps, IFooterStates> {
   render(): ReactNode {
+    const { settings } = this.props;
+
+    const phone = settings?.dubaiPhone ?? "+971 4 363 5500";
+    const email = settings?.email ?? "info@dallastrading.net";
+    const linkedin = settings?.socialLinks?.linkedin ?? "https://www.linkedin.com/in/dallas-trading-co-llc-723306217/";
+    const instagram = settings?.socialLinks?.instagram ?? "https://www.instagram.com/dallastradingdxb/";
+
     const contacts = [
       {
         icon: <LocationOnIcon />,
         infoText: "Dubai Industrial City Phase 1, J Block, Warehouse No. 08, P.O. Box 2028, Dubai, United Arab Emirates.",
       },
-      {
-        icon: <CallIcon />,
-        infoText: "+971 4 363 5500",
-      },
-      {
-        icon: <LocalPrintshopIcon />,
-        infoText: "+971 4 429 0088",
-      },
-      {
-        icon: <EmailIcon />,
-        infoText: "info@dallastrading.net",
-      },
+      { icon: <CallIcon />, infoText: phone },
+      { icon: <LocalPrintshopIcon />, infoText: "+971 4 429 0088" },
+      { icon: <EmailIcon />, infoText: email },
     ];
+
     const socials = [
-      {
-        icon: <LinkedInIcon />,
-        infoText: "LinkedIn",
-        link: "https://www.linkedin.com/in/dallas-trading-co-llc-723306217/",
-      },
-      {
-        icon: <InstagramIcon />,
-        infoText: "Instagram",
-        link: "https://www.instagram.com/dallastradingdxb/",
-      },
+      { icon: <LinkedInIcon />, infoText: "LinkedIn", link: linkedin },
+      { icon: <InstagramIcon />, infoText: "Instagram", link: instagram },
     ];
+
     return (
       <div className={styles.footer}>
         <div className={styles.infoList}>
@@ -98,4 +92,6 @@ class Footer extends Component<IFooterProps, IFooterStates> {
   }
 }
 
-export default Footer;
+export default connect(
+  (state: IStore) => ({ settings: state.siteSettings.settings })
+)(Footer);

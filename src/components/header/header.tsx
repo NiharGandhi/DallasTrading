@@ -29,6 +29,11 @@ class Header extends Component<IHeaderProps, IHeaderStates> {
     this.handleResize = this.handleResize.bind(this);
     this.copyToClipboard = this.copyToClipboard.bind(this);
   }
+
+  get phone(): string {
+    return (this.props.settings?.dubaiPhone ?? "+971 4 363 5500").replace(/\s/g, "");
+  }
+
   handleResize() {
     this.setState({
       width: window.innerWidth,
@@ -44,9 +49,9 @@ class Header extends Component<IHeaderProps, IHeaderStates> {
     prevState: Readonly<IHeaderStates>
   ): void {
     if (prevState.width !== this.state.width) {
-      this.setState({ 
+      this.setState({
         isMobileWidth: this.state.width <= 576,
-        isLargeDevice: this.state.width > 1024
+        isLargeDevice: this.state.width > 1024,
       });
     }
   }
@@ -54,7 +59,7 @@ class Header extends Component<IHeaderProps, IHeaderStates> {
     window.removeEventListener("resize", this.handleResize);
   }
   copyToClipboard() {
-    clipboardCopy("+97143635500")
+    clipboardCopy(this.phone)
       .then(() => {
         this.setState({ isCopied: true });
         setTimeout(() => {
@@ -67,7 +72,7 @@ class Header extends Component<IHeaderProps, IHeaderStates> {
   }
   render(): ReactNode {
     const currentPath = this.props.router.location.pathname;
-    
+
     return (
       <Fragment>
         <Menu
@@ -92,84 +97,21 @@ class Header extends Component<IHeaderProps, IHeaderStates> {
             alt="Dallas logo"
             onClick={() => this.props.router.navigate("/home")}
           />
-          
+
           {this.state.isLargeDevice && (
             <nav className={styles.navLinks}>
-              <a
-                className={`${styles.navLink} ${
-                  currentPath.includes("/home") ? styles.active : ""
-                }`}
-                onClick={() => this.props.router.navigate("/home")}
-              >
-                Home
-              </a>
-              <a
-                className={`${styles.navLink} ${
-                  currentPath.includes("/about") ? styles.active : ""
-                }`}
-                onClick={() => this.props.router.navigate("/about")}
-              >
-                About Us
-              </a>
-              <a
-                className={`${styles.navLink} ${
-                  currentPath.includes("/management") ? styles.active : ""
-                }`}
-                onClick={() => this.props.router.navigate("/management")}
-              >
-                Management
-              </a>
-              <a
-                className={`${styles.navLink} ${
-                  currentPath.includes("/certificates") ? styles.active : ""
-                }`}
-                onClick={() => this.props.router.navigate("/certificates")}
-              >
-                Certificates
-              </a>
-              <a
-                className={`${styles.navLink} ${
-                  currentPath.includes("/our-products") ? styles.active : ""
-                }`}
-                onClick={() => this.props.router.navigate("/our-products")}
-              >
-                Products
-              </a>
-              <a
-                className={`${styles.navLink} ${
-                  currentPath.includes("/our-projects") ? styles.active : ""
-                }`}
-                onClick={() => this.props.router.navigate("/our-projects")}
-              >
-                Projects
-              </a>
-              <a
-                className={`${styles.navLink} ${
-                  currentPath.includes("/news") ? styles.active : ""
-                }`}
-                onClick={() => this.props.router.navigate("/news")}
-              >
-                News
-              </a>
-              <a
-                className={`${styles.navLink} ${
-                  currentPath.includes("/contact-us") ? styles.active : ""
-                }`}
-                onClick={() => this.props.router.navigate("/contact-us")}
-              >
-                Contact
-              </a>
-              <a
-                className={`${styles.navLink} ${
-                  currentPath.includes("/career-opportunities") ? styles.active : ""
-                }`}
-                onClick={() => this.props.router.navigate("/career-opportunities")}
-              >
-                Career
-              </a>
+              <a className={`${styles.navLink} ${currentPath.includes("/home") ? styles.active : ""}`} onClick={() => this.props.router.navigate("/home")}>Home</a>
+              <a className={`${styles.navLink} ${currentPath.includes("/about") ? styles.active : ""}`} onClick={() => this.props.router.navigate("/about")}>About Us</a>
+              <a className={`${styles.navLink} ${currentPath.includes("/management") ? styles.active : ""}`} onClick={() => this.props.router.navigate("/management")}>Management</a>
+              <a className={`${styles.navLink} ${currentPath.includes("/certificates") ? styles.active : ""}`} onClick={() => this.props.router.navigate("/certificates")}>Certificates</a>
+              <a className={`${styles.navLink} ${currentPath.includes("/our-products") ? styles.active : ""}`} onClick={() => this.props.router.navigate("/our-products")}>Products</a>
+              <a className={`${styles.navLink} ${currentPath.includes("/our-projects") ? styles.active : ""}`} onClick={() => this.props.router.navigate("/our-projects")}>Projects</a>
+              <a className={`${styles.navLink} ${currentPath.includes("/news") ? styles.active : ""}`} onClick={() => this.props.router.navigate("/news")}>News</a>
+              <a className={`${styles.navLink} ${currentPath.includes("/contact-us") ? styles.active : ""}`} onClick={() => this.props.router.navigate("/contact-us")}>Contact</a>
+              <a className={`${styles.navLink} ${currentPath.includes("/career-opportunities") ? styles.active : ""}`} onClick={() => this.props.router.navigate("/career-opportunities")}>Career</a>
             </nav>
           )}
-          
+
           <div className={styles.rightSection}>
             <Tooltip title="Search" arrow>
               <button
@@ -180,13 +122,13 @@ class Header extends Component<IHeaderProps, IHeaderStates> {
                 <SearchIcon />
               </button>
             </Tooltip>
-            
+
             <Tooltip
               title={
                 <p style={{ fontSize: "0.8rem" }}>
                   {this.state.isCopied
                     ? "Copied"
-                    : "Copy to clipboard +97143635500"}
+                    : `Copy to clipboard ${this.phone}`}
                 </p>
               }
               arrow
@@ -195,7 +137,7 @@ class Header extends Component<IHeaderProps, IHeaderStates> {
                 className={styles.callUsBtn}
                 onClick={() =>
                   this.state.isMobileWidth
-                    ? window.open("tel:+97143635500")
+                    ? window.open(`tel:${this.phone}`)
                     : this.copyToClipboard()
                 }
               >
@@ -206,20 +148,17 @@ class Header extends Component<IHeaderProps, IHeaderStates> {
                 )}
               </button>
             </Tooltip>
+
             {!this.state.isLargeDevice && (
               this.state.isMobileWidth ? (
                 <MenuIcon
                   className={styles.menuIconMobile}
-                  onClick={() =>
-                    this.setState({ openMenu: !this.state.openMenu })
-                  }
+                  onClick={() => this.setState({ openMenu: !this.state.openMenu })}
                 />
               ) : (
                 <div
                   className={styles.menuButton}
-                  onClick={() =>
-                    this.setState({ openMenu: !this.state.openMenu })
-                  }
+                  onClick={() => this.setState({ openMenu: !this.state.openMenu })}
                 >
                   <MenuIcon className={styles.menuIcon} />
                 </div>
@@ -237,6 +176,7 @@ export default connect(
     searchVal: getSearchValue(state),
     searchResults: getSearchResultsFilterData(state),
     searchLoader: getSearchResultsLoader(state),
+    settings: state.siteSettings.settings,
   }),
   { handleSearchValueChange, setSearchResultsDataToInitial, fetchAsyncSearchResultsData }
 )(withRouter(Header));

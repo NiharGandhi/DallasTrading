@@ -2,7 +2,7 @@ import { IContactUsData } from "./contact-us.model";
 import { IMenuItems } from "./menu.model";
 import { INewsArticle } from "./news.model";
 import { IOurTeamDetails } from "./our-team.model";
-import { IPartner } from "../../services/strapiService";
+import { IPartner, ISiteSettings } from "../../services/strapiService";
 import { IProductDetailData } from "./product-detail.model";
 import { IProductsData } from "./products.model";
 import { IProductsCategoryData } from "./productsCategory.model";
@@ -46,6 +46,10 @@ export interface IStore {
   };
   partners: {
     partnersData: IPartner[];
+    loader: boolean;
+  };
+  siteSettings: {
+    settings: ISiteSettings | null;
     loader: boolean;
   };
 }

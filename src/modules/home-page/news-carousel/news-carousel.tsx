@@ -1,28 +1,14 @@
 import { Component, ReactNode } from "react";
 import styles from "./news-carousel.module.scss";
-import { INewsCarouselProps, INewsCarouselStates, INewsHeadline } from "./news-carousel.constants";
+import { INewsCarouselProps, INewsCarouselStates } from "./news-carousel.constants";
 import { NewspaperRounded } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { IStore } from "../../../utils/models/store.model";
+import { getRecentNews } from "../../../store/news/newsActions";
+import { fetchAsyncNewsData } from "../../../store/news/newsSlice";
 
 class NewsCarousel extends Component<INewsCarouselProps, INewsCarouselStates> {
-  newsHeadlines: INewsHeadline[] = [
-    {
-      id: 1,
-      reference: "PCE",
-      title: "Strengthening Partnerships at Middle East Energy (MEE) 2025 – Dubai",
-    },
-    {
-      id: 2,
-      reference: "3M",
-      title: "Dallas Trading Co. LLC Honored with the 3M Best Award",
-    },
-    {
-      id: 3,
-      reference: "Barton",
-      title: "Strengthening Partnerships Through Knowledge | Barton Engineering x Dallas Trading Co. LLC",
-    }
-  ];
-
   constructor(props: INewsCarouselProps) {
     super(props);
     this.state = { currentSlide: 0, waitAgain: false };
@@ -30,6 +16,7 @@ class NewsCarousel extends Component<INewsCarouselProps, INewsCarouselStates> {
   }
 
   componentDidMount(): void {
+    this.props.fetchAsyncNewsData();
     setInterval(() => {
       if (!this.state.waitAgain) {
         this.nextSlide();
@@ -40,7 +27,8 @@ class NewsCarousel extends Component<INewsCarouselProps, INewsCarouselStates> {
   }
 
   nextSlide() {
-    if (this.state.currentSlide === this.newsHeadlines.length - 1) {
+    const count = this.props.newsData.length || 1;
+    if (this.state.currentSlide === count - 1) {
       this.setState({ currentSlide: 0 });
     } else {
       this.setState({ currentSlide: this.state.currentSlide + 1 });
@@ -48,6 +36,7 @@ class NewsCarousel extends Component<INewsCarouselProps, INewsCarouselStates> {
   }
 
   render(): ReactNode {
+    const { newsData } = this.props;
     return (
       <div className={styles.newsCarousel}>
         <div className={styles.carouselContainer}>
@@ -56,15 +45,15 @@ class NewsCarousel extends Component<INewsCarouselProps, INewsCarouselStates> {
           </div>
           <div className={styles.headlinesWrapper}>
             <div className={styles.headlines}>
-              {this.newsHeadlines.map((headline, index) => (
+              {newsData.map((article, index) => (
                 <Link
-                  to="/news"
-                  key={headline.id}
+                  to={`/news/${article.id}`}
+                  key={article.id}
                   className={`${styles.headline} ${
                     this.state.currentSlide === index ? styles.active : ""
                   }`}
                 >
-                  <span className={styles.headlineText}>{headline.title}</span>
+                  <span className={styles.headlineText}>{article.title}</span>
                 </Link>
               ))}
             </div>
@@ -78,4 +67,9 @@ class NewsCarousel extends Component<INewsCarouselProps, INewsCarouselStates> {
   }
 }
 
-export default NewsCarousel;
+const mapStateToProps = (state: IStore) => ({
+  newsData: getRecentNews(state, 3),
+  loader: state.news.loader,
+});
+
+export default connect(mapStateToProps, { fetchAsyncNewsData })(NewsCarousel);
