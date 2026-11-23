@@ -3,6 +3,7 @@ import styles from "./home-page.module.scss";
 import { IHomePageProps, IHomePageStates } from "./home-page.constants";
 import AchievementCarousal from "./achievements-carousal/achievements-carousal";
 import OurProducts from "./our-products/our-products";
+import Tribute from "./tribute/tribute";
 import OurPartners from "./our-partners/our-partners";
 import AboutUs from "./about-us/about-us";
 import RecentNews from "./recent-news/recent-news";
@@ -19,6 +20,7 @@ class HomePage extends Component<IHomePageProps, IHomePageStates> {
           style={{ width: "100%", height: "40vh", backgroundColor: "#DCF0F7" }}
         ></div> */}
         <OurProducts />
+        <Tribute />
         <AboutUs />
         <OurPartners />
         <RecentNews />
