@@ -9,12 +9,25 @@ import {
 import ShadowHeading from "../../components/common/headings/shadowHeading/shadowHeading";
 import BreadCrumb from "../../components/common/breadCrumb/breadCrumb";
 import { VerifiedUserRounded, WorkspacePremiumRounded } from "@mui/icons-material";
+import { connect } from "react-redux";
+import { IStore } from "../../utils/models/store.model";
+import { fetchAsyncPage } from "../../store/pages/pagesSlice";
+
+const FALLBACK_HEADER = "Our commitment to quality is demonstrated through internationally recognized certifications, ensuring excellence in every aspect of our operations.";
+const FALLBACK_INFO = "Our ISO 9001:2015 certifications demonstrate our dedication to maintaining the highest standards in quality management systems across all our regional operations.";
 
 class Certificates extends Component<ICertificatesProps, ICertificatesStates> {
   componentDidMount(): void {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    this.props.fetchAsyncPage("certificates");
   }
+
   render(): ReactNode {
+    const { page } = this.props;
+    const sections = page?.sections ?? [];
+    const headerText = sections[0]?.content ?? FALLBACK_HEADER;
+    const infoText = sections[1]?.content ?? FALLBACK_INFO;
+
     return (
       <div className={styles.certificatesContainer}>
         <div className={styles.backgroundAccent}></div>
@@ -33,10 +46,10 @@ class Certificates extends Component<ICertificatesProps, ICertificatesStates> {
               headingText2=""
               backShadowHeading={false}
             />
-            <p className={styles.headerDescription}>
-              Our commitment to quality is demonstrated through internationally recognized certifications,
-              ensuring excellence in every aspect of our operations.
-            </p>
+            <div
+              className={styles.headerDescription}
+              dangerouslySetInnerHTML={{ __html: headerText }}
+            />
           </div>
 
           <div className={styles.certificatesGrid}>
@@ -87,10 +100,10 @@ class Certificates extends Component<ICertificatesProps, ICertificatesStates> {
             <div className={styles.infoCard}>
               <VerifiedUserRounded className={styles.infoIcon} />
               <h3 className={styles.infoTitle}>Quality Assurance</h3>
-              <p className={styles.infoText}>
-                Our ISO 9001:2015 certifications demonstrate our dedication to maintaining
-                the highest standards in quality management systems across all our regional operations.
-              </p>
+              <div
+                className={styles.infoText}
+                dangerouslySetInnerHTML={{ __html: infoText }}
+              />
             </div>
           </div>
         </div>
@@ -99,4 +112,7 @@ class Certificates extends Component<ICertificatesProps, ICertificatesStates> {
   }
 }
 
-export default Certificates;
+export default connect(
+  (state: IStore) => ({ page: state.pages.pages["certificates"] ?? null }),
+  { fetchAsyncPage }
+)(Certificates);

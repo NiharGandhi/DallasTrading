@@ -9,6 +9,7 @@ import contactUsSlice from "./contact-us/contactUsSlice";
 import newsSlice from "./news/newsSlice";
 import partnersSlice from "./partners/partnersSlice";
 import siteSettingsSlice from "./site-settings/siteSettingsSlice";
+import pagesSlice from "./pages/pagesSlice";
 
 const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
     news: newsSlice,
     partners: partnersSlice,
     siteSettings: siteSettingsSlice,
+    pages: pagesSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
