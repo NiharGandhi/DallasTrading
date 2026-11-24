@@ -38,7 +38,6 @@ class AboutPage extends Component<IAboutPageProps, IAboutPageStates> {
 
   render(): ReactNode {
     const { page } = this.props;
-    const sections = page?.sections?.length ? page.sections : ABOUT_FALLBACK;
 
     return (
       <div className={styles.aboutPageContainer}>
@@ -73,28 +72,28 @@ class AboutPage extends Component<IAboutPageProps, IAboutPageStates> {
             </p>
           </div>
 
-          <div className={styles.contentSection}>
-            {sections.map((section, index) => (
-              <div key={index} className={styles[CARD_CLASSES[index] ?? "storyCard"]}>
-                {index === 0 ? (
-                  <div className={styles.cardHeader}>
-                    <h3 className={styles.cardTitle}>{section.heading ?? ABOUT_FALLBACK[0].heading}</h3>
-                    <div className={styles.yearBadge}>Since 1995</div>
-                  </div>
-                ) : (
-                  <h3 className={styles.cardTitle}>{section.heading ?? ABOUT_FALLBACK[index]?.heading}</h3>
-                )}
-                {section.content ? (
-                  <div
-                    className={styles.cardText}
-                    dangerouslySetInnerHTML={{ __html: section.content }}
-                  />
-                ) : (
-                  <p className={styles.cardText}>{ABOUT_FALLBACK[index]?.content}</p>
-                )}
-              </div>
-            ))}
-          </div>
+          {page?.sections?.length ? (
+            <div
+              className={styles.cmsContent}
+              dangerouslySetInnerHTML={{ __html: page.sections.map(s => s.content ?? "").join("") }}
+            />
+          ) : (
+            <div className={styles.contentSection}>
+              {ABOUT_FALLBACK.map((item, index) => (
+                <div key={index} className={styles[CARD_CLASSES[index] ?? "storyCard"]}>
+                  {index === 0 ? (
+                    <div className={styles.cardHeader}>
+                      <h3 className={styles.cardTitle}>{item.heading}</h3>
+                      <div className={styles.yearBadge}>Since 1995</div>
+                    </div>
+                  ) : (
+                    <h3 className={styles.cardTitle}>{item.heading}</h3>
+                  )}
+                  <p className={styles.cardText}>{item.content}</p>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className={styles.partnersSection}>
             <OurPartners isSidePaddingNeeded={false} />

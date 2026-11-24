@@ -6,6 +6,8 @@
  * kept as-is for now — Milestone 4 will migrate all images into Strapi.
  */
 
+import { marked } from "marked";
+
 import {
   IProductsCategoryData,
 } from "../utils/models/productsCategory.model";
@@ -301,6 +303,9 @@ export async function getPage(slug: string): Promise<IPageData | null> {
     title: a.title ?? "",
     seoTitle: a.seoTitle ?? "",
     seoDescription: a.seoDescription ?? "",
-    sections: a.sections ?? [],
+    sections: (a.sections ?? []).map((s: any) => ({
+      ...s,
+      content: s.content ? (marked.parse(s.content) as string) : "",
+    })),
   };
 }
